@@ -1,0 +1,24 @@
+//@author: Jony Zhang
+$img-base= "../img/";
+$timestamp= "";
+//$timestamp= "max_age=19830211&d=20130227135216";
+
+image-url($image){
+    return unquote("url(" + $img-base + $image + ($timestamp!="" ? "?"+$timestamp : "") + ")");
+}
+
+//背景图
+bg-image($image) {
+    background-image: image-url($image);
+}
+
+//背景图
+bg($image) {
+    if !!$image {
+        $str= image-url($image);
+        if !!arguments[1] {
+            $str= $str arguments[1];
+        }
+        background: $str;
+    }
+}

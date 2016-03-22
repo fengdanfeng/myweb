@@ -1,0 +1,74 @@
+/*! util */
+
+@require 'vars';
+@require 'mixins';
+
+
+// 浮动
+.fl {float:left;_display:inline;}
+.fr {float:right;_display:inline;}
+
+// 清除浮动
+.clearfix {
+    clearfix()
+}
+
+// 内容区域居中
+.center-block {
+    display:block; margin-left:auto; margin-right:auto;
+}
+.inline-block {
+    display: inline-block; *display: inline; *zoom: 1;
+}
+.inline {display:inline;}
+
+// 隐藏
+.hide {display: none !important; visibility: hidden !important;}
+// 隐藏文本
+.hide-text {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
+// 不可见，但不影响屏幕阅读器
+.invisible {visibility: hidden}
+
+.absolute {position: absolute}
+.relative {position: relative}
+
+// ======= 文本排版 ========
+
+.tal {text-align: left}
+.tar {text-align: right}
+.tac {text-align: center}
+.vat {vertical-align: top}
+.vam {vertical-align: middle}
+
+.bold {font-weight: bold}
+.normal {font-weight: normal; font-style: normal}
+.fw200 {font-weight:200;}
+
+.fs12 {font-size: 12px}
+.fs14 {font-size: 14px}
+.fs16 {font-size: 16px}
+.fs18 {font-size: 18px}
+.fs20 {font-size: 20px}
+.fs24 {font-size: 24px}
+.fs28 {font-size: 28px}
+.fs32 {font-size: 32px}
+.fs36 {font-size: 36px}
+.fs40 {font-size: 40px}
+.fs44 {font-size: 44px}
+.fs48 {font-size: 48px}
+
+.lh150 {line-height: 1.5}
+.lh180 {line-height: 1.8}
+.lh200 {line-height: 2}
+.lh220 {line-height: 2.2}
+.pt50 {padding-top:50px;}
+
+
+.gray {color:#999}
+.gray-light {color:#ccc;}
+.orange {color:orange}
+.green {color:#390;}
+.blue {color:#3daddf;}
+.red {color:#d00}
+
+a.view-more {color:#0495d6;font-size :12px;}

@@ -1,0 +1,142 @@
+<%- include header.html %>
+<% if(!user){ %><!--未登录时显示登陆信息-->
+<!-- 轮播图 -->
+<div class="slider" style="margin-top: -5px;width: 100%;position: relative;"> 
+    <div data-am-widget="slider" class="am-slider am-slider-d2" data-am-slider='{"directionNav":false}' >
+      <ul class="am-slides" >
+          <li>
+            	<img src="/images/slider4.jpg">
+              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">某天 也许会相遇 相遇在这个好地方</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
+             
+          </li>
+          <li>
+            	<img src="/images/slider1.jpg">
+              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">某天 也许会相遇 相遇在这个好地方</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
+             
+          </li>
+          <li>
+            	<img src="/images/slider2.jpg">
+              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">不要太担心 只因为我相信 终会走过这条遥远的道路</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
+             
+          </li>
+          <li>
+            	<img src="/images/slider4.jpg">
+              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">OH PARA PARADISE 是否那么重要 你是否那么地遥远</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
+             
+          </li>
+      </ul>
+    </div>
+</div>
+<!-- end轮播图 -->
+<div id="toppart">
+	<div data-am-widget="titlebar" class="am-titlebar am-titlebar-multi" >
+    <h2 class="am-titlebar-title " style=" font-size: 28px;">
+        热门日记
+    </h2>
+    <nav class="am-titlebar-nav">
+        <a href="#more" class="">more &raquo;</a>
+    </nav>
+	</div>
+</div>
+ <%- include posts.html %>
+<% }else{ %><!--登陆后，显示个人主页-->
+<div class="center-container">
+    <div class="left-container">
+       <div class="user">
+          <img src="/images/ulogo.png">
+          <span><%-user.name%></span>
+       </div>
+       <div class="uabout">
+            <div class="aul">
+               <li><a href="/attention"><p  class="white">1</p><p class="low">关注</p></a> </li>
+               <li><a href="/fans"><p class="white">2</p><p class="low">粉丝</p></a></li>
+               <li><a href="/postlist"><p class="white">4</p><p class="low">游记</p></a></li>
+            </div>
+       </div>
+       <div class="ulist">
+            <ul>
+                <li class="active"><a class="active"  href="/"><i class="icon-15-1-1"></i> 我的首页</a></li>
+                <li><a href="/attention"><i class="icon-15-3-2"></i> 我的关注</a></li>
+                <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
+                <li><a href="/postlist"><i class="icon-15-3-4"></i> 我的游记</a></li>
+                <li><a href="/set"><i class="icon-15-4-1"></i> 设置</a></li>
+            </ul>
+       </div>
+    </div>
+     <div class="right-container">
+          <%- include say.html %>
+    <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
+      <ul class="am-tabs-nav am-nav am-nav-tabs">
+        <li class="am-active"><a href="javascript: void(0)">好友游记</a></li>
+        <li><a href="javascript: void(0)">我的游记</a></li>
+      </ul>
+      <div class="am-tabs-bd">
+        <div class="am-tab-panel am-active" id="allList">
+         <%- include posts.html %>
+        <script type="text/template"  id="allPosts" >
+             <article class="am-comment " style="margin-bottom: 10px;width: 650px;">
+                <a href="#link-to-user-home">
+                  <img src="/images/ulogo.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+                </a>
+
+                <div class="am-comment-main">
+                  <header class="am-comment-hd">
+                    <!--<h3 class="am-comment-title">评论标题</h3>-->
+                    <div class="am-comment-meta">
+                      <a href="#link-to-user" class="am-comment-author"><#=user#></a>
+                      发表游记 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=time#></time>
+                    </div>
+                  </header>
+
+                  <div class="am-comment-bd">
+                    <#=post#>
+                  </div>
+                </div>
+            </article>
+          </script>
+        </div>
+        <p style="margin-left: 400px;display: none;"  id="notMore">没有更多了~</p>
+                <div class="am-tab-panel">
+           <%- include posts.html %>
+        </div>
+      </div>
+  <button class="am-btn am-btn-primary am-btn-block" id="moreten">获取更多</button>
+
+    </div>
+  </div> 
+</div>
+<% } %>
+<!-- end center-container -->
+<%- include footer.html %>
+<script type="text/javascript">
+      var page = 2;
+    $("#moreten").click(function(){ 
+      var me =this;
+      console.log(page);
+        $.ajax({
+              type:"post",
+              url: '/getMore',
+              async: false, 
+              data:{page:page},
+              success: function(d){
+                if(d.code == 0){
+                  for(var i= 0; i<d.post.length;i++){
+                    var temp =  tpl('#allPosts', d.post[i]);
+                    $("#allList").append(temp);
+                    page = parseInt(d.page)+1;
+                  } 
+                }else{  
+                          alert('请求失败');
+                }  
+                if (d.post.length == 0) {
+                      $("#moreten").hide();
+                      $('#notMore').show();
+                      $('#notMore').animate({
+                            opacity: "hide"
+                        }, "slow")
+                }                    
+             }
+           });
+
+    });
+</script>

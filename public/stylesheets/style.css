@@ -1,0 +1,179 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Microsoft YaHei UI";
+}
+body{
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-color: #F4F7FC;
+}
+@media screen and (max-width: 500px){
+    body{
+        width: 500px;
+    }
+
+}
+#header {
+    width: 100%;
+    height: 95px;
+    line-height: 50px;
+    background-color: #012231;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+}
+
+#menus {
+    list-style: none;
+    margin-left: 80px;
+    margin-top:24px;
+    height: 95px;
+    overflow: hidden;
+}
+
+#menus li {
+    float: left;
+    font-size: 20px;
+}
+
+.menu {
+    display: block;
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.introduce {
+    font-size: large;
+    font-weight: bold;
+}
+
+.menu:hover {
+    color: blue;
+}
+
+#content {
+    padding-top: 100px;
+    height: 100%;
+
+}
+.am-viewport{
+    max-height: 420px !important;
+}
+.am-slider-d2 .am-slider-desc{
+    bottom: 380px !important;
+}
+.am-slider-more{
+    background-color: #32211E !important;
+    width: 200px;
+    height: 100px;
+}
+#footer {
+    position: relative;
+    bottom: 10px;
+    left: 50%;
+    margin-top: 40px;
+    margin-left: -550px;
+    width: 1100px;
+    height: 30px;
+    line-height: 30px;
+    border-top: 2px solid #e5e5e5;
+    text-align: center;
+}
+
+#toppart, #bottompart {
+    width: 1100px;
+    margin: 10px auto;
+}
+
+#toppart {
+    padding: 10px 4px;
+    background-color: #fff;
+}
+
+.btn {
+   text-decoration: none;
+    display: inline-block;
+    color: black;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+#bottompart, .row {
+    overflow: hidden;
+}
+
+.row {
+    width: 100%;
+}
+
+.ctn {
+    width: 60%;
+    height: 150px;
+    float: left;
+    margin:3px;
+    padding: 10px;
+    background-color: #E7EFFD;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.df-form {
+    width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.alert {
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 20px auto;
+    background-color: #b94a48;
+}
+
+#public {
+    margin: 20px 10px 90px 20px;
+    height: 60px;
+
+}
+
+#pctn, #pbtn {
+    outline: none;
+}
+
+#pctn {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #2D9CDD;
+}
+
+#pbtn {
+    width: 100px;
+    height: 120px;
+    background-color: #2D9CDD;
+    margin-left: -5px;
+    border: 0px;
+    color: #fff;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.username{
+    text-decoration: none;
+    color: #888888;
+}
+.username:hover{
+    color: blue;
+}

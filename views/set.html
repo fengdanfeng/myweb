@@ -1,0 +1,102 @@
+3<%- include header.html %>
+<div class="center-container">
+	<div class="left-container">
+       <div class="user">
+          <img class=".ulogo" src="/images/ulogo.png">
+          <span></span>
+       </div>
+       <div class="uabout">
+            <div class="aul">
+               <li><a href="/attention"><p class="white">1</p><p class="low">关注</p></a> </li>
+               <li><a href="fans"><p class="white">2</p><p class="low">粉丝</p></a></li>
+               <li><a href="/postlist"><p class="white">4</p><p class="low">游记</p></a></li>
+            </div>
+       </div>
+       <div class="ulist">
+            <ul>
+                <li><a href="/"><i class="icon-15-3-1"></i> 我的首页</a></li>
+                <li><a href="/attention"><i class="icon-15-3-2"></i> 我的关注</a></li>
+                <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
+                <li><a href="/postlist"><i class="icon-15-3-4"></i> 我的游记</a></li>
+                <li class="active"><a class="active" href="/set"><i class="icon-15-2-1"></i> 设置</a></li>
+            </ul>
+       </div>
+    </div>
+     <div class="right-container" style="background-color: #fff;">
+       <div class="setOwn">
+          <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+              <h2 class="am-titlebar-title ">
+                  修改个人信息
+              </h2>
+          </div>
+          <form class="setForm" id="setForm1">
+               <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">姓名</label>
+                  <div class="am-u-sm-10">
+                    <input type="text" id="uname" name="username" class="am-form-field" placeholder="输入你的姓名"aria-required="true" data-tip="十个字以内">
+                  </div>
+                </div>
+                <div class="input-gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">简介</label>
+                  <div class="am-u-sm-10">
+                    <input type="text" id="introduction" name="userInfo" class="am-form-field" placeholder="输入你简介少于20字"aria-required="true" data-tip="二十个字以内">
+                  </div>
+                </div>
+                 <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" name="sex" class="am-u-sm-2 am-form-label">性别</label>
+                  <div class="am-u-sm-10" style="margin-top:5px;">
+                       <label>
+                      <input type="radio" name="sex" value="option1" checked>
+                      男
+                    </label>
+                      <label>
+                      <input type="radio" name="sex" value="option2">
+                      女
+                    </label>
+                  </div>
+                </div>
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">头像</label>
+                  <input  id="img" name="ulogo" type="file" accept="image/png,image/gif" / />
+                  <div class="ulogo" id="#ulogo"></div>
+                </div>
+
+          </form>
+          <div>
+            <a href="#" id="submit1" class="am-btn am-btn-block am-btn-primary">保存</a>
+          </div>
+        </div><!-- end setOwn -->
+            <div class="setOther">
+          <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+              <h2 class="am-titlebar-title ">
+                  重置密码
+              </h2>
+          </div>
+          <form class="setForm">
+               <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">原密码</label>
+                  <div class="am-u-sm-10">
+                    <input type="email" id="" class="am-form-field" placeholder="输入你的原密码">
+                  </div>
+                </div>
+                 <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">新密码</label>
+                  <div class="am-u-sm-10">
+                    <input type="email" id="" class="am-form-field" placeholder="输入您的新密码">
+                  </div>
+                </div>
+                 <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
+                  <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">新密码</label>
+                  <div class="am-u-sm-10">
+                    <input type="email" id="" class="am-form-field" placeholder="再次输入你的新密码">
+                  </div>
+                </div>
+          </form>
+          <div>
+            <button class="am-btn am-btn-block am-btn-primary">保存</button>
+          </div>
+        </div><!-- end setOwn -->
+    </div>
+</div>
+<script type="text/javascript" src="js/p/set.js"></script>
+<%- include footer.html %>

@@ -1,0 +1,18 @@
+
+//清除浮动
+clearfix() {
+    *zoom: 1;
+    &:before, &:after{display:table;content:""}
+    &:after{clear:both}
+}
+
+// 省略
+ellipsis() {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+// 文字自动换行
+break-word() {
+    word-wrap: break-word;
+    word-break: break-all;
+}
