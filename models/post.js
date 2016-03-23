@@ -224,7 +224,73 @@ Post.edit = function(name, day, title, callback) {
     });
   });
 };
+// 编辑删除一篇游记及其相关信息
+Post.remove = function(name, day, title, callback) {
+  //打开数据库
+  mongodb.open(function (err, db) {
+    if (err) {
+      return callback(err);
+    }
+    //读取 posts 集合
+    db.collection('posts', function (err, collection) {
+      if (err) {
+        mongodb.close();
+        return callback(err);
+      }
+      //查询要删除的文档
+      collection.findOne({
+        "name": name,
+        "time.day": day,
+        "title": title
+      }, function (err, doc) {
+        if (err) {
+          mongodb.close();
+          return callback(err);
+        }
+        //如果有 reprint_from，即该文章是转载来的，先保存下来 reprint_from
+        var reprint_from = "";
+        if (doc.reprint_info.reprint_from) {
+          reprint_from = doc.reprint_info.reprint_from;
+        }
+        if (reprint_from != "") {
+          //更新原文章所在文档的 reprint_to
+          collection.update({
+            "name": reprint_from.name,
+            "time.day": reprint_from.day,
+            "title": reprint_from.title
+          }, {
+            $pull: {
+              "reprint_info.reprint_to": {
+                "name": name,
+                "day": day,
+                "title": title
+            }}
+          }, function (err) {
+            if (err) {
+              mongodb.close();
+              return callback(err);
+            }
+          });
+        }
 
+        //删除转载来的文章所在的文档
+        collection.remove({
+          "name": name,
+          "time.day": day,
+          "title": title
+        }, {
+          w: 1
+        }, function (err) {
+          mongodb.close();
+          if (err) {
+            return callback(err);
+          }
+          callback(null);
+        });
+      });
+    });
+  });
+};
 // 编辑更新一篇游记及其相关信息
 Post.update = function(name, day, title, post, callback) {
   //打开数据库

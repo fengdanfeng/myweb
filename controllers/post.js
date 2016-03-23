@@ -81,6 +81,19 @@ router.edit= function (req, res) {
       });
     });
   },
+// 删除游记
+router.deleteOnePost=function (req, res) {
+    var currentUser = req.session.user;
+    Post.remove(currentUser.name, req.params.day, req.params.title, function (err) {
+      if (err) {
+        req.flash('error', err); 
+        return res.redirect('/');
+      }
+      req.flash('success', '删除成功!');
+      res.redirect('/');
+    });
+  },
+// 更新游记
 router.editUpdate =  function (req, res) {
     var currentUser = req.session.user;
     Post.update(currentUser.name, req.params.day, req.params.title, req.body.post, function (err) {

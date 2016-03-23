@@ -17,9 +17,13 @@ router.get('/u/:name/:day/:title',Post.getOneArticle)
 router.get('/post', checkLogin);
 router.post('/post', checkLogin);//页面权限控制
 router.post('/post', Post.post);
+// 游记详情页
 router.get('/edit/:name/:day/:title', checkLogin);
 router.get('/edit/:name/:day/:title', Post.edit);
-
+// 删除游记
+router.get('/remove/:name/:day/:title', checkLogin);
+router.get('/remove/:name/:day/:title', Post.deleteOnePost);
+// 更新游记
 router.post('/edit/:name/:day/:title', checkLogin);
 router.post('/edit/:name/:day/:title',Post.editUpdate);
 
