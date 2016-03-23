@@ -64,7 +64,6 @@
        </div>
     </div>
      <div class="right-container">
-          <%- include say.html %>
     <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
       <ul class="am-tabs-nav am-nav am-nav-tabs">
         <li class="am-active"><a href="javascript: void(0)">好友游记</a></li>
@@ -81,18 +80,26 @@
 
                 <div class="am-comment-main">
                   <header class="am-comment-hd">
-                    <!--<h3 class="am-comment-title">评论标题</h3>-->
+                    <h3 class="am-comment-title"></h3>
                     <div class="am-comment-meta">
-                      <a href="#link-to-user" class="am-comment-author"><#=user#></a>
-                      发表游记 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=time#></time>
+                      <a href="/u/<#= post.name #>" class="am-comment-author"><#=name#></a>
+                      发表于<time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=time.minute#></time>
+                    </div>
+                    <div style="float: right;">
+                       <a  href="/edit/<#=name #>/<#=time.day #>/<#= title #>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
+                  
                     </div>
                   </header>
 
                   <div class="am-comment-bd">
                     <#=post#>
                   </div>
+                  <div class="am-comment-bd" style="font-size: 14px;">
+                   <span>阅读 <i><#=pv #>&nbsp;</i></span>
+                   <span><a href="#" style="text-decoration: none; color: #383535;"> 转载 </a></span>
+                  </div>
                 </div>
-            </article>
+              </article>
           </script>
         </div>
         <p style="margin-left: 400px;display: none;"  id="notMore">没有更多了~</p>

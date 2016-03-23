@@ -12,6 +12,7 @@ router.getIndex = function (req, res) {
         if (err) {
             posts = [];
         }
+        
         //调用模板引擎，并传递参数给模板引擎
         res.render('index', {
                 title: '首页', 
@@ -26,6 +27,7 @@ router.getIndex = function (req, res) {
     });
 };
 router.getuser=  function (req, res) {//路由规则
+     var page = req.query.p ? parseInt(req.query.p) : 1;
     User.get(req.params.user, function (err, user) {
         //判断用户是否存在
         if (!user) {
@@ -33,20 +35,23 @@ router.getuser=  function (req, res) {//路由规则
             return res.redirect('/');
       }
         //调用对象的方法用户存在，从数据库获取该用户的游记信息
-        
-        Post.get(user.name, function (err, posts) {
-            if (err) {
-                req.flash('error', err);
-                return res.redirect('/');
-            }
-            //调用user模板引擎，并传送数据（用户名和游记集合）
-            res.render('index', {
-                title: user.name,
-                posts: posts
+         Post.getTen(user.name,page, function (err, posts,total) {
+                if (err) {
+                    posts = [];
+                }
+                //调用模板引擎，并传递参数给模板引擎
+                res.render('user', {
+                        title: '首页', 
+                        posts: posts, 
+                        page: page,
+                        isFirstPage: (page - 1) == 0,
+                        isLastPage: ((page - 1) * 3 + posts.length) == total,
+                        user: req.session.user,
+                        success: req.flash('success').toString(),
+                        error: req.flash('error').toString()
+                    });
             });
-            res.redirect('/')
-        });
-    });
+            });
 };
 router.userlogin =   function (req, res) {
 //密码用md5值表示

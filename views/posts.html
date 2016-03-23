@@ -11,15 +11,24 @@ if(index % 3 == 0){ %>
 
   <div class="am-comment-main">
     <header class="am-comment-hd">
-      <!--<h3 class="am-comment-title">评论标题</h3>-->
+      <h3 class="am-comment-title"></h3>
       <div class="am-comment-meta">
-        <a href="#link-to-user" class="am-comment-author"><%=post.user%></a>
-        发表游记 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><%=post.time%></time>
+        <a href="/u/<%= post.name %>" class="am-comment-author"><%=post.name%></a>
+        发表于<time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><%=post.time.minute%></time>
+      </div>
+      <div style="float: right;">
+      <% if (user && (user.name == post.name)) { %>
+         <a  href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
+      <%}%>
       </div>
     </header>
 
     <div class="am-comment-bd">
       <%=post.post%>
+    </div>
+    <div class="am-comment-bd" style="font-size: 14px;">
+     <span>阅读 <i><%=post.pv %>&nbsp;</i></span>
+     <span><a href="#" style="text-decoration: none; color: #383535;"> 转载 <i></i><%= %></i></a></span>
     </div>
   </div>
 </article>

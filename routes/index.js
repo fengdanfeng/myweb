@@ -12,9 +12,17 @@ router.get('/', User.getIndex);
 //用户首页
 router.get('/u/:user', checkLogin);//页面权限控制
 router.get('/u/:user',User.getuser);
+router.get('/u/:name/:day/:title',Post.getOneArticle)
 //发表信息
+router.get('/post', checkLogin);
 router.post('/post', checkLogin);//页面权限控制
 router.post('/post', Post.post);
+router.get('/edit/:name/:day/:title', checkLogin);
+router.get('/edit/:name/:day/:title', Post.edit);
+
+router.post('/edit/:name/:day/:title', checkLogin);
+router.post('/edit/:name/:day/:title',Post.editUpdate);
+
 //注册
 router.get('/reg', checkNotLogin);//页面权限控制，注册功能只对未登录用户可用
 router.get('/reg', function (req, res) {
