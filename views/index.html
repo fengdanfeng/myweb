@@ -44,7 +44,7 @@
     <div class="left-container">
        <div class="user">
           <img src="/images/ulogo.png">
-          <span><%-user.name%></span>
+          <span id="a"><%-user.name%></span>
        </div>
        <div class="uabout">
             <div class="aul">
@@ -73,30 +73,40 @@
         <div class="am-tab-panel am-active" id="allList">
          <%- include posts.html %>
         <script type="text/template"  id="allPosts" >
-             <article class="am-comment " style="margin-bottom: 10px;width: 650px;">
-                <a href="#link-to-user-home">
+             <article href="/u/<#= post.name #>" class="am-comment " style="margin-bottom: 10px;width: 650px;">
+                <a href="/u/<#= post.name #>" >
                   <img src="/images/ulogo.png" alt="" class="am-comment-avatar" width="48" height="48"/>
                 </a>
-
                 <div class="am-comment-main">
                   <header class="am-comment-hd">
-                    <h3 class="am-comment-title"></h3>
+                    <h3 style="padding: 7px; margin-left: 10px;" class="am-comment-title">
+                      <a href="/u/<#= post.name #>" class="am-comment-author"><#=post.name#>:</a>
+                      <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>"><#=post.title#></a>
+                    </h3>
                     <div class="am-comment-meta">
-                      <a href="/u/<#= post.name #>" class="am-comment-author"><#=name#></a>
-                      发表于<time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=time.minute#></time>
+                    <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=post.time.minute#></time>
                     </div>
+                  <#if(a==post.name){#>
                     <div style="float: right;">
-                       <a  href="/edit/<#=name #>/<#=time.day #>/<#= title #>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
-                  
+                       <a  href="/edit/<#=post.name #>/<#=post.time.day #>/<#= post.title #>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
                     </div>
+                  <#}#>
                   </header>
 
                   <div class="am-comment-bd">
-                    <#=post#>
+                     <p>
+                          <# post.tags.forEach(function (tag, index) { #>
+                            <# if(tag) { #>
+                              <a class="tag" href="/tags/<#=post.tags #>"><#= tag #></a>
+                            <# } #>
+                          <# }) #>
+                      </p>
+                     <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>"><#=post.post#></a>
                   </div>
                   <div class="am-comment-bd" style="font-size: 14px;">
-                   <span>阅读 <i><#=pv #>&nbsp;</i></span>
-                   <span><a href="#" style="text-decoration: none; color: #383535;"> 转载 </a></span>
+                   <span>阅读: <i><#=post.pv #> |</i></span>
+                   <span>评论 <i><#=post.comments.length #> |</i></span>
+                   <span><a href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载 </a></span>
                   </div>
                 </div>
               </article>
@@ -120,6 +130,7 @@
     $("#moreten").click(function(){ 
       var me =this;
       console.log(page);
+      var a = document.getElementById("a").innerHTML;     
         $.ajax({
               type:"post",
               url: '/getMore',
@@ -128,9 +139,10 @@
               success: function(d){
                 if(d.code == 0){
                   for(var i= 0; i<d.post.length;i++){
-                    var temp =  tpl('#allPosts', d.post[i]);
+                    var temp =  tpl('#allPosts', {post:d.post[i],a:a});
                     $("#allList").append(temp);
                     page = parseInt(d.page)+1;
+                    console.log(page);
                   } 
                 }else{  
                           alert('请求失败');
@@ -141,7 +153,8 @@
                       $('#notMore').animate({
                             opacity: "hide"
                         }, "slow")
-                }                    
+                }
+                        
              }
            });
 

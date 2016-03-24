@@ -5,16 +5,18 @@ if(index % 3 == 0){ %>
 <div class="row">
     <% } %>
    <article class="am-comment " style="margin-bottom: 10px;width: 650px;">
-  <a href="#link-to-user-home">
+  <a href="/u/<%= post.name %>">
     <img src="/images/ulogo.png" alt="" class="am-comment-avatar" width="48" height="48"/>
   </a>
 
   <div class="am-comment-main">
     <header class="am-comment-hd">
-      <h3 class="am-comment-title"></h3>
+      <h3 style="padding: 7px; margin-left: 10px;" class="am-comment-title">
+          <a href="/u/<%= post.name %>" class="am-comment-author"><%=post.name%>:</a>
+          <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.title%></a>
+      </h3>
       <div class="am-comment-meta">
-        <a href="/u/<%= post.name %>" class="am-comment-author"><%=post.name%></a>
-        发表于<time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><%=post.time.minute%></time>
+        <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><%=post.time.minute%></time>
       </div>
       <div style="float: right;">
       <% if (user && (user.name == post.name)) { %>
@@ -24,11 +26,17 @@ if(index % 3 == 0){ %>
     </header>
 
     <div class="am-comment-bd">
-      <%=post.post%>
+       <p> <% post.tags.forEach(function (tag, index) { %>
+          <% if (tag) { %>
+            <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+          <% } %>
+        <% }) %></p>
+     <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.post%></a>
     </div>
     <div class="am-comment-bd" style="font-size: 14px;">
-     <span>阅读 <i><%=post.pv %>&nbsp;</i></span>
-     <span><a href="#" style="text-decoration: none; color: #383535;"> 转载 <i></i><%= %></i></a></span>
+     <span>阅读 <i><%=post.pv %> |</i></span>
+     <span>评论 <i><%= post.comments.length %> |</i></span>
+     <span><a href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="text-decoration: none; color: #383535;"> 转载 <i></i><%= %></i></a></span>
     </div>
   </div>
 </article>

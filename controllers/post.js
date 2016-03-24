@@ -15,7 +15,7 @@ router.post = function (req, res) {
         return res.redirect('/');
       }
       req.flash('success', '发布成功!');
-      res.redirect('/',{posts:post});//发表成功跳转到主页
+      res.redirect('/');//发表成功跳转到主页
   });
 }
 router.getAll = function (req, res,next) {
@@ -38,6 +38,7 @@ router.getAll = function (req, res,next) {
             });
     });
 },
+// 获取十篇游记
 router.getTen = function (req, res) {
       var page = req.body.page;
     //读取所有的用户游记，传递把posts游记数据集传给首页
@@ -50,6 +51,7 @@ router.getTen = function (req, res) {
         res.json({code:0,page:page,total:total,post:posts});
     });
 },
+// 获取一篇游记及其详情
 router.getOneArticle = function (req, res) {
     Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
       if (err) {
@@ -65,6 +67,8 @@ router.getOneArticle = function (req, res) {
       });
     });
   },
+
+// 编辑游记
 router.edit= function (req, res) {
     var currentUser = req.session.user;
     Post.edit(currentUser.name, req.params.day, req.params.title, function (err, post) {
@@ -104,6 +108,47 @@ router.editUpdate =  function (req, res) {
       }
       req.flash('success', '修改成功!');
       res.redirect(url);//成功！返回文章页
+    });
+  },
+
+// 通过一个标签获取游记列表
+router.getTag =function (req, res) {
+    Post.getTag(req.params.tag, function (err, posts) {
+      if (err) {
+        req.flash('error',err); 
+        return res.redirect('/');
+      }
+      res.render('tag', {
+        title: 'TAG:' + req.params.tag,
+        posts: posts,
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+      });
+    });
+  }
+
+// 转载游记
+router.reprint = function (req, res) {
+    Post.edit(req.params.name, req.params.day, req.params.title, function (err, post) {
+      if (err) {
+        req.flash('error', err); 
+        return res.redirect('back');
+      }
+      var currentUser = req.session.user,
+          reprint_from = {name: post.name, day: post.time.day, title: post.title},
+          reprint_to = {name: currentUser.name};
+          console.log(reprint_from);
+          console.log(currentUser);
+      Post.reprint(reprint_from, reprint_to, function (err, doc) {
+        if (err) {
+          req.flash('error', err); 
+          return res.redirect('back');
+        }
+        req.flash('success', '转载成功!');
+        // var url = encodeURI('/u/' + doc.name + '/' + doc.time.day + '/' + doc.title);
+        res.redirect('/');
+      });
     });
   }
 module.exports = router

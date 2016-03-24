@@ -13,6 +13,10 @@ router.get('/', User.getIndex);
 router.get('/u/:user', checkLogin);//页面权限控制
 router.get('/u/:user',User.getuser);
 router.get('/u/:name/:day/:title',Post.getOneArticle)
+//获取更多
+router.post('/getMore',Post.getTen);
+
+
 //发表信息
 router.get('/post', checkLogin);
 router.post('/post', checkLogin);//页面权限控制
@@ -26,6 +30,12 @@ router.get('/remove/:name/:day/:title', Post.deleteOnePost);
 // 更新游记
 router.post('/edit/:name/:day/:title', checkLogin);
 router.post('/edit/:name/:day/:title',Post.editUpdate);
+// 通过一个标签获取游记列表
+router.get('/tags/:tag', Post.getTag);
+// 转载游记
+router.get('/reprint/:name/:day/:title', checkLogin);
+router.get('/reprint/:name/:day/:title', Post.reprint);
+
 
 //注册
 router.get('/reg', checkNotLogin);//页面权限控制，注册功能只对未登录用户可用
@@ -51,7 +61,7 @@ router.get('/attention', function (req, res) {
 });
 //游记
 router.get('/postlist', function (req, res) {
-        res.render('postlist',{title:'个人游记页'});
+        res.render('postlist',{title:'发布游记'});
     });
 
 //设置
@@ -66,13 +76,8 @@ router.get('/logout', function (req, res) {
     req.flash('sucess', '退出成功！');
     res.redirect('/');
 });
-//获取更多
-router.post('/getMore',Post.getTen);
+
 //针对处理post请求，使用http invoker或ajax post向服务器端的地址（http://localhost:8001/users）提交post请求进行测试
-router.post('/users', function (req, res) {
-    console.log("admin refresh");
-    res.send(200);
-});
 // 用户修改个人信息
 router.post('/setForm1', User.setUserInfo);
 // 上传图片
