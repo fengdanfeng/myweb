@@ -3,6 +3,7 @@ var router = express.Router();//创建模块化安装路径的处理程序。
 var crypto = require('crypto');//加载生成MD5值依赖模块
 var User = require('../controllers/users.js');//加载用户保存和获取模块
 var Post = require("../controllers/post.js");//加载用户发游记模块
+var Comment = require("../controllers/comments.js");//加载用户发游记模块
 
 /* GET home page. */
 //匹配路由:通过router.get()或router.post()创建路由规则
@@ -35,7 +36,8 @@ router.get('/tags/:tag', Post.getTag);
 // 转载游记
 router.get('/reprint/:name/:day/:title', checkLogin);
 router.get('/reprint/:name/:day/:title', Post.reprint);
-
+// 获取发布评论
+router.post('/u/:name/:day/:title',Comment.post);
 
 //注册
 router.get('/reg', checkNotLogin);//页面权限控制，注册功能只对未登录用户可用

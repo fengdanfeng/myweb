@@ -105,8 +105,13 @@
                   </div>
                   <div class="am-comment-bd" style="font-size: 14px;">
                    <span>阅读: <i><#=post.pv #> |</i></span>
-                   <span>评论 <i><#=post.comments.length #> |</i></span>
-                   <span><a href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载 </a></span>
+                    <span><a href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>">评论 <i><#= post.comments.length #> |</i></a></span>
+                   <span><a href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载  <# if (post.reprint_info.reprint_to) { #>
+                                      <#= post.reprint_info.reprint_to.length #>
+                                    <# } else { #>
+                                      <#= 0 #>
+                                    <# } #> 
+                    </i></a></span>
                   </div>
                 </div>
               </article>

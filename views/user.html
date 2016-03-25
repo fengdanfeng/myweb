@@ -1,5 +1,6 @@
 <%- include header.html %>
 <% posts.forEach(function (post, index) { %>
+<div class="article-part">
   <p>
     <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
     <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
@@ -28,5 +29,6 @@
       <%= 0 %>
     <% } %>
   </p>
+  </div>
 <% }) %>
 <%- include footer.html %>
