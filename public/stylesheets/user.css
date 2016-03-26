@@ -103,7 +103,7 @@ ul {
   width: 1200px;
   height: 1200px;
   padding: 40px;
-  margin-left: 30px;
+  margin-left: 60px;
   border: 1px solide #ccc;
 }
 .center-container .left-container {
@@ -273,5 +273,5 @@ ul {
   height: 40px;
 }
 .article-part {
-  margin-left: 200px;
+  margin-left: 160px;
 }

@@ -1,0 +1,34 @@
+.p-top {
+  width: 400px;
+  heigth: 100px;
+  margin-left: 50px;
+}
+.p-top h3 {
+  padding-left: 20px;
+  font-weight: bold;
+}
+.p-top p {
+  margin-left: 50px;
+}
+.userPart {
+  background-color: #fff;
+  margin-top: 20px;
+}
+.userPart .user-left {
+  float: left;
+  width: 850px;
+}
+.userPart .user-right {
+  float: left;
+  width: 200px;
+  heigth: 30px;
+  margin-top: 50px;
+  border: 1px solid #333;
+}
+.p-top-nav {
+  width: 900px;
+  padding: 20px;
+  heigth: 200px;
+  border: 1px solid #333;
+  background-color: #333;
+}

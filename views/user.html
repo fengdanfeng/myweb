@@ -1,34 +1,44 @@
 <%- include header.html %>
 <% posts.forEach(function (post, index) { %>
-<div class="article-part">
-  <p>
-    <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
-    <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
-  </p>
-  <p class="info">
-    作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 
-    日期：<%= post.time.minute %> | 
-    标签：
-    <% post.tags.forEach(function (tag, index) { %>
-      <% if (tag) { %>
-        <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
-      <% } %>
-    <% }) %>
-    <% if (post.reprint_info.reprint_from) { %>
-      <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
-    <% } %>
-  </p>
-  <p><%- post.post %></p>
-  <p class="info">
-    阅读：<%= post.pv %> | 
-    评论：<%= post.comments.length %> | 
-    转载：
-    <% if (post.reprint_info.reprint_to) { %>
-      <%= post.reprint_info.reprint_to.length %>
-    <% } else { %>
-      <%= 0 %>
-    <% } %>
-  </p>
-  </div>
+<div class="center-container userPart">
+<!--   <div class="p-top-nav"></div> -->
+  <div class="user-left">
+      <p>
+        <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
+        <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
+      </p>
+      <p class="info">
+        作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 
+        日期：<%= post.time.minute %> | 
+        标签：
+        <% post.tags.forEach(function (tag, index) { %>
+          <% if (tag) { %>
+            <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+          <% } %>
+        <% }) %>
+        <% if (post.reprint_info.reprint_from) { %>
+          <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
+        <% } %>
+      </p>
+      <p><%- post.post %></p>
+      <p class="info">
+        阅读：<%= post.pv %> | 
+        评论：<%= post.comments.length %> | 
+        转载：
+        <% if (post.reprint_info.reprint_to) { %>
+          <%= post.reprint_info.reprint_to.length %>
+        <% } else { %>
+          <%= 0 %>
+        <% } %>
+      </p>
+    </div>
+    <div class="user-right">
+        <p>用户名：<%= post.name %></p>
+        <p>游记:3</p>
+        <p>粉丝:2</p>
+        <p>关注：4</p>
+    </div>
+      
+</div>
 <% }) %>
 <%- include footer.html %>

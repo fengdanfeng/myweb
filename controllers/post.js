@@ -100,14 +100,15 @@ router.deleteOnePost=function (req, res) {
 // 更新游记
 router.editUpdate =  function (req, res) {
     var currentUser = req.session.user;
+    console.log(currentUser);
     Post.update(currentUser.name, req.params.day, req.params.title, req.body.post, function (err) {
       // var url = encodeURI('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
       if (err) {
         req.flash('error', err); 
-        return res.redirect(url);//出错！返回文章页
+        return res.redirect('/');//出错！返回文章页
       }
       req.flash('success', '修改成功!');
-      res.redirect("/u/"+currentUser.name);//成功！返回文章页
+      res.redirect("/");//成功！返回文章页
     });
   },
 

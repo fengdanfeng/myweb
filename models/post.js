@@ -316,7 +316,7 @@ Post.update = function(name, day, title, post, callback) {
         if (err) {
           return callback(err);
         }
-        callback(null);
+        callback(err);
       });
     });
   });
