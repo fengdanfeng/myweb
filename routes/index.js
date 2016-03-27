@@ -16,7 +16,8 @@ router.get('/u/:user',User.getuser);
 router.get('/u/:name/:day/:title',Post.getOneArticle)
 //获取更多
 router.post('/getMore',Post.getTen);
-
+// 加关注
+router.get('/friends',User.makeFriends);
 
 //发表信息
 router.get('/post', checkLogin);

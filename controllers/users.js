@@ -124,7 +124,6 @@ router.setUserInfo = function(req,res){
     var username = req.body.username;
     var sex = req.body.sex;
     var userInfo = req.body.userInfo;
-        console.log(username);
     User.change( username,sex,userInfo, function (err) {
          console.log(err);
         if (err) {
@@ -137,7 +136,6 @@ router.setUserInfo = function(req,res){
 router.uploadUserImgPre = function(req, res) {
   //生成multiparty对象，并配置上传目标路径
   var form = new multiparty.Form({uploadDir: '../public/images'});
-
      form.encoding = 'utf-8';
   form.parse(req, function(err, fields, files) {
     var filesTmp = JSON.stringify(files);
@@ -148,9 +146,22 @@ router.uploadUserImgPre = function(req, res) {
       testJson = eval("(" + filesTmp+ ")"); 
       console.log(testJson.fileField[0].path);
       res.json({imgSrc:testJson.fileField[0].path})
-      console.log('rename ok');
     }
 
   });
 }
+
+router.makeFriends =  function (req, res) {
+    var currentUser = req.session.user;
+    console.log(req.query.name);
+    User.makeFriends(currentUser.name, req.query.name, function (err) {
+      if (err) {
+        req.flash('error', err); 
+        return res.redirect('/');//出错！返回文章页
+      }
+      req.flash('success', '修改成功!');
+      res.json({code:0});
+    });
+  },
+
 module.exports = router;

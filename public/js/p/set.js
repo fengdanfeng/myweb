@@ -6,13 +6,13 @@ $(function(){
       reader = new FileReader();
       reader.readAsDataURL(files[0]);
       return reader.onloadend = function() {
-        $(".ulogo").html('<img src="'+ this.result +'" alt="" />');
+        $(".ulogo").html('<img src="'+ this.result +'"name="ulogo" alt="" />');
       };
     }
   });
   $("#setForm1").validator({
     stopOnError: false,
-    timely: true,
+    timely: 1,
     rules: {
       double: [/^(\d+\.\d+)|\d+$/, "请输入整数或小数"],
       image: function(element, params) {
@@ -40,21 +40,21 @@ $("#submit1").on('click', function(e) {
     var formData;
     e.preventDefault();
     formData = $("#setForm1").serialize();
-    if ($("#setForm1").isValid()) {
-      return $.ajax({
-        url: "/setForm1",
-        type: "POST",
-        data: formData,
-        dataType: 'json',
-        success: function(d){
-          if (d.code===0){
-            alert("保存成功");
-            return location.reload();
-          } else {
-    	     	alert("提交失败")
-          }
-        }
-      });
+    if ($("#setForm1").inValid()) {
+          $.ajax({
+          url: "/setForm1",
+          type: "POST",
+          data: formData,
+          dataType: 'json',
+          success: function(d){
+            if (d.code===0){
+              alert("保存成功");
+              return location.reload();
+              } else {
+        	     	alert("提交失败")
+              }
+            }
+          });
     }
   });
 

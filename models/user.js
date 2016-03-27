@@ -92,3 +92,66 @@ User.get = function get(username, callback) {
     });
 };
 
+// 加关注
+User.makeFriends =function makeFriends(username,friendsName,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            return callback(err);
+        }
+        db.collection('users',function(err,collection){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            // 把当前用户名存到关注好友的fans字段
+            collection.update({
+                    name:friendsName
+                },{
+                    $push:{fans:username}
+                 },function(err){
+                        callback(err);
+                 });
+            collection.update({
+                    name:username
+                },{
+                    $push:{friends:friendsName}
+                 },function(err){
+                        callback(err);
+                 });
+        })
+    });
+};
+            // 在用户表中找到需要关注的用户
+        //     collection.findOne({name:friendsName},function(err,doc){
+        //         if (err) {
+        //           mongodb.close();
+        //           return callback(err);
+        //         }
+        //         console.log("aa");
+        //         // 把当前用户名存到关注好友的fans字段
+        //         collection.update({
+        //             name:friendsName
+        //         },{
+        //             $push:{fans:username}
+        //          },function(err){
+        //                 callback(err);
+        //          });
+        //     });
+        //     collection.findOne({name:username},function(err,doc){
+        //         if (err) {
+        //           mongodb.close();
+        //           return callback(err);
+        //         }
+        //          console.log("bb");
+        //         // 把要关注的用户名存在当前登录用户的fiends(关注者)字段里
+        //         collection.update({
+        //             name:username
+        //         },{
+        //             $push:{friends:friendsName}
+        //          },function(err){
+        //                 callback(err);
+        //          });
+        //     });
+        //     callback(err);
+        // })
+
