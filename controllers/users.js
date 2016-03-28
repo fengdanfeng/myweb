@@ -8,6 +8,7 @@ var multiparty = require('multiparty');
 router.getIndex = function (req, res) {
     var page = req.query.p ? paseInt(req.query.p):1;
     //读取所有的用户游记，传递把posts游记数据集传给首页
+    var currentUser = req.session.user;
     Post.getTen(null,page, function (err, posts,total) {
         if (err) {
             posts = [];
@@ -18,9 +19,9 @@ router.getIndex = function (req, res) {
                 title: '首页', 
                 posts: posts, 
                 page: page,
+                currentUser:currentUser,
                 isFirstPage: (page - 1) == 0,
                 isLastPage: ((page - 1) * 3 + posts.length) == total,
-                user: req.session.user,
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             });
@@ -34,6 +35,9 @@ router.getuser=  function (req, res) {//路由规则
             req.flash('error', '用户不存在');
             return res.redirect('/');
       }
+      // 获取当前登录账号存在session里面的信息
+         var currentUser = req.session.user;
+         console.log(currentUser);      
         //调用对象的方法用户存在，从数据库获取该用户的游记信息
          Post.getTen(user.name,page, function (err, posts,total) {
                 if (err) {
@@ -41,17 +45,19 @@ router.getuser=  function (req, res) {//路由规则
                 }
                 //调用模板引擎，并传递参数给模板引擎
                 res.render('user', {
-                        title: '首页', 
+                        title: '用户详情页', 
                         posts: posts, 
                         page: page,
                         isFirstPage: (page - 1) == 0,
                         isLastPage: ((page - 1) * 3 + posts.length) == total,
-                        user: req.session.user,
+                        user:user,
+                        currentUser:currentUser,
                         success: req.flash('success').toString(),
                         error: req.flash('error').toString()
                     });
             });
-            });
+
+   });
 };
 router.userlogin =   function (req, res) {
 //密码用md5值表示

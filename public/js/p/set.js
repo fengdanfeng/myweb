@@ -6,7 +6,7 @@ $(function(){
       reader = new FileReader();
       reader.readAsDataURL(files[0]);
       return reader.onloadend = function() {
-        $(".ulogo").html('<img src="'+ this.result +'"name="ulogo" alt="" />');
+        $(".ulogo").html('<img src="'+ this.result +'alt="" />');
       };
     }
   });
@@ -21,6 +21,7 @@ $(function(){
         return /^image/.test(files[0].type);
       }
     },
+    
     fields: {
       "uname": {
         rule: "required;length[~10];",
@@ -40,8 +41,8 @@ $("#submit1").on('click', function(e) {
     var formData;
     e.preventDefault();
     formData = $("#setForm1").serialize();
-    if ($("#setForm1").inValid()) {
-          $.ajax({
+    console.log(formData);
+       $.ajax({
           url: "/setForm1",
           type: "POST",
           data: formData,
@@ -55,7 +56,6 @@ $("#submit1").on('click', function(e) {
               }
             }
           });
-    }
   });
 
 })

@@ -6,6 +6,8 @@ function User(user) {
     this.password = user.password;
     this.sex = user.sex;
     this.ulog = user.ulog;
+    this.friends = user.friends;
+    this.fans = user.fans;
 
 };
 //输出User对象
@@ -18,6 +20,8 @@ User.prototype.save = function save(callback) {
         password: this.password,
         sex:this.sex,
         ulog :this.ulog,
+        friends :[],
+        fans :[],
     };
 
     mongodb.open(function(err, db) {
@@ -121,37 +125,4 @@ User.makeFriends =function makeFriends(username,friendsName,callback){
         })
     });
 };
-            // 在用户表中找到需要关注的用户
-        //     collection.findOne({name:friendsName},function(err,doc){
-        //         if (err) {
-        //           mongodb.close();
-        //           return callback(err);
-        //         }
-        //         console.log("aa");
-        //         // 把当前用户名存到关注好友的fans字段
-        //         collection.update({
-        //             name:friendsName
-        //         },{
-        //             $push:{fans:username}
-        //          },function(err){
-        //                 callback(err);
-        //          });
-        //     });
-        //     collection.findOne({name:username},function(err,doc){
-        //         if (err) {
-        //           mongodb.close();
-        //           return callback(err);
-        //         }
-        //          console.log("bb");
-        //         // 把要关注的用户名存在当前登录用户的fiends(关注者)字段里
-        //         collection.update({
-        //             name:username
-        //         },{
-        //             $push:{friends:friendsName}
-        //          },function(err){
-        //                 callback(err);
-        //          });
-        //     });
-        //     callback(err);
-        // })
-
+      
