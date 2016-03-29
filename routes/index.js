@@ -55,13 +55,9 @@ router.get('/login', function (req, res) {
 router.post('/login', checkNotLogin);
 router.post('/login',User.userlogin);
 //粉丝页
-router.get('/fans', function (req, res) {
-    res.render('fans', {title: '用户粉丝'});
-});
+router.get('/fans',User.getFans);
 //关注页
-router.get('/attention', function (req, res) {
-    res.render('attention', {title: '用户关注页'});
-});
+router.get('/attention', User.getFriends);
 //游记
 router.get('/postlist', function (req, res) {
         res.render('postlist',{title:'发布游记'});

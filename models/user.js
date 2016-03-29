@@ -125,4 +125,47 @@ User.makeFriends =function makeFriends(username,friendsName,callback){
         })
     });
 };
+
+// 获取是个粉丝
+
+User.getFans= function getFans(username,page,callback){
+    mongodb.open(function(err,db){
+        if (err) {
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection('users',function(err,collection){
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+        var query={};
+         if (username) {
+        query.name = username;
+      }
+      //使用 count 返回特定查询的文档数 total
+      collection.count(query, function (err, total) {
+        //根据 query 对象查询，并跳过前 (page-1)*6个结果，返回之后的6个结果
+        collection.find(query, {
+          skip: (page - 1)*2,
+          limit: 2
+        }).sort({
+          time: -1
+        }).toArray(function (err, docs) {
+          mongodb.close();
+          if (err) {
+            return callback(err);
+          }
+                //遍历查询结果
+                docs.forEach(function (doc, index) {
+                    //把全部结果封装成数组
+                     callback(null, doc);
+                });
+           
+            });
+      });
+        })
+    })
+};
+
       

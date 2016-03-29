@@ -34,7 +34,16 @@
 
       <div class="am-tabs-bd">
         <div class="am-tab-panel am-active" >
-  			<p>显示我关注的人</p>
+  			    <ul class="am-list am-list-static am-list-border">
+               <%mfans.friends.forEach(function(friends,index){%>
+                <li>
+                  <img src="images/ulogo.png" style="float: left;width: 60px;height: 60px;margin-right: 20px;margin-top:-6px;border-radius: 60px;">
+                  <span style="margin-top:15px;" class="am-badge am-badge-success">
+                    <a href="#" style="color: #fff;"> 取消关注</a></span> 
+                  <a href="/u/<%= friends%>"> <%= friends%></a>
+                </li>
+                <%})%>
+          </ul>
         </div>
         <div class="am-tab-panel">
    

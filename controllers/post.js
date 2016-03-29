@@ -48,6 +48,7 @@ router.getTen = function (req, res) {
             res.json({code:1,page:page,post:posts});
         }
         //调用模板引擎，并传递参数给模板引擎
+  
         res.json({code:0,page:page,total:total,post:posts});
     });
 },
