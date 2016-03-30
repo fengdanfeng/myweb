@@ -1,15 +1,18 @@
-<form method="post" name="picForm" action="/post" id="public"  style="position: absolute;">
-用户：<%-user.user%><br/>
-标题：<br />
-  <input type="text" name="title" /><br />
-  标签：<br />
-  <input type="text" name="tag1" /><input type="text" name="tag2" /><input type="text" name="tag3" /><br />
-  正文：<br />
-  <textarea name="post" rows="10" cols="100"></textarea><br />
-  <input type="submit" value="发表" />
-     <input type="file" id="imgfile" accept="image/png,image/gif" />
-</form>
-<div>
-    <img src="" id="imgPic">
+<div style="background-color: #fff;position:relative;>
+	<form method="post" name="picForm" action="/post" id="public" ">
+	用户：<%-user.user%><br/>
+	标题：<br />
+	  <input type="text" name="title" /><br />
+	  标签：<br />
+	  <input type="text" name="tag1" /><input type="text" name="tag2" /><input type="text" name="tag3" /><br />
+	  正文：<br />
+	  <textarea name="post" rows="10" cols="100"></textarea><br />
+	  <input type="submit" value="发表" />
+	     <input type="file" id="imgfile" accept="image/png,image/gif" />
+	</form>
+	<div>
+	    <img src="" id="imgPic">
+	</div>
+
 </div>
 <script type="text/javascript" src="/js/p/say.js"></script>

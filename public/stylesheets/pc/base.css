@@ -13,17 +13,40 @@
 .userPart {
   background-color: #fff;
   margin-top: 20px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.userPart .userNav {
+  width: 100%;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #333;
 }
 .userPart .user-left {
+  padding-left: 30px;
   float: left;
   width: 850px;
 }
+.userPart .user-left .info {
+  padding-left: 20px;
+}
 .userPart .user-right {
   float: left;
-  width: 200px;
-  heigth: 30px;
-  margin-top: 50px;
-  border: 1px solid #333;
+  width: 268px;
+  heigth: 200px;
+  padding-left: 10px;
+  margin-top: 40px;
+}
+.userPart .user-right .makeFriends {
+  width: 80px;
+  heigth: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.userPart .user-right p {
+  font-size: 18px;
 }
 .p-top-nav {
   width: 900px;
@@ -31,4 +54,11 @@
   heigth: 200px;
   border: 1px solid #333;
   background-color: #333;
+}
+.commentForm {
+  width: 800px;
+  border-radius: 10px;
+}
+.commentForm .commetTextarea {
+  margin-top: 20px;
 }

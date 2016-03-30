@@ -1,4 +1,5 @@
 <%- include header.html%>
+<div style="background-image: url(/images/beijing2.jpg);background-repeat: repeat; margin-top:-10px; width: 100%;z-index:-100;">
 <div class="center-container">
 	<div class="left-container">
        <div class="user">
@@ -23,12 +24,29 @@
        </div>
     </div>
     <div class="right-container">
+      <div style="height: 800px;background-color: #fff;">
           <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
               <h2 class="am-titlebar-title ">
                 编写游记
               </h2>
           </div>
-         <%- include say.html %>
+        <div style="background-color: #fff;position:relative;>
+  <form method="post" name="picForm" action="/post" id="public" ">
+  用户：<%-user.user%><br/>
+  标题：<br />
+    <input type="text" name="title" /><br />
+    标签：<br />
+    <input type="text" name="tag1" /><input type="text" name="tag2" /><input type="text" name="tag3" /><br />
+    正文：<br />
+    <textarea name="post" rows="10" cols="100"></textarea><br />
+    <input type="submit" value="发表" />
+       <input type="file" id="imgfile" accept="image/png,image/gif" />
+  </form>
+  <div>
+      <img src="" id="imgPic">
+  </div>
+
+</div>
          </div>
     </div> 
 </div>

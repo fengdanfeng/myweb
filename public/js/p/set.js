@@ -10,7 +10,7 @@ $(function(){
       };
     }
   });
-  $("#setForm1").validator({
+$("#setForm1").validator({
     stopOnError: false,
     timely: 1,
     rules: {
@@ -23,11 +23,11 @@ $(function(){
     },
     
     fields: {
-      "uname": {
-        rule: "required;length[~10];",
+      "username": {
+        rule: 'required;length[~10];',
         tip: "十个字以内"
       },
-      "introduction": {
+      "userInfo": {
         rule: "required;length[~20];",
         tip: "二十个字以内"
       },
@@ -39,10 +39,10 @@ $(function(){
 $("#submit1").on('click', function(e) {
     var me = this;
     var formData;
-    e.preventDefault();
     formData = $("#setForm1").serialize();
+    if($('#setForm1').isValid()){
     console.log(formData);
-       $.ajax({
+      return $.ajax({
           url: "/setForm1",
           type: "POST",
           data: formData,
@@ -56,6 +56,7 @@ $("#submit1").on('click', function(e) {
               }
             }
           });
+    }
   });
 
 })

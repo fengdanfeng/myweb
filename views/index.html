@@ -28,18 +28,54 @@
     </div>
 </div>
 <!-- end轮播图 -->
-<div id="toppart">
-	<div data-am-widget="titlebar" class="am-titlebar am-titlebar-multi" >
-    <h2 class="am-titlebar-title " style=" font-size: 28px;">
-        热门日记
-    </h2>
-    <nav class="am-titlebar-nav">
-        <a href="#more" class="">more &raquo;</a>
-    </nav>
-	</div>
+<div class="centerList">
+  <div data-am-widget="tabs"
+       class="am-tabs am-tabs-d2"
+        >
+      <ul class="am-tabs-nav am-cf">
+          <li class="tabNav am-active"><a href="[data-tab-panel-0]">热门日记</a></li>
+          <li class="tabNav"><a href="[data-tab-panel-1]">口袋旅游</a></li>
+          <li class="tabNav"><a href="/login">我要写游记</a></li>
+      </ul>
+      <div class="am-tabs-bd">
+          <div data-tab-panel-0 class="am-tab-panel am-active">
+            <div class="hotlist">
+          <% posts.forEach(function(post, index){%>
+                <div class="postListPart">
+                <a href="/u/<%= post.name %>">
+                  <img  src="images/slider1.jpg">
+                  <div class="ulogo">
+                    <img class="am-circle" src="images/ulogo.png" width="80" height="80"/>
+                    <div class="postsInfo">
+                        <h4><%=post.title%></h4>
+                        <div class="postdetail">
+                           <span>阅读 <i><%=post.pv %> |</i></span>
+                               <span><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">评论 <i><%= post.comments.length %> |</i></a></span>
+                               <span><a href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="text-decoration: none; color: #383535;"> 转载 <i>  <% if (post.reprint_info.reprint_to) { %>
+                                                      <%= post.reprint_info.reprint_to.length %>
+                                                    <% } else { %>
+                                                      <%= 0 %>
+                                                    <% } %>
+                                      </i></a></span>
+                        </div>
+                    </div>
+                  </div>
+                  </a>
+                </div>
+          <%})%>
+              </div>
+            </div>
+          <div data-tab-panel-1 class="am-tab-panel ">
+            【彩虹】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+          </div>
+          <div data-tab-panel-2 class="am-tab-panel ">
+            【歌唱】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+          </div>
+      </div>
+  </div>
 </div>
- <%- include posts.html %>
 <% }else{ %><!--登陆后，显示个人主页-->
+<div style="background-image: url(/images/beijing2.jpg);background-repeat: repeat; margin-top:-10px; width: 100%;z-index:-100;">
 <div class="center-container">
     <div class="left-container">
        <div class="user">
@@ -140,6 +176,7 @@
 
     </div>
   </div> 
+</div>
 </div>
 <% } %>
 <!-- end center-container -->

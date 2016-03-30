@@ -1,24 +1,50 @@
 <div class="article-part">
 <br />
-<% post.comments.forEach(function (comment, index) { %>
-  <div style="padding-left:4em">
-    <p><img src="<%= comment.head %>" class="l_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
-    <span class="info"> 回复于 <%= comment.time %></span></p>
-    <p><%- comment.content %></p>
-  </div>
-<% }) %>
+      <% post.comments.forEach(function (comment, index) { %>
+        <div style="padding-left:4em">
+          <p><img src="<%= comment.head %>" class="l_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
+          <span class="info"> 回复于 <%= comment.time %></span></p>
+          <p><%- comment.content %></p>
+        </div>
+      <% }) %>
 
-<form method="post">
-<% if (user) { %>
-  姓名：<input type="text" name="name" value="<%= user.name %>" /><br />
-  邮箱：<input type="text" name="email" value="<%= user.email %>" /><br />
-  地址：<input type="text" name="website" value="/u/<%= user.name %>" /><br />
-<% } else { %>
-  姓名：<input type="text" name="name" /><br />
-  邮箱：<input type="text" name="email" /><br />
-  地址：<input type="text" name="website" value="http://" /><br />
-<% } %>
-  <textarea name="content" rows="5" cols="80"></textarea><br />
-  <input type="submit" value="留言" />
-</form>
+      <form method="post" class="commentForm">
+
+      <% if (user) { %>
+            用户名:<input type="text"  name="name" value="<%= user.name %>">
+            邮箱:<input type="text"name="email" value="<%= user.email %>">
+           地址： <input type="text"name="website" value="/u/<%= user.name %>"> 
+      <% } else { %>
+        姓名：<input type="text" name="name" value="游客"/><br />
+        邮箱：<input type="text" name="email" /><br />
+        <div style="display: none">地址：<input type="text" name="website" value="http://" /><br /></div>
+      <% } %>
+<!--       <div id="Smohan_FaceBox">
+           <textarea  name="content" id="Smohan_text" class="smohan_text"></textarea>
+           <p>
+           <a href="javascript:void(0)" class="face" title="表情"></a>
+         
+           </p>
+        </div> -->
+<!--   <input class="button"  type="submit">留言</input> -->
+                <textarea class="commetTextarea" name="content" rows="5" cols="96"></textarea><br />
+        <input style="margin-top: 10px;" class="am-btn am-btn-primary am-btn-block" type="submit" value="留言" />
+      </form>
+    </div>
 </div>
+<script type="text/javascript">
+// $(function (){
+//   $("a.face").smohanfacebox({
+//     Event : "click",  //触发事件  
+//     divid : "Smohan_FaceBox", //外层DIV ID
+//     textid : "Smohan_text" //文本框 ID
+//   });
+//   //解析表情  $('#Zones').replaceface($('#Zones').html());
+// });
+//Demo测试
+// $('#Smohan_Showface').click(function() {
+//    $('#Zones').fadeIn(360);
+//    $('#Zones').html($('#Smohan_text').val());
+//    $('#Zones').replaceface($('#Zones').html());//替换表情
+//   });
+</script>

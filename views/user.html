@@ -1,63 +1,68 @@
 <%- include header.html %>
 <div class="center-container">
 <div class=" userPart">
+  <div class="userNav"></div>
  <div class="user-left">
-<% posts.forEach(function (post, index) { %>
-<!--   <div class="p-top-nav"></div> -->
-      <p>
-        <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
-        <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
-      </p>
-      <p class="info">
-        作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 
-        日期：<%= post.time.minute %> | 
-        标签：
-        <% post.tags.forEach(function (tag, index) { %>
-          <% if (tag) { %>
-            <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
-          <% } %>
-        <% }) %>
-        <% if (post.reprint_info.reprint_from) { %>
-          <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
-        <% } %>
-      </p>
-      <p><%- post.post %></p>
-      <p class="info">
-        阅读：<%= post.pv %> | 
-        评论：<%= post.comments.length %> | 
-        转载：
-        <% if (post.reprint_info.reprint_to) { %>
-          <%= post.reprint_info.reprint_to.length %>
-        <% } else { %>
-          <%= 0 %>
-        <% } %>
-      </p>
+  <% posts.forEach(function (post, index) { %>
+    <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+        <h2 class="am-titlebar-title "><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
+       </div>
+            <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
+          <p class="info">
+            作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 
+            日期：<%= post.time.minute %> | 
+            标签：
+            <% post.tags.forEach(function (tag, index) { %>
+              <% if (tag) { %>
+                <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+              <% } %>
+            <% }) %>
+            <% if (post.reprint_info.reprint_from) { %>
+              <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
+            <% } %>
+          </p>
+          <p class="info"><%- post.post %></p>
+          <p class="info">
+            阅读：<%= post.pv %> | 
+            <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">评论：</a><%= post.comments.length %> | 
+            <a href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="text-decoration: none; color: #383535;"> 转载:
+            <% if (post.reprint_info.reprint_to) { %>
+              <%= post.reprint_info.reprint_to.length %>
+            <% } else { %>
+              <%= 0 %>
+            <% } %>
+          </p>
 
     <% }) %>  
   </div> 
   <div class="user-right">
-     <p name = "name">用户名:<%= user.name%></p>
-     <p>游记：<%=posts.length%></p>
-     <p >关注:
-        <%if(user.friends){%>
-            <%= user.friends.length%>
-        <%}else{%>
-         <%= 0%>
-        <%}%>
-     </p>
-     <p id="fans">粉丝  <%if(user.fans){%>
-            <%= user.fans.length%>
-        <%}else{%>
-         <%= 0%>
-        <%}%></p>
-<%if(currentUser.name != user.name){%>
-        <%if(user.fans.indexOf(currentUser.name)==-1){%>
-              <p><a data-name="<%= user.name%>" id="makeFriends" href="javascript:">+加关注</a> </p>  
-        <%}else{%>
-         <p>已关注</p>
-        <%}%>
+    <div class="am-panel am-panel-default">
+      <div class="am-panel-hd">公告</div>
+      <div class="am-panel-bd">
+           <p name = "name">用户名:<%= user.name%></p>
+             <p>游记：<%=posts.length%></p>
+             <p >关注:
+                <%if(user.friends){%>
+                    <%= user.friends.length%>
+                <%}else{%>
+                 <%= 0%>
+                <%}%>
+             </p>
+             <p id="fans">粉丝  <%if(user.fans){%>
+                <%= user.fans.length%>
+                <%}else{%>
+                 <%= 0%>
+                <%}%></p>
+               <%if(currentUser.name != user.name){%>
+                <%if(user.fans.indexOf(currentUser.name)==-1){%>
+                      <p class="makeFriends"><a data-name="<%= user.name%>" id="makeFriends" href="javascript:">+加关注</a> </p>  
+                <%}else{%>
+                 <p class="makeFriends">已关注</p>
+                <%}%>
 
-<%}%>
+        <%}%>
+      </div>
+    </div>
   </div>
 </div>
 </div>

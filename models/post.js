@@ -122,8 +122,8 @@ Post.getTen = function(username, page, callback) {
       collection.count(query, function (err, total) {
         //根据 query 对象查询，并跳过前 (page-1)*6个结果，返回之后的6个结果
         collection.find(query, {
-          skip: (page - 1)*2,
-          limit: 2
+          skip: (page - 1)*5,
+          limit: 5
         }).sort({
           time: -1
         }).toArray(function (err, docs) {

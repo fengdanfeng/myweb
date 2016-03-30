@@ -99,6 +99,53 @@ ol,
 ul {
   list-style: none;
 }
+.am-control-nav {
+  bottom: 24px !important;
+}
+.centerList {
+  width: 100%;
+}
+.centerList .am-tabs {
+  margin: 0 auto;
+}
+.centerList .am-tabs .tabNav {
+  border-radius: 5px;
+  height: 60px;
+  background-color: #fff;
+}
+.centerList .am-tabs .tabNav a {
+  font-size: 22px;
+}
+.centerList .hotlist {
+  width: 100%;
+}
+.centerList .hotlist .postListPart {
+  width: 500px;
+  height: 500px;
+  float: left;
+  margin-left: 100px;
+  margin-top: 40px;
+  border: 1px solid #ccc;
+}
+.centerList .hotlist .postListPart .img {
+  width: 100%;
+  height: auto;
+}
+.centerList .hotlist .postListPart .ulogo {
+  margin-top: -30px;
+  margin-left: 200px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo {
+  margin-top: 20px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo h4 {
+  font-size: 20px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo .postdetail {
+  margin-top: 20px;
+  margin-left: -40px;
+  font-size: 14px;
+}
 .center-container {
   width: 1200px;
   height: 1200px;
@@ -111,9 +158,9 @@ ul {
   float: left;
   height: 100%;
   color: #fff;
-  border: 1px solid #193e5c;
+  border: 1px solid #9aa099;
   border-radius: 2px;
-  background-color: #193e5c;
+  background: rgba(25,62,92,0.4);
 }
 .center-container .left-container .user {
   height: 100px;
@@ -129,7 +176,7 @@ ul {
   font-size: 24px;
 }
 .center-container .left-container .aul {
-  border: 1px solid #2e5a7b;
+  border: 1px solid #9aa099;
   height: 70px;
 }
 .center-container .left-container .aul .white {
@@ -140,7 +187,7 @@ ul {
   list-style: none;
   width: 65px;
   height: 70px;
-  border: 1px solid #2e5a7b;
+  border: 1px solid #9aa099;
   text-align: center;
   font-size: 18px;
 }
@@ -177,7 +224,7 @@ ul {
   padding: 10px;
   margin-left: 20px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  background-color: #fff;
 }
 .center-container .tag {
   width: 20px;
