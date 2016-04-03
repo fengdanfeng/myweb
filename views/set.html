@@ -1,16 +1,34 @@
-3<%- include header.html %>
+<%- include header.html %>
 <div style="background-image: url(/images/beijing2.jpg);background-repeat: repeat; margin-top:-30px; width: 100%;z-index:-100;">
 <div class="center-container">
-	<div class="left-container">
+    <div class="left-container">
        <div class="user">
-          <img class=".ulogo" src="/images/ulogo.png">
-          <span></span>
+      <%if(!currentUser.ulog){%>
+          <img src="/images/ulogo.png">
+      <%}else{%>
+        <img src="<%=currentUser.ulog%>">
+      <%}%>
+          <span id="a"><%-currentUser.name%></span>
        </div>
        <div class="uabout">
             <div class="aul">
-               <li><a href="/attention"><p class="white">1</p><p class="low">关注</p></a> </li>
-               <li><a href="fans"><p class="white">2</p><p class="low">粉丝</p></a></li>
-               <li><a href="/postlist"><p class="white">4</p><p class="low">游记</p></a></li>
+               <li><a href="/attention"><p  class="white">    <%if(currentUser.friends){%>
+                              <%= currentUser.friends.length%>
+                          <%}else{%>
+                           <%= 0%>
+                          <%}%>
+                  </p><p class="low">关注</p></a> </li>
+               <li><a href="/fans"><p class="white">
+                 
+                 <%if(currentUser.fans){%>
+                              <%= currentUser.fans.length%>
+                          <%}else{%>
+                           <%= 0%>
+                          <%}%>
+               </p><p class="low">粉丝</p></a></li>
+               <li><a href="/postlist"><p class="white">
+                 0
+               </p><p class="low">游记</p></a></li>
             </div>
        </div>
        <div class="ulist">
@@ -30,7 +48,7 @@
                   修改个人信息
               </h2>
           </div>
-          <form class="setForm" id="setForm1">
+          <form class="setForm" id="setForm1" name="picForm" encype = "multipart/form-data" >
                <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">姓名</label>
                   <div class="am-u-sm-10">
@@ -58,8 +76,9 @@
                 </div>
                 <div class="am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">头像</label>
-                  <input  id="img" name="ulogo" type="file" accept="image/png,image/gif" / />
-                  <div class="ulogo" id="#ulogo"></div>
+                  <input  id="imgfile" name="ulog" type="file" accept="image/png,image/gif" />
+                  <div class="ulogo">
+                  </div>
                 </div>
 
           </form>

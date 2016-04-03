@@ -111,6 +111,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-
+// 新增图片地址
+app.use(express.static(path.join(__dirname, 'public')));
 //输出模型app
 module.exports = app;

@@ -79,8 +79,12 @@
 <div class="center-container">
     <div class="left-container">
        <div class="user">
+      <%if(!currentUser.ulog){%>
           <img src="/images/ulogo.png">
-          <span id="a"><%-user.name%></span>
+      <%}else{%>
+        <img src="<%=currentUser.ulog%>">
+      <%}%>
+          <span id="a"><%-currentUser.name%></span>
        </div>
        <div class="uabout">
             <div class="aul">

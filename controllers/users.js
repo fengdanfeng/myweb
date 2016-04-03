@@ -12,8 +12,8 @@ router.getIndex = function (req, res) {
         if (err) {
             posts = [];
         }
-        console.log(posts);
         var currentUser = req.session.user;
+        console.log(currentUser);
         //调用模板引擎，并传递参数给模板引擎
         res.render('index', {
                 title: '首页', 
@@ -129,7 +129,8 @@ router.setUserInfo = function(req,res){
     var username = req.body.username;
     var sex = req.body.sex;
     var userInfo = req.body.userInfo;
-    User.change( username,sex,userInfo, function (err) {
+    var ulog = req.body.ulog;
+    User.change( username,sex,userInfo,ulog, function (err) {
          console.log(err);
         if (err) {
                 req.flash('error', err);
@@ -138,10 +139,9 @@ router.setUserInfo = function(req,res){
           res.json({code:0});
      })
 }
-router.uploadUserImgPre = function(req, res) {
+router.uploadUserImgPre = function(req, res, next) {
   //生成multiparty对象，并配置上传目标路径
-  var form = new multiparty.Form({uploadDir: '../public/images'});
-     form.encoding = 'utf-8';
+  var form = new multiparty.Form({uploadDir: './public/images/upload'});
   form.parse(req, function(err, fields, files) {
     var filesTmp = JSON.stringify(files);
  
@@ -149,12 +149,16 @@ router.uploadUserImgPre = function(req, res) {
       console.log('parse error: ' + err);
     } else {
       testJson = eval("(" + filesTmp+ ")"); 
-      console.log(testJson.fileField[0].path);
-      res.json({imgSrc:testJson.fileField[0].path})
+      // console.log(testJson.ulog[0].path);
+      testJson.ulog[0].path=testJson.ulog[0].path.replace('public','');
+      testJson.ulog[0].path=testJson.ulog[0].path.replace(/\\/g,'\/');
+      req.session.user['ulog'] = testJson.ulog[0].path;
+      console.log(req.session.user);
+      res.json({imgSrc:testJson.ulog[0].path})
+      console.log('rename ok');
     }
-
   });
-}
+},
 
 router.makeFriends =  function (req, res) {
     var currentUser = req.session.user;
@@ -180,7 +184,8 @@ router.getFans = function(req,res){
         console.log(fans);
         res.render('fans', {
             title:"粉丝",
-            mfans:fans
+            mfans:fans, 
+            currentUser: req.session.user
         });
 
     })
@@ -196,7 +201,8 @@ router.getFriends = function(req,res){
         console.log(fans);
         res.render('attention', {
             title:"粉丝",
-            mfans:fans
+            mfans:fans,
+            currentUser: req.session.user
         });
 
     })

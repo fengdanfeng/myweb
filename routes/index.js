@@ -60,12 +60,12 @@ router.get('/fans',User.getFans);
 router.get('/attention', User.getFriends);
 //游记
 router.get('/postlist', function (req, res) {
-        res.render('postlist',{title:'发布游记'});
+        res.render('postlist',{title:'发布游记', currentUser: req.session.user});
     });
 
 //设置
 router.get('/set', function (req, res) {
-    res.render('set', {title: '用户设置个人信息'});
+    res.render('set', {title: '用户设置个人信息', currentUser: req.session.user});
 });
 
 //退出

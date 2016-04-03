@@ -45,7 +45,7 @@ User.prototype.save = function save(callback) {
         });
     });
 }
-User.change = function change(username, sex, useInfo,callback) {
+User.change = function change(username, sex, useInfo,ulog,callback) {
   //打开数据库
   mongodb.open(function (err, db) {
     if (err) {
@@ -61,7 +61,7 @@ User.change = function change(username, sex, useInfo,callback) {
       collection.update({
         "name":username,
       },{
-        $set:{"sex":sex,"useInfo": useInfo}
+        $set:{"sex":sex,"useInfo": useInfo,"ulog":ulog}
       }, function (err) {
         mongodb.close();
           return callback(err);
