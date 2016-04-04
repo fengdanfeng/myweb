@@ -24,7 +24,7 @@ $(function(){
           console.log('aaa');
             $.ajax({
                 type : 'post',
-                url : '/uploadUserImgPre',
+                url : '/uploadUserLogo',
                 data: formData , 
                 processData:false,
                 async:false,

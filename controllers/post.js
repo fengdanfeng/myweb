@@ -1,4 +1,4 @@
-var express = require('express');
+ var express = require('express');
 var router = express.Router();//创建模块化安装路径的处理程序。
 var crypto = require('crypto');//加载生成MD5值依赖模块
 var User = require('../models/user.js');//加载用户保存和获取模块
@@ -6,9 +6,15 @@ var Post = require('../models/post.js');//加载用户保存和获取模块
 
 router.post = function (req, res) {
     var currentUser = req.session.user,
-        tags = [req.body.tag1, req.body.tag2, req.body.tag3];
-        console.log(currentUser);
-    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post);
+        tags = [req.body.tag1, req.body.tag2, req.body.tag3],
+        Img=req.body.postImg;
+        if(!Array.isArray(Img)){
+          var postImg = [];
+            postImg.push(Img);
+        }else{
+          var postImg = Img;
+        } 
+    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,postImg);
     post.save(function (err) {
       if (err) {
         req.flash('error', err); 
@@ -48,7 +54,7 @@ router.getTen = function (req, res) {
             res.json({code:1,page:page,post:posts});
         }
         //调用模板引擎，并传递参数给模板引擎
-  
+         console.log(posts);
         res.json({code:0,page:page,total:total,post:posts});
     });
 },
@@ -101,7 +107,6 @@ router.deleteOnePost=function (req, res) {
 // 更新游记
 router.editUpdate =  function (req, res) {
     var currentUser = req.session.user;
-    console.log(currentUser);
     Post.update(currentUser.name, req.params.day, req.params.title, req.body.post, function (err) {
       // var url = encodeURI('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
       if (err) {
@@ -140,8 +145,6 @@ router.reprint = function (req, res) {
       var currentUser = req.session.user,
           reprint_from = {name: post.name, day: post.time.day, title: post.title},
           reprint_to = {name: currentUser.name};
-          console.log(reprint_from);
-          console.log(currentUser);
       Post.reprint(reprint_from, reprint_to, function (err, doc) {
         if (err) {
           req.flash('error', err); 

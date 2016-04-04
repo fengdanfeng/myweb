@@ -79,7 +79,10 @@ router.get('/logout', function (req, res) {
 //针对处理post请求，使用http invoker或ajax post向服务器端的地址（http://localhost:8001/users）提交post请求进行测试
 // 用户修改个人信息
 router.post('/setForm1', User.setUserInfo);
-// 上传图片
+// 上传头像图片
+router.post('/uploadUserLogo',User.uploadUserLogo);
+
+// 上传游记图片
 router.post('/uploadUserImgPre',User.uploadUserImgPre);
 function checkNotLogin(req, res, next) {
     if (req.session.user)//用户存在

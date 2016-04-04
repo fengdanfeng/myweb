@@ -7,12 +7,18 @@
 	  <input type="text" name="tag1" /><input type="text" name="tag2" /><input type="text" name="tag3" /><br />
 	  正文：<br />
 	  <textarea name="post" rows="10" cols="100"></textarea><br />
+	  <!-- <input type="file" id="imgfile" accept="image/png,image/gif" />
+	  <div class="sayImg">
+	   
+	</div> -->
+	<div class="upload_item" index="0" style="display:none;">
+		<span class="upload_item_add" onclick="ADD.upload_click(this)">+</span><input type="file" name="pics" id="pics" class="upload_input" onchange="ADD.upload_change(this)" />
+    </div>
+    <div class="upload_item" index="1">
+    	<span class="upload_item_add" onclick="ADD.upload_click(this)">+</span><input type="file" name="pics" id="pics" class="upload_input" onchange="ADD.upload_change(this)" />
+    </div>
 	  <input type="submit" value="发表" />
-	     <input type="file" id="imgfile" accept="image/png,image/gif" />
 	</form>
-	<div>
-	    <img src="" id="imgPic">
-	</div>
 
 </div>
 <script type="text/javascript" src="/js/p/say.js"></script>

@@ -32,6 +32,14 @@ if(index % 3 == 0){ %>
           <% } %>
         <% }) %></p>
      <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.post%></a>
+ 
+        <p class="postImg">
+         <% post.postImg.forEach(function (postImg, index) { %>
+          <% if (postImg) { %>
+           <img class="showImg" src="<%=postImg%>" />
+           <% } %>
+        <% }) %></p>
+  
     </div>
     <div class="am-comment-bd" style="font-size: 14px;">
      <span>阅读 <i><%=post.pv %> |</i></span>

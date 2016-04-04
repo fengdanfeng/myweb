@@ -2,7 +2,7 @@
 var mongodb = require('./db'),
     markdown = require('markdown').markdown;
 //Post构造函数，用于创建对象
-function Post(name,time, title, tags, post,comments,reprint_info,pv) {
+function Post(name,time, title, tags, post,postImg,comments,reprint_info,pv) {
   this.name = name;
   this.time = time
   this.title = title;
@@ -11,6 +11,7 @@ function Post(name,time, title, tags, post,comments,reprint_info,pv) {
   this.comments = comments;
   this.reprint_info = reprint_info;
   this.pv = pv;
+  this.postImg = postImg;
 }
 
 module.exports = Post;
@@ -35,6 +36,7 @@ Post.prototype.save = function(callback) {
       title:this.title,
       tags: this.tags,
       post: this.post,
+      postImg:this.postImg,
       comments: [],
       reprint_info: {},
       pv: 0
@@ -135,8 +137,9 @@ Post.getTen = function(username, page, callback) {
                 //遍历查询结果
                 docs.forEach(function (doc, index) {
                     //把结果封装成Post对象
-                    var post = new Post(doc.name, doc.time,doc.title,doc.tags,doc.post,doc.comments,doc.reprint_info,doc.pv);
+                    var post = new Post(doc.name, doc.time,doc.title,doc.tags,doc.post,doc.postImg,doc.comments,doc.reprint_info,doc.pv);
                     //把全部结果封装成数组
+
                     posts.push(post);
                 });
                 callback(null, posts);
