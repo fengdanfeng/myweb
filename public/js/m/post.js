@@ -65,6 +65,7 @@ $("#saveLocal").on('click',function(){
             alert('发布成功')
         },
         error:function(){
+            alert("请稍后。。");
             var createPost= JSON.stringify($("#mPostForm").serializeObject());
             // 将json格式的数据存到缓存
            localStorage.setItem("createPost"+Date.now(),createPost);
