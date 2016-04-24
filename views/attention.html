@@ -33,10 +33,10 @@
        </div>
        <div class="ulist">
            <ul>
-                <li><a href="/"><i class="icon-15-3-1"></i> 我的首页</a></li>
+                <li><a href="/u"><i class="icon-15-3-1"></i> 我的首页</a></li>
                 <li class="active"><a class="active" href="/attention"><i class="icon-15-1-2"></i> 我的关注</a></li>
                 <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
-                <li><a href="/postlist"><i class="icon-15-3-4"></i> 我的游记</a></li>
+                <li><a href="/postlist"><i class="icon-15-3-4"></i> 写游记</a></li>
                 <li><a href="/set"><i class="icon-15-4-1"></i> 设置</a></li>
             </ul>
 
@@ -58,14 +58,11 @@
                 <li>
                   <img src="images/ulogo.png" style="float: left;width: 60px;height: 60px;margin-right: 20px;margin-top:-6px;border-radius: 60px;">
                   <span style="margin-top:15px;" class="am-badge am-badge-success">
-                    <a href="#" style="color: #fff;"> 取消关注</a></span> 
+                    <a href="/friends/<%=currentUser.name%>/<%=friends%>" style="color: #fff;"> 取消关注</a></span> 
                   <a href="/u/<%= friends%>"> <%= friends%></a>
                 </li>
                 <%})%>
           </ul>
-        </div>
-        <div class="am-tab-panel">
-   
         </div>
       </div>
     </div>

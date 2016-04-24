@@ -1,5 +1,6 @@
 <%- include header.html %>
-<div class="article-part userPart">
+<div   style="background-color: #fff; height: 100%; padding-top: 20px;">
+<div class="article-part">
 <form method="post">
   标题：<br />
   <input type="text" name="title" value="<%= post.title %>" disabled="disabled" /><br />
@@ -8,8 +9,22 @@
   <input type="text" name="tag2" value="<%= post.tags[1] %>" disabled="disabled" />
   <input type="text" name="tag3" value="<%= post.tags[2] %>" disabled="disabled" /><br />
   正文：<br />
-  <textarea name="post" rows="20" cols="100"><%= post.post %></textarea><br />
-  <input type="submit" value="保存修改" />
+  <textarea name="post" rows="10" cols="100"><%= post.post %></textarea><br />
+   <div class="am-gallery-item">
+                <% post.postImg.forEach(function (postImg, index) { %>
+                  <p class="postIndexImg">
+                    <% if (postImg) { %>
+                      <div class="am-gallery-item">
+                    <a class="show" href="<%=postImg%>" title="<%=post.title%>">  
+                    <img class="showImg" src="<%=postImg%>" />
+                    <%}%></a>
+                  <%})%>
+                </p>
+  </div>
 </form>
+<div style="clear: both;padding-top: 1em;margin-bottom: 1em;">
+   <input class="am-btn am-btn-success" type="submit" value="保存修改" />
+</div>
+</div>
 </div>
 <%- include footer.html %>

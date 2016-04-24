@@ -1,5 +1,4 @@
 <%- include header.html %>
-<% if(!user){ %><!--未登录时显示登陆信息-->
 <!-- 轮播图 -->
 <div class="slider" style="margin-top: -5px;width: 100%;position: relative;"> 
     <div data-am-widget="slider" class="am-slider am-slider-d2" data-am-slider='{"directionNav":false}' >
@@ -28,7 +27,7 @@
     </div>
 </div>
 <!-- end轮播图 -->
-<div class="centerList">
+<div class="centerList"style="background-color: #fff;margin-top: -20px; ">
   <div data-am-widget="tabs"
        class="am-tabs am-tabs-d2"
         >
@@ -43,9 +42,16 @@
           <% posts.forEach(function(post, index){%>
                 <div class="postListPart">
                 <a href="/u/<%= post.name %>">
-                  <img  src="images/slider1.jpg">
+                <%if(!post.postImg[0]){%>
+                 <img class="firstImg" src="/images/slider1.jpg">
+                <%}else{%>
+                 <img class="firstImg" src="<%= post.postImg[0]%>">
+                <%}%>
                   <div class="ulogo">
-                    <img class="am-circle" src="images/ulogo.png" width="80" height="80"/>
+                    <a href="/u/<%= post.name %>">
+                      <img src="<%=post.userLogo%>"class="am-circle" width="80" height="80"/>
+                    </a>
+                 <!--    <img class="am-circle" src="images/ulogo.png" width="80" height="80"/> -->
                     <div class="postsInfo">
                         <h4><%=post.title%></h4>
                         <div class="postdetail">
@@ -74,149 +80,5 @@
       </div>
   </div>
 </div>
-<% }else{ %><!--登陆后，显示个人主页-->
-<div style="background-image: url(/images/beijing2.jpg);background-repeat: repeat; margin-top:-10px; width: 100%;z-index:-100;">
-<div class="center-container">
-    <div class="left-container">
-       <div class="user">
-      <%if(!currentUser.ulog){%>
-          <img src="/images/ulogo.png">
-      <%}else{%>
-        <img src="<%=currentUser.ulog%>">
-      <%}%>
-          <span id="a"><%-currentUser.name%></span>
-       </div>
-       <div class="uabout">
-            <div class="aul">
-               <li><a href="/attention"><p  class="white">    <%if(currentUser.friends){%>
-                              <%= currentUser.friends.length%>
-                          <%}else{%>
-                           <%= 0%>
-                          <%}%>
-                  </p><p class="low">关注</p></a> </li>
-               <li><a href="/fans"><p class="white">
-                 
-                 <%if(currentUser.fans){%>
-                              <%= currentUser.fans.length%>
-                          <%}else{%>
-                           <%= 0%>
-                          <%}%>
-               </p><p class="low">粉丝</p></a></li>
-               <li><a href="/postlist"><p class="white">
-                 0
-               </p><p class="low">游记</p></a></li>
-            </div>
-       </div>
-       <div class="ulist">
-            <ul>
-                <li class="active"><a class="active"  href="/"><i class="icon-15-1-1"></i> 我的首页</a></li>
-                <li><a href="/attention"><i class="icon-15-3-2"></i> 我的关注</a></li>
-                <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
-                <li><a href="/postlist"><i class="icon-15-3-4"></i> 我的游记</a></li>
-                <li><a href="/set"><i class="icon-15-4-1"></i> 设置</a></li>
-            </ul>
-       </div>
-    </div>
-     <div class="right-container">
-    <div class="am-tabs" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
-      <ul class="am-tabs-nav am-nav am-nav-tabs">
-        <li class="am-active"><a href="javascript: void(0)">好友游记</a></li>
-        <li><a href="javascript: void(0)">我的游记</a></li>
-      </ul>
-      <div class="am-tabs-bd">
-        <div class="am-tab-panel am-active" id="allList">
-         <%- include posts.html %>
-        <script type="text/template"  id="allPosts" >
-             <article href="/u/<#= post.name #>" class="am-comment " style="margin-bottom: 10px;width: 650px;">
-                <a href="/u/<#= post.name #>" >
-                  <img src="/images/ulogo.png" alt="" class="am-comment-avatar" width="48" height="48"/>
-                </a>
-                <div class="am-comment-main">
-                  <header class="am-comment-hd">
-                    <h3 style="padding: 7px; margin-left: 10px;" class="am-comment-title">
-                      <a href="/u/<#= post.name #>" class="am-comment-author"><#=post.name#>:</a>
-                      <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>"><#=post.title#></a>
-                    </h3>
-                    <div class="am-comment-meta">
-                    <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=post.time.minute#></time>
-                    </div>
-                  <#if(a==post.name){#>
-                    <div style="float: right;">
-                       <a  href="/edit/<#=post.name #>/<#=post.time.day #>/<#= post.title #>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
-                    </div>
-                  <#}#>
-                  </header>
-
-                  <div class="am-comment-bd">
-                     <p>
-                          <# post.tags.forEach(function (tag, index) { #>
-                            <# if(tag) { #>
-                              <a class="tag" href="/tags/<#=post.tags #>"><#= tag #></a>
-                            <# } #>
-                          <# }) #>
-                      </p>
-                     <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>"><#=post.post#></a>
-                  </div>
-                  <div class="am-comment-bd" style="font-size: 14px;">
-                   <span>阅读: <i><#=post.pv #> |</i></span>
-                    <span><a href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>">评论 <i><#= post.comments.length #> |</i></a></span>
-                   <span><a href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载  <# if (post.reprint_info.reprint_to) { #>
-                                      <#= post.reprint_info.reprint_to.length #>
-                                    <# } else { #>
-                                      <#= 0 #>
-                                    <# } #> 
-                    </i></a></span>
-                  </div>
-                </div>
-              </article>
-          </script>
-        </div>
-        <p style="margin-left: 400px;display: none;"  id="notMore">没有更多了~</p>
-                <div class="am-tab-panel">
-           <%- include posts.html %>
-        </div>
-      </div>
-  <button class="am-btn am-btn-primary am-btn-block" id="moreten">获取更多</button>
-
-    </div>
-  </div> 
-</div>
-</div>
-<% } %>
 <!-- end center-container -->
 <%- include footer.html %>
-<script type="text/javascript">
-      var page = 2;
-    $("#moreten").click(function(){ 
-      var me =this;
-      console.log(page);
-      var a = document.getElementById("a").innerHTML;     
-        $.ajax({
-              type:"post",
-              url: '/getMore',
-              async: false, 
-              data:{page:page},
-              success: function(d){
-                if(d.code == 0){
-                  for(var i= 0; i<d.post.length;i++){
-                    var temp =  tpl('#allPosts', {post:d.post[i],a:a});
-                    $("#allList").append(temp);
-                    page = parseInt(d.page)+1;
-                    console.log(page);
-                  } 
-                }else{  
-                          alert('请求失败');
-                }  
-                if (d.post.length == 0) {
-                      $("#moreten").hide();
-                      $('#notMore').show();
-                      $('#notMore').animate({
-                            opacity: "hide"
-                        }, "slow")
-                }
-                        
-             }
-           });
-
-    });
-</script>

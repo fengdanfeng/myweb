@@ -1,0 +1,21 @@
+@require 'bg-image'
+@require 'ie'
+
+// sprite('img/sprite-50.png', 50, 10, 3)
+sprite($img, $grid, $x, $y) {
+    .icon{$grid}{$x}{$y} {
+        inline-block()
+        bg( $img, no-repeat )
+        width: ($grid)px
+        height: ($grid)px
+        vertical-align: middle
+    }
+    for $i in 1..$x {
+        for $j in 1..$y {
+            .icon-{$grid}-{$j}-{$i} {
+                @extend .icon{$grid}{$x}{$y}
+                background-position: (-($i - 1) * $grid)px (-($j - 1) * $grid)px
+            }
+        }
+    }
+}

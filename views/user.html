@@ -5,7 +5,7 @@
  <div class="user-left">
   <% posts.forEach(function (post, index) { %>
     <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
-        <h2 class="am-titlebar-title "><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
+        <h2 class="am-titlebar-title "><a href="/u/<%=post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
        </div>
             <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a>
           <p class="info">
@@ -24,7 +24,7 @@
           <p class="info"><%- post.post %></p>
           <p class="info">
             阅读：<%= post.pv %> | 
-            <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">评论：</a><%= post.comments.length %> | 
+            <a href="/u/<%= post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>">评论 <i><%= post.comments.length %> |</i></a>
             <a href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="text-decoration: none; color: #383535;"> 转载:
             <% if (post.reprint_info.reprint_to) { %>
               <%= post.reprint_info.reprint_to.length %>
@@ -48,11 +48,11 @@
                  <%= 0%>
                 <%}%>
              </p>
-             <p id="fans">粉丝  <%if(user.fans){%>
+             <p >粉丝 <span id="fans"> <%if(user.fans){%>
                 <%= user.fans.length%>
                 <%}else{%>
                  <%= 0%>
-                <%}%></p>
+                <%}%></span></p>
                <%if(currentUser.name != user.name){%>
                 <%if(user.fans.indexOf(currentUser.name)==-1){%>
                       <p class="makeFriends"><a data-name="<%= user.name%>" id="makeFriends" href="javascript:">+加关注</a> </p>  
@@ -73,8 +73,8 @@
          $.get("/friends",{name:name},function(d){
             if(d.code==0){
               $("#makeFriends").html("已关注");
-              var fans =$("#fans").val()+1;
-              $("#fans").html('粉丝:'+fans);
+              var fans =parseInt(document.getElementById('fans').innerHTML)+1;
+              $("#fans").html(fans);
              alert("关注成功");
             }
           });

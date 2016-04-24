@@ -1,0 +1,58 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+ 	</div>	
+<div class="mUserLoginForm">
+	<form class=" df-form am-form am-form-horizontal"  method="post" >
+  <div class="am-form-group">
+    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">姓名</label>
+    <div class="am-u-sm-10">
+      <input type="text" id="uname" name="username" placeholder="">
+    </div>
+  </div>
+
+  <div class="am-form-group">
+    <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">密码</label>
+    <div class="am-u-sm-10">
+      <input type="password" id="upwd" name="userpwd" placeholder="输入密码">
+    </div>
+  </div>
+
+  <div class="am-form-group">
+    <div class="am-u-sm-10 am-u-sm-offset-2">
+      <button type="submit" class="am-btn am-btn-success am-btn-xl">登录</button>
+      <button  class="am-btn am-btn-success am-btn-xl" style="margin-left: 3em;">
+      <a style="color: #fff;" href="/m/mregister">注册</a> </button>
+    </div>
+  </div>
+</form>
+</div>
+<div class="app-footer">
+<div data-am-widget="navbar" class="app-footer am-navbar am-cf"
+      id="">
+     <div class="circleAdd">
+               <p>+</p>
+     </div>
+      <ul class="am-navbar-nav am-cf am-avg-sm-6" style="    z-index: -1;">
+          <li>
+            <a href="/m"  >
+                  <span class="am-icon-star"></span>
+                <!-- <span class="am-navbar-label">主页</span> -->
+            </a>
+          </li>
+         <li >
+            <a href="/m/muser" class="mactive">
+                  <span class="am-icon-user"></span>
+               <!--  <span class="am-navbar-label">我</span> -->
+            </a>
+          </li>
+      </ul>
+
+  </div>
+  </div>
+<%- include foot.html %>

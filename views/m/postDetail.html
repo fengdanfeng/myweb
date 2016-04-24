@@ -1,0 +1,80 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+ 	</div>	
+ 	<div class="userPanel">
+ 		<img src="/images/mUser1.png">
+ 	 <%if(post){%>
+ 	 	<div class="mUserLogo">
+ 	 	<div style="z-index: 1000;position: absolute;color: #fff;">
+ 			<h4>&nbsp;<i class="am-icon-calendar">&nbsp;</i><%=post.time.day%></h4>
+ 		</div>
+ 	 		<%if(post.userLogo){%>
+			  <a href="/m/userDetail/<%=post.name%>"> <img src="<%=post.userLogo%>">
+			  </a>
+ 	 		<%}else{%>
+ 			 <img src="/images/ulogo.png">
+ 			<%}%>
+      <%if(post.title){%>
+      <p><span>用户<%=post.name%>:</span> <%=post.title%></p>
+      <%}%>
+ 			
+ 		</div>
+ 	 <%}%>
+ 	 	<div class="postDetail">
+			<div class="post-title">
+				<h3>心情物语</h3>
+			</div>
+			<div class="post-post">
+			
+				<p><%=post.post%></p>
+			</div>
+			<%if(post.postImg[0])%>
+			<div class="post-title">
+				<h3>图片画廊</h3>
+			</div>
+			<div class="post-post"  data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}" >
+			<%post.postImg.forEach(function(postImg,index){%>
+				  <div class="am-gallery-item" style="margin-top: 1em;">
+	          	  <a href="<%=postImg%>" title="<%=post.title%>">
+	              <img src="<%=postImg%>"  alt="<%=post.title%>"/></a>
+				</div>
+				
+		
+				<%})%>
+		   </div>
+		   <%if(post.comments[0]){%>
+		   	<div class="post-title">
+				<h3>评论列表</h3>
+			</div>
+		   	      <% post.comments.forEach(function (comment, index) {%>
+			        <div class="commentContent">
+			          <div class="commentList">
+			          <%if(comment.commetLogo){%>
+			          <img src="<%= comment.commetLogo %>" class="m_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
+			          <%}else{%>
+			          <img src="/images/ulogo.png" class="m_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
+			          <%}%>
+			          <span class="info"> 评论于 <%= comment.time %></span>
+			          <%if(user){%>
+			            <%if(comment.name== user.name){%>
+			              <span>
+			              <a href="/<%=post.name%>/<%=post.postHead_MD5%>/<%=post.title%>/<%=comment.head%>">
+			              删除</a></span>
+			            <%}%>
+			           <%}%>
+			          </div>
+			          <p class="content"><%- comment.content %></p>
+			        </div>
+			      <% }) %>
+					
+		   <%}%>
+		</div>
+	</div>
+</body>
+<%- include foot.html%>

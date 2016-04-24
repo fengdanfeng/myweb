@@ -1,0 +1,18 @@
+CACHE MANIFEST
+CACHE:
+/js/amazeui.min.js
+/js/jquery.validator.js
+/js/jquery-1.8.3.min.js
+/js/tpl.js
+/js/m/post.js
+/css/amazeui.min.css
+/css/user.css
+/css/style.css
+/css/m/m.css
+/css/pc/base.css
+/css/jquery.validator.css
+/images/m/mlogo.png
+/fonts/fontawesome-webfont.woff2
+NETWORK:
+*
+FALLBACK:

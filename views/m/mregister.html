@@ -1,0 +1,39 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+ 	</div>
+ 	
+<%- include ../alert.html %>	
+<form class="df-form am-form am-form-horizontal"  method="post" >
+  <div class="am-form-group">
+    <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">用户名</label>
+    <div class="am-u-sm-10">
+      <input type="text" id="uname" name="username" placeholder="">
+    </div>
+  </div>
+
+  <div class="am-form-group">
+    <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">密码</label>
+    <div class="am-u-sm-10">
+      <input type="password" id="upwd" name="userpwd" placeholder="输入密码">
+    </div>
+  </div>
+  <div class="am-form-group">
+    <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">确认密码</label>
+    <div class="am-u-sm-10">
+      <input type="password" id="upwd2" name="pwdrepeat" placeholder="再次输入密码">
+    </div>
+  </div>
+  <div class="am-form-group">
+    <div class="am-u-sm-10 am-u-sm-offset-2">
+      <button type="submit" class="am-btn am-btn-success am-btn-xl" id="btnreg">注册</button>
+    </div>
+  </div>
+</form>
+</body>
+</html>

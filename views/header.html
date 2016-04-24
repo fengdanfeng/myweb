@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html manifest="/manifest.appcache">
+<html >
 <head>
     <title><%= title %></title>  
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel='stylesheet' href='/stylesheets/user.css'/>
-    <link rel='stylesheet' href='/stylesheets/pc/base.css'/>
-    <link rel='stylesheet' href='/stylesheets/amazeui.min.css'/>
-    <link rel='stylesheet' href='/stylesheets/jquery.validator.css'/>
+<!--     <link rel='stylesheet' href='/dist/css/main.css'/> -->
+     <link rel='stylesheet' href='/css/user.css'/>
+    <link rel='stylesheet' href='/css/style.css'/>
+    <link rel='stylesheet' href='/css/pc/base.css'/>
+    <link rel='stylesheet' href='/css/amazeui.min.css'/> 
+    <link rel='stylesheet' href='/css/jquery.validator.css'/>
     <link rel="icon" href="favicon.icon" type="image/icon" />
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/js/jquery.validator.js"></script>
@@ -15,9 +16,10 @@
     <!-- <script type="text/javascript" src="/js/smohan.face.js"></script> -->
     <meta charset="utf-8">
 </head>
-<body style=" ">
+<body style="background-image: url(/images/beijing2.jpg);background-repeat: repeat;margin-top:-10px;">
 <div id="header">
     <ul id="menus">
+        <% if(!user) { %>
         <li>
             <a href="/" class="menu introduce">  
              <!---start-logo---->
@@ -28,11 +30,20 @@
             </a>
         </li>
         <li><a href="/" class="menu">首页</a></li>
-        <% if(!user) { %>
         <li><a href="/login" class="menu">登录</a></li>
         <li><a href="/reg" class="menu">注册</a></li>
         <% }else{ %>
-        <li><a href="/" class="menu"> 欢迎您</a></li>
+         <li>
+            <a href="/u" class="menu introduce">  
+             <!---start-logo---->
+            <div class="logo">
+              <a href="/u"><img src="/images/logo.png" title="logo" /></a>
+            </div>
+            <!---End-logo---->
+            </a>
+        </li>
+        <li><a href="/u" class="menu">首页</a></li>
+        <li><a href="/u" class="menu"> 欢迎您</a></li>
         <li><a href="/logout" class="menu">退出</a></li>
         <% } %>
     </ul>

@@ -1,0 +1,42 @@
+<%- include header.html %>
+<body>
+<div class="am-topbar">
+    <div class="mNav">
+  	  <h1>
+  	  <img src="/images/m/mlogo.png">
+  	  旅途IN记</h1>
+  	</div>
+    <div class="am-topbar-right" >
+     		<a href=""><i  class="am-icon-search"></i></a>
+    </div>
+ </div>	
+  <div class="mpostForm">
+     <form  id="mPostForm">
+      <p>标题：</p>
+        <input type="text"class="am-form-field" name="title" />
+        <p>标签：</p>
+        <div>
+        <input type="text" class="mtag_input" name="tag1" /><input  class="mtag_input" type="text" name="tag2" /><input  class="mtag_input" type="text" name="tag3" />
+       </div>
+       <br />
+       <div>
+        <p>正文：</p>
+        <textarea name="post" style="width: 100%;height: 8em;"></textarea><br /><br />
+</div>
+    <!-- 上传图片 -->
+<div class="am-form-group am-form-file">
+  <button type="button" class="am-btn am-btn-danger am-btn-sm">
+    <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+  <input id="doc-form-file" type="file"name="pics" multiple onchange="previewImage(this, 'prvid')" >
+</div> 
+<div id="prvid"></div> 
+<div id="file-list"></div>
+
+<!--    <input type="submit" value="发表" /> -->
+  <div style="clear: both;margin-top:20px;">
+    <input class="am-btn am-btn-primary" type="text" value="发表" onclick="saveLocalstorage()" /> 
+  </div>
+  </form>
+</div>
+<%- include foot.html %>
+<script type="text/javascript" src="/js/m/post.js"></script>

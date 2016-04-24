@@ -1,0 +1,50 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+	  	<div></div>
+ 	</div>	
+ 	<div class="am-tabs-bd" id="follow-list" >
+
+ 		<%if(mfans.fans.length){%>
+        <div class="am-tab-panel am-active" >
+  			<ul class="am-list am-list-static am-list-border">
+               <%mfans.fans.forEach(function(fans,index){%>
+                <li>
+                  <img src="images/ulogo.png" style="float: left;width: 60px;height: 60px;margin-right: 20px;margin-top:-6px;border-radius: 60px;">
+                  <span style="margin-top:15px;" class="am-badge am-badge-success">
+                  <%if(mfans.friends.indexOf(fans) !== -1){%>
+                    <a href="#" style="color: #fff;">互相关注</a>
+                  <%}else{%>
+                    <a href="javascript:"class="follow-btn" data-id="<%=fans%>"  style="color: #fff;"> 加关注</a>
+                   <%}%>
+                  </span> 	
+                  <a href="/m/userDetail/<%=fans%>">   <%= fans%></a>
+                </li>
+                <%})%>
+            </ul>
+        </div>
+        <%}else{%>
+        	<div style="width: 100%;background-color: #fff;height: 4em;text-align: center;">
+        		<p style="padding-top: 1em;">您还没关注任何人哟</p>
+        	</div>
+        <%}%>
+    </div>
+</body>
+
+<%- include foot.html %>
+<script type="text/javascript">
+    $("#follow-list").on('click','.follow-btn',function(e){
+       var name=$(e.target).attr('data-id');
+         $.get("/friends",{name:name},function(d){
+            if(d.code==0){
+              $(e.target).html("互相关注");
+             alert("关注成功");
+            }
+          });
+     });
+</script>

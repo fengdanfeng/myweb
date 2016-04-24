@@ -1,10 +1,10 @@
-CACHE MANIFEST
+CACHE MANIFEST 
 CACHE:
-/stylesheets/amazeui.min.css
-/stylesheets/user.css
-/stylesheets/style.css
 
-/images/beijing1.jpg
+/images/beijing2.jpg
+/js/amazeui.min.js
+/js/tpl.js
+/js/jquery-1.8.3.min.js
 
 NETWORK:
 *

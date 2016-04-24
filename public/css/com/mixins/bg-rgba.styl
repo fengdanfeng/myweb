@@ -1,0 +1,21 @@
+// 半透明背景
+bg-rgba(args...) {
+    special = length(args) == 1 
+    r = special ? 0 : args[0]
+    g = special ? 0 : args[1]
+    b = special ? 0 : args[2]
+    
+    if (args[0]!='') {
+        a = special ? args[0] : args[3]
+    } else {
+        a = 0.3
+    } 
+
+    // Math.floor(opacity * 255).toString(16);
+    colorStr = unquote( '#' + base-convert( floor( a * 255 ), 16 ) + base-convert(r,16) + base-convert(g,16) + base-convert(b,16) )
+    
+    filter: s("progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=%s,EndColorStr=%s)", colorStr, colorStr); // IE5-8
+    background: rgba(0, 0, 0, a);
+
+    /:root & {filter:0;} // IE9+
+}

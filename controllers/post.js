@@ -7,21 +7,28 @@ var Post = require('../models/post.js');//加载用户保存和获取模块
 router.post = function (req, res) {
     var currentUser = req.session.user,
         tags = [req.body.tag1, req.body.tag2, req.body.tag3],
-        Img=req.body.postImg;
+        Img=req.body.postImg,
+        userLogo = req.body.userLogo;
+    var date = new Date(),
+        time = date.getTime().toString();
+    var md5 = crypto.createHash('md5'),
+        postHead_MD5 = md5.update(time.toLowerCase()).digest('hex');
+        console.log(postHead_MD5);
         if(!Array.isArray(Img)){
           var postImg = [];
             postImg.push(Img);
         }else{
           var postImg = Img;
         } 
-    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,postImg);
+    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,postImg,userLogo,postHead_MD5);
+   console.log(post);
     post.save(function (err) {
       if (err) {
         req.flash('error', err); 
-        return res.redirect('/');
+        return res.redirect('/u');
       }
       req.flash('success', '发布成功!');
-      res.redirect('/');//发表成功跳转到主页
+      res.redirect('/u');//发表成功跳转到主页
   });
 }
 router.getAll = function (req, res,next) {
@@ -60,7 +67,7 @@ router.getTen = function (req, res) {
 },
 // 获取一篇游记及其详情
 router.getOneArticle = function (req, res) {
-    Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
+    Post.getOne(req.params.name, req.params.day,req.params.postHead_MD5, req.params.title, function (err, post) {
       if (err) {
         req.flash('error', err); 
         return res.redirect('/');
@@ -94,14 +101,14 @@ router.edit= function (req, res) {
   },
 // 删除游记
 router.deleteOnePost=function (req, res) {
-    var currentUser = req.session.user;
-    Post.remove(currentUser.name, req.params.day, req.params.title, function (err) {
+    // var currentUser = req.session.user;
+    Post.remove(req.params.name, req.params.day,req.params.postHead_MD5, req.params.title, function (err) {
       if (err) {
         req.flash('error', err); 
-        return res.redirect('/');
+        return res.redirect('/u');
       }
       req.flash('success', '删除成功!');
-      res.redirect('/');
+      res.redirect('/u');
     });
   },
 // 更新游记
@@ -114,7 +121,7 @@ router.editUpdate =  function (req, res) {
         return res.redirect('/');//出错！返回文章页
       }
       req.flash('success', '修改成功!');
-      res.redirect("/");//成功！返回文章页
+      res.redirect("/u");//成功！返回文章页
     });
   },
 
@@ -123,7 +130,7 @@ router.getTag =function (req, res) {
     Post.getTag(req.params.tag, function (err, posts) {
       if (err) {
         req.flash('error',err); 
-        return res.redirect('/');
+        return res.redirect('/u');
       }
       res.render('tag', {
         title: 'TAG:' + req.params.tag,
@@ -137,7 +144,7 @@ router.getTag =function (req, res) {
 
 // 转载游记
 router.reprint = function (req, res) {
-    Post.edit(req.params.name, req.params.day, req.params.title, function (err, post) {
+    Post.edit(req.params.name, req.params.day,req.params.title, function (err, post) {
       if (err) {
         req.flash('error', err); 
         return res.redirect('back');
@@ -145,14 +152,14 @@ router.reprint = function (req, res) {
       var currentUser = req.session.user,
           reprint_from = {name: post.name, day: post.time.day, title: post.title},
           reprint_to = {name: currentUser.name};
-      Post.reprint(reprint_from, reprint_to, function (err, doc) {
+      Post.reprint(reprint_from, reprint_to,req.params.postHead_MD5, function (err, doc) {
         if (err) {
           req.flash('error', err); 
           return res.redirect('back');
         }
         req.flash('success', '转载成功!');
         // var url = encodeURI('/u/' + doc.name + '/' + doc.time.day + '/' + doc.title);
-        res.redirect('/');
+        res.redirect('/u');
       });
     });
   }

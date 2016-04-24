@@ -1,0 +1,380 @@
+/* reset */
+html {
+  font-size: 14px;
+  line-height: 1.5;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+caption,
+th {
+  text-align: left;
+}
+fieldset,
+img,
+iframe {
+  border: 0;
+}
+img {
+  -ms-interpolation-mode: bicubic;
+  max-width: 100%;
+  vertical-align: middle;
+}
+a {
+  background: transparent;
+  text-decoration: none;
+}
+small {
+  font-size: 85%;
+}
+strong {
+  font-weight: bold;
+}
+i,
+cite {
+  font-style: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+.am-control-nav {
+  bottom: 24px !important;
+}
+.centerList {
+  width: 100%;
+}
+.centerList .am-tabs {
+  margin: 0 auto;
+}
+.centerList .am-tabs .tabNav {
+  border-radius: 5px;
+  height: 60px;
+  background-color: #fff;
+}
+.centerList .am-tabs .tabNav a {
+  font-size: 22px;
+}
+.centerList .hotlist {
+  width: 100%;
+  text-align: center;
+}
+.centerList .hotlist .postListPart {
+  width: 500px;
+  height: 500px;
+  float: left;
+  margin-left: 100px;
+  margin-top: 40px;
+  border: 1px solid #ccc;
+}
+.centerList .hotlist .postListPart .bkImg {
+  width: 100%;
+  height: 300px;
+}
+.centerList .hotlist .postListPart .firstImg {
+  width: 100%;
+  height: 300px;
+}
+.centerList .hotlist .postListPart .ulogo {
+  margin-top: -30px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo {
+  margin-top: 20px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo h4 {
+  font-size: 20px;
+}
+.centerList .hotlist .postListPart .ulogo .postsInfo .postdetail {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.center-container {
+  width: 1200px;
+  height: 1200px;
+  padding: 40px;
+  margin-left: 60px;
+  border: 1px solide #ccc;
+}
+.center-container .left-container {
+  width: 200px;
+  float: left;
+  height: 100%;
+  color: #fff;
+  border: 1px solid #9aa099;
+  border-radius: 2px;
+  background: rgba(25,62,92,0.4);
+}
+.center-container .left-container .user {
+  height: 100px;
+}
+.center-container .left-container .user img {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 0 auto;
+}
+.center-container .left-container .user span {
+  color: #fff;
+  font-size: 24px;
+}
+.center-container .left-container .aul {
+  height: 70px;
+}
+.center-container .left-container .aul .white {
+  color: #fff;
+}
+.center-container .left-container .aul li {
+  float: left;
+  list-style: none;
+  width: 65px;
+  height: 70px;
+  border: 1px solid #9aa099;
+  text-align: center;
+  font-size: 18px;
+}
+.center-container .left-container .aul li .low {
+  margin-top: -15px;
+  color: #fff;
+}
+.center-container .left-container .ulist {
+  margin-left: -8px;
+}
+.center-container .left-container .ulist .active {
+  background-color: #f4f7fc;
+  color: #193e5c !important;
+  border-radius: 4px;
+}
+.center-container .left-container .ulist li {
+  display: block;
+  height: 35px;
+  font-size: 20px;
+  padding: 2px 10px 2px 10px;
+  margin-top: 10px;
+  margin-right: -2px;
+}
+.center-container .left-container .ulist li a {
+  text-decoration: none;
+  color: #fff;
+}
+.center-container .left-container .ulist li i {
+  margin-top: -2px;
+}
+.center-container .right-container {
+  float: left;
+  width: 900px;
+  padding: 10px;
+  margin-left: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+.center-container .right-container .am-tabs-bd ul {
+  margin-left: 20px;
+}
+.center-container .right-container .am-tabs-bd li {
+  width: 100%;
+  margin-top: 20px;
+}
+.center-container .right-container .am-tabs-bd .am-comment-bd {
+  padding-left: 50px;
+}
+.center-container .right-container .am-tabs-bd .postArticle {
+  padding: 15px;
+}
+.center-container .tag {
+  width: 20px;
+  height: 10px;
+  padding: 2px 8px 2px 8px;
+  border: 1px solid #3bb4f2;
+  border-radius: 5px;
+  background-color: #3bb4f2;
+  text-decoration: none;
+  color: #fff;
+}
+.icon1544,
+.icon-15-1-1,
+.icon-15-2-1,
+.icon-15-3-1,
+.icon-15-4-1,
+.icon-15-1-2,
+.icon-15-2-2,
+.icon-15-3-2,
+.icon-15-4-2,
+.icon-15-1-3,
+.icon-15-2-3,
+.icon-15-3-3,
+.icon-15-4-3,
+.icon-15-1-4,
+.icon-15-2-4,
+.icon-15-3-4,
+.icon-15-4-4 {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background: url(../images/minicon.png) no-repeat;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+}
+.icon-15-1-1 {
+  background-position: 0px 0px;
+}
+.icon-15-2-1 {
+  background-position: 0px -15px;
+}
+.icon-15-3-1 {
+  background-position: 0px -30px;
+}
+.icon-15-4-1 {
+  background-position: 0px -45px;
+}
+.icon-15-1-2 {
+  background-position: -15px 0px;
+}
+.icon-15-2-2 {
+  background-position: -15px -15px;
+}
+.icon-15-3-2 {
+  background-position: -15px -30px;
+}
+.icon-15-4-2 {
+  background-position: -15px -45px;
+}
+.icon-15-1-3 {
+  background-position: -30px 0px;
+}
+.icon-15-2-3 {
+  background-position: -30px -15px;
+}
+.icon-15-3-3 {
+  background-position: -30px -30px;
+}
+.icon-15-4-3 {
+  background-position: -30px -45px;
+}
+.icon-15-1-4 {
+  background-position: -45px 0px;
+}
+.icon-15-2-4 {
+  background-position: -45px -15px;
+}
+.icon-15-3-4 {
+  background-position: -45px -30px;
+}
+.icon-15-4-4 {
+  background-position: -45px -45px;
+}
+.setForm {
+  width: 600px;
+  margin: 30 auto;
+  font-size: 20px;
+  font-family: "微软雅黑";
+}
+.setForm .gr {
+  margin: 5px 1px 10px 1px;
+  height: 40px;
+}
+.article-part {
+  margin-left: 160px;
+}
+.upload_item {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border: 2px dashed #bfbfbf;
+  float: left;
+  margin-right: 10px;
+}
+.upload_item_add {
+  width: 50px;
+  height: 45px;
+  display: block;
+  line-height: 42px;
+  text-align: center;
+  font-size: 30px;
+  cursor: pointer;
+}
+.tag_input {
+  margin-right: 30px;
+  border-radius: 2px;
+  width: 200px;
+}
+.upLoadImg {
+  margin-bottom: 20px;
+}
+.upLoadImg .postImg {
+  width: 800px;
+  margin-bottom: 20px;
+}
+.upLoadImg .postImg img {
+  width: 150px;
+  height: 150px;
+  float: left;
+}
+.showImg {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 20px;
+  margin-top: 10px;
+}

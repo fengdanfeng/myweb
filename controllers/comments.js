@@ -8,19 +8,21 @@ var multiparty = require('multiparty');
 
 router.post =  function (req, res) {
     var date = new Date(),
-        time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
-               date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+        time =date.getTime().toString(),
+        commentTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
+            date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
     var md5 = crypto.createHash('md5'),
-        email_MD5 = md5.update(req.body.email.toLowerCase()).digest('hex');
+        comment_MD5 = md5.update(time.toLowerCase()).digest('hex');
     var comment = {
         name: req.body.name,
-        head: email_MD5,
+        head: comment_MD5,
         email: req.body.email,
         website: req.body.website,
-        time: time,
-        content: req.body.content
+        time: commentTime,
+        content: req.body.content,
+        commetLogo:req.body.commetLogo
     };
-    var newComment = new Comment(req.params.name, req.params.day, req.params.title, comment);
+    var newComment = new Comment(req.params.name,req.params.postHead_MD5, req.params.day ,req.params.title, comment);
     newComment.save(function (err) {
       if (err) {
         req.flash('error', err); 
@@ -29,7 +31,18 @@ router.post =  function (req, res) {
       req.flash('success', '留言成功!');
       res.redirect('back');
     });
-  }
+  },
+router.removeTest = function(req,res){
 
+    Comment.remove(req.params.name, req.params.postHead_MD5,req.params.title,req.params.head,function(err){
+      if (err) {
+        req.flash('error', err); 
+        return res.redirect('back');
+      }
+      req.flash('success', '删除成功!');
+        return res.redirect('back');
+
+    })
+}
 
 module.exports = router;

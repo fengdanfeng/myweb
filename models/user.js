@@ -8,7 +8,8 @@ function User(user) {
     this.ulog = user.ulog;
     this.friends = user.friends;
     this.fans = user.fans;
-
+    this.useInfo = user.useInfo;
+    this.fv = user.fv;
 };
 //输出User对象
 module.exports = User;
@@ -22,6 +23,8 @@ User.prototype.save = function save(callback) {
         ulog :this.ulog,
         friends :[],
         fans :[],
+        useInfo:this.useInfo,
+        fv:[],
     };
 
     mongodb.open(function(err, db) {
@@ -111,23 +114,105 @@ User.makeFriends =function makeFriends(username,friendsName,callback){
             collection.update({
                     name:friendsName
                 },{
-                    $push:{fans:username}
+                    $push:{'fans':username}
                  },function(err){
                         callback(err);
                  });
+
             collection.update({
                     name:username
                 },{
-                    $push:{friends:friendsName}
+                    $push:{'friends':friendsName}
                  },function(err){
                         callback(err);
                  });
         })
     });
 };
+/*取消关注*/
+User.withoutFriends =function withoutFriends(username,friendsName,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            return callback(err);
+        }
+        db.collection('users',function(err,collection){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            // 把当前用户名存到关注好友的fans字段
+            collection.update({
+                    name:friendsName
+                },{
+                    $pull:{'fans':username}
+                 },function(err){
+                        mongodb.close();
+                        callback(err);
+                 });
+                 console.log('aaa');
+            collection.update({
+                    name:username
+                },{
+                    $pull:{'friends':friendsName}
+                 },function(err){
+                        mongodb.close();
+                        callback(err);
+                 });
+        })
+    });
+};
 
-// 获取是个粉丝
+// 收藏游记
+User.collections=function collections(username,postHead,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection('users',function(err,collection){
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.update({name: username}, {
+                    $push:{'fv':postHead}
+                 },function(err,doc){
+                    if(err){
+                        callback(err);
+                    }
+                    callback(null);
+                 });
+        })
 
+    })
+};
+
+// 取消收藏游记
+User.withOutCollections=function withOutCollections(username,postHead,callback){
+    mongodb.open(function(err,db){
+        if(err){
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection('users',function(err,collection){
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.update({name: username}, {
+                    $pull:{'fv':postHead}
+                 },function(err,doc){
+                    if(err){
+                        callback(err);
+                    }
+                    callback(null);
+                 });
+        })
+
+    })
+};
+
+// 获取粉丝
 User.getFans= function getFans(username,page,callback){
     mongodb.open(function(err,db){
         if (err) {

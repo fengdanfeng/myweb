@@ -1,9 +1,146 @@
 <%- include header.html %>
 <body>
-<div class="app-page">
-	<div class="m-nav">
-		<h3>首 页</h3>	
-	</div>
-<img src="/images/grids-img1.jpg">
+<div class="am-topbar">
+    <div class="mNav">
+  	  <h1>
+  	  <img src="/images/m/mlogo.png">
+  	  旅途IN记</h1>
+  	</div>
+    <div class="am-topbar-right" >
+     		<a href=""><i  class="am-icon-search"></i></a>
+    </div>
+ </div>	
+
+
+<div class="mPostsLists" id="allPosts">
+  <script type="text/template" id="postList">
+    <li class="mPost">
+       <a href="/m/<#=post.name#>/<#= post.postHead_MD5#>/<#= post.time.day #>/<#= post.title #>">
+    	<#if(post.postImg){#>
+    	<img class="bgimg"src="<#=post.postImg[0]#>">
+    	<div class="mPostInfo">
+    		  <div class="mPicNum">
+            <div class="fr">
+             <p> <#=post.postImg.length#></p>
+              <span>照片</span>
+            </div>  
+          </div>
+          <div class="mPostAbout">
+              <div class="aboutUser">
+                <img class="muserLogo" src="<#=post.userLogo#>">
+                <h1><#=post.title#></h1>
+                <p><#=post.time.day#></p>
+              </div>
+          </div>
+          <div class="mPostFav">
+            <span><i class="am-icon-eye"></i><i><#=post.pv#></i> </span>
+            <span><i class="am-icon-comments-o"></i><i><#=post.comments.length#></i> </span>
+         <!--    </p> -->
+          </div>
+    	</div>
+      <#}#>
+      </a>
+    </li>
+</div>
+</script>
+<script type="text/javascript">
+     window.onload=function(){
+         var me =this;
+         var page = 1;
+      console.log(page);
+        $.ajax({
+              type:"post",
+              url: '/getMore',
+              async: false, 
+              data:{page:page},
+              success: function(d){
+                if(d.code == 0){
+                       var allImg = 0;
+                    for(var i= 0; i<d.post.length;i++){
+                 
+                        allImg =allImg + d.post[i].postImg.length;
+                       console.log(allImg);
+                      };
+                  for(var i= 0; i<d.post.length;i++){
+                      var temp =  tpl('#postList',{post:d.post[i]});
+                      $("#allPosts").append(temp);
+                      var load = 0;
+                      if (d.post[i].postImg) {
+                           d.post[i].base64Arr=[];
+                        for(var j=0;j<d.post[i].postImg.length;j++){
+                          var image = new Image();
+                          image.crossOrigin = '';
+                          image.src = d.post[i].postImg[j];
+                          image.i = i;
+                          image.j =j
+                          image.onload = function(){
+                              var base64 = getBase64Image(this);
+                                d.post[this.i].postImg[this.j]=base64;
+                                load++;
+                                // console.log(load);
+                                // console.log(allImg);
+                                 if(load == allImg){
+                                     var posts=JSON.stringify(d);
+                                    localStorage.setItem("posts",posts);
+                                  }   
+                          }
+                           
+                        }
+                      }
+                    page = parseInt(d.page)+1;
+                  } 
+                }else{  
+                          // alert('请求失败');
+                }  
+             },
+            error:function(e){
+              var posts= localStorage.getItem("posts");
+              var d=JSON.parse(posts);
+                for(var i= 0; i<d.post.length;i++){
+                      var temp =  tpl('#postList',{post:d.post[i]});
+                      $("#allPosts").append(temp);
+                }
+            }
+        })
+        // 图片转码js
+        function getBase64Image(img) {
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+            var dataURL = canvas.toDataURL("image/"+ext);
+            return dataURL;
+        }
+      }
+
+</script>
 </body>
+<div class="app-footer">
+<div data-am-widget="navbar" class="app-footer am-navbar am-cf"
+      id="">
+    
+     <div class="circleAdd">
+            <a href="/m/postPosts" style="color: #fff;">     <p>+</p>  </a>
+     </div>
+
+      <ul class="am-navbar-nav am-cf am-avg-sm-6" style="    z-index: -1;">
+          <li>
+            <a href="###" class="mactive" >
+                  <span class="am-icon-star"></span>
+                <!-- <span class="am-navbar-label">主页</span> -->
+            </a>
+          </li>
+         <li >
+            <a href="/m/muser" >
+                  <span class="am-icon-user"></span>
+               <!--  <span class="am-navbar-label">我</span> -->
+            </a>
+          </li>
+      </ul>
+
+  </div>
+  </div>
 <%- include foot.html %>
+

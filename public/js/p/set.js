@@ -1,15 +1,5 @@
 $(function(){
-//   $("#img").change(function() {
-//     var files, reader;
-//     files = !!this.files ? this.files : [];
-//     if (/^image/.test(files[0].type)) {
-//       reader = new FileReader();
-//       reader.readAsDataURL(files[0]);
-//       return reader.onloadend = function() {
-//         $(".ulogo").html('<img src="'+ this.result +'alt="" />');
-//       };
-//     }
-//   });
+
  $('#imgfile').on('change',function(){
         // 判断上传文件类型
         var objFile = $('#imgfile').val();
@@ -76,20 +66,6 @@ $("#setForm1").validator({
               alert("提交失败");
             }
         })
-        // $.ajax({
-        //     url: "/setForm1",
-        //     type: "POST",
-        //     data: formData,
-        //     dataType: 'json',
-        //     success: function(d){
-        //       if (d.code===0){
-        //         alert("保存成功");
-        //         return location.reload();
-        //         } else {
-        //           alert("提交失败")
-        //         }
-        //       }
-        // });
        }
   });
 $("#submit1").on('click', function(e) {
@@ -112,5 +88,26 @@ $("#submit1").on('click', function(e) {
               }
         });
   })
+
+  $("#submit2").on('click',function(e){
+        var me = this;
+        var formChangepwd = $("#formChangepwd").serialize();
+        console.log(formChangepwd);
+        $.ajax({
+              url:"/changePwd",
+              type:"post",
+              data:formChangepwd,
+              dataType:'json',
+              success:function(d){
+                if (d.code===0) {
+                  alert("修改密码成功")
+                }else{
+                  alert('修改失败');
+                }
+              }
+        })
+
+  })
+
 
 })

@@ -1,0 +1,105 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+ 	</div>
+	<div class="userPanel">
+ 		<img src="/images/mUser1.png">
+ 	 <%if(postUser){%>
+ 	 	<div class="mUserLogo">
+ 	 	<div class="user-about"> 
+ 	 		<span class="fl">
+ 	 			<i class="am-icon-file-image-o"></i><%=posts.length%>篇游记</span>
+ 	 		<span class="fr">
+ 	 		<i class="am-icon-users"></i><%=postUser.fans.length%>个粉丝</span>
+ 	 	</div>
+ 	 		<%if(postUser.ulog){%>
+				<img src="<%=postUser.ulog%>">
+ 	 		<%}else{%>
+ 			<img src="/images/ulogo.png">
+ 			<%}%>
+
+      <p >昵称：<%=postUser.name%>
+      		<span style="margin-left: 2em;">
+      		<%if(!currentUser){%>
+      			<a href="/m/makeFriends/<%=postUser.name%>">+关注</a>
+      		<%}else{%>
+
+      			<%if(postUser.fans.indexOf(currentUser.name) !== -1){%>
+      				<%if(postUser.friends.indexOf(currentUser.name) !== -1 ){%>
+      					 <a href="#"> 互相关注</a>
+      				<%}else{%>
+	      					 <a href="#"> 已关注</a>
+      				<%}%>
+      			<%}else{%>
+      				<%if(postUser.name == currentUser.name){%>
+	      					<a href="">我</a>
+	      			<%}else{%>	
+      						<a href="/m/makeFriends/<%=postUser.name%>">+关注</a>
+      				<%}%>
+      			<%}%>
+      		<%}%>
+      		</span>
+      </p>
+ 		</div>
+ 	 	<div class="postDetail">
+			<div class="post-title">
+				<h3>个性简介</h3>
+			</div>
+			<div class="userInfo">
+			      <%if(postUser.useInfo){%>
+	 		   <p><i style="font-size: 2em;">"</i> <%=postUser.useInfo%><i style="font-size: 2em;">"</i></p>
+ 			 <%}else{%>
+ 			 	<p>这个作者好懒，什么都没留下</p>
+ 			 <%}%>
+	 		</div>
+	 		<div class="post-title">
+				<h3>游记列表</h3>
+			</div>
+			<div class="mPostsLists">
+			    <% posts.forEach(function(post, index){%>
+			    <li class="mPost">
+			       <a href="/m/<%=post.name%>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>">
+			    	<%if(post.postImg){%>
+			    	<img class="bgimg"src="<%=post.postImg[0]%>">
+			    	<div class="mPostInfo">
+			    		  <div class="mPicNum">
+			            <div class="fr">
+			             <p> <%=post.postImg.length%></p>
+			              <span>照片</span>
+			            </div>  
+			          </div>
+			          <div class="mPostAbout">
+			              <div class="aboutUser">
+			          <!--       <img class="muserLogo" src="<%=post.userLogo%>"> -->
+			           	 		<%if(postUser.ulog){%>
+										<img src="<%=postUser.ulog%>">
+						 	 		<%}else{%>
+						 			<img src="<%=post.userLogo%>">
+						 			<%}%>
+			                <h1><%=post.title%></h1>
+			                <p><%=post.time.day%></p>
+			              </div>
+			          </div>
+			          <div class="mPostFav">
+			            <span><i class="am-icon-eye"></i><i><%=post.pv%></i> </span>
+			            <span><i class="am-icon-comments-o"></i><i><%=post.comments.length%></i> </span>
+			         <!--    </p> -->
+			          </div>
+			    	</div>
+			      <%}%>
+			      </a>
+			    </li>
+			        <%})%>
+			</div>			
+	 	</div>		
+
+      <%}%>
+ 	</div>	
+
+</body>
+<%- include foot.html%>

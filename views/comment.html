@@ -1,33 +1,43 @@
+<div  style="background-color: #fff; margin-top: -20px;">
 <div class="article-part">
 <br />
-      <% post.comments.forEach(function (comment, index) { %>
-        <div style="padding-left:4em">
-          <p><img src="<%= comment.head %>" class="l_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
-          <span class="info"> 回复于 <%= comment.time %></span></p>
-          <p><%- comment.content %></p>
+      <% post.comments.forEach(function (comment, index) {%>
+        <div class="commentContent">
+          <div class="commentList">
+          <%if(comment.commetLogo){%>
+          <img src="<%= comment.commetLogo %>" class="l_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
+          <%}else{%>
+          <img src="/images/ulogo.png" class="l_head" /><a href="<%= comment.website %>"><%= comment.name %></a>
+          <%}%>
+          <span class="info"> 评论于 <%= comment.time %></span>
+            <%if(comment.name== user.name){%>
+              <span>
+              <a href="/<%=post.name%>/<%=post.postHead_MD5%>/<%=post.title%>/<%=comment.head%>">
+              删除</a></span>
+            <%}%>
+          </div>
+          <p class="content"><%- comment.content %></p>
         </div>
       <% }) %>
-
+<div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
+    <h2 class="am-titlebar-title ">
+       评论区
+    </h2>
+</div>
       <form method="post" class="commentForm">
 
       <% if (user) { %>
             用户名:<input type="text"  name="name" value="<%= user.name %>">
             邮箱:<input type="text"name="email" value="<%= user.email %>">
-           地址： <input type="text"name="website" value="/u/<%= user.name %>"> 
+            <input type="text" style="display: none;" name="commetLogo" value="<%=user.ulog%>">
+       <div style="display: none">地址： <input type="text"name="website" value="/u/<%= user.name %>"> </div>
       <% } else { %>
         姓名：<input type="text" name="name" value="游客"/><br />
         邮箱：<input type="text" name="email" /><br />
+        <input type="text" style="display: none;" name="commetLogo" value="/images/ulogo.png">
         <div style="display: none">地址：<input type="text" name="website" value="http://" /><br /></div>
       <% } %>
-<!--       <div id="Smohan_FaceBox">
-           <textarea  name="content" id="Smohan_text" class="smohan_text"></textarea>
-           <p>
-           <a href="javascript:void(0)" class="face" title="表情"></a>
-         
-           </p>
-        </div> -->
-<!--   <input class="button"  type="submit">留言</input> -->
-                <textarea class="commetTextarea" name="content" rows="5" cols="96"></textarea><br />
+           <textarea class="commetTextarea" name="content" rows="5" cols="96"></textarea><br />
         <input style="margin-top: 10px;" class="am-btn am-btn-primary am-btn-block" type="submit" value="留言" />
       </form>
     </div>

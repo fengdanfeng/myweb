@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>所有游记页</title>
+
+</head>
+<body>
+ <h1>欢迎管理员登录</h1>
+   <div>
+   	<span><a style="text-decoration: none;" href="/admin/allUsers">管理用户</span>
+   	<span><a style="text-decoration: none;" href="/admin/allPosts">管理所有游记</span>
+   </div>
+  <h3>所有游记列表</h3>
+  <ul class="am-list">
+  	  <% posts.forEach(function(post, index){%>
+ 	 <li><a href="/u/<%= post.name %>" class="am-comment-author"><%=post.name%>:</a>
+ 		 <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>"><%=post.title%></a>
+ 	 	<a href="#"><%=post.post%></a>
+ 	 	<a class="edit" href="/remove/<%= post.name %>/<%=post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>">删除</a>
+ 	 </li>
+  <% }); %>
+	</ul>
+
+
+</div>
+</body>
+</html>

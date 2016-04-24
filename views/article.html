@@ -1,4 +1,5 @@
 <%- include header.html %>
+<div  style="background-color: #fff; margin-top: -30px;padding-top: 20px">
 <div class="article-part">
   <p>
     <h2><a style="color: #000;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
@@ -20,7 +21,7 @@
 </p>
   <% if (user && (user.name == post.name)) { %>
     <span><a class="edit" href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">编辑</a></span>
-    <span><a class="edit" href="/remove/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">删除</a></span>
+    <span><a class="edit" href="/remove/<%= post.name %>/<%=post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>">删除</a></span>
   <% } %>
   <% var flag = 1 %>
   <% if (user && (user.name != post.name)) { %>
@@ -38,12 +39,23 @@
     <% flag = 0 %>
   <% } %>
   <% if (flag) { %>
-    <span><a class="edit" href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">转载</a></span>
+    <span><a class="edit" href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.postHead_MD5 %>/<%= post.title %>">转载</a></span>
   <% } %>
 </p>
 
 <p><%- post.post %></p>
-<p class="info">
+  <%if(post.postImg){%>
+    <div style="clear: both;">
+        <p class="postImg" >
+         <% post.postImg.forEach(function (postImg, index) { %>
+          <% if (postImg) { %>
+           <img class="showImg" src="<%=postImg%>" />
+           <% } %>
+        <% }) %>
+       </p>
+    </div>
+<%}%>
+<p class="info" style="clear: both;padding-top: 20px;position: relative;">
   阅读：<%= post.pv %> | 
   评论：<%= post.comments.length %> | 
   转载：
@@ -54,6 +66,7 @@
   <% } %>
 </p>
 
+</div>
 </div>
 <%- include comment.html %>
 <%- include footer.html %>

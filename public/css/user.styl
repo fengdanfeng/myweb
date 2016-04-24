@@ -1,0 +1,319 @@
+/*! reset */
+
+html {font-size: 14px; line-height: 1.5;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    margin:0; padding:0;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
+audio,canvas,video {display: inline-block; *display: inline; *zoom: 1;}
+table {border-collapse:collapse; border-spacing:0;}
+caption,th {text-align:left;}
+fieldset,img,iframe {border:0;}
+img {-ms-interpolation-mode: bicubic; max-width:100%; vertical-align: middle;}
+a {background: transparent; text-decoration:none;}
+small {font-size: 85%;}
+strong {font-weight: bold;}
+i,cite {font-style: normal;}
+ol,ul {list-style:none;}
+
+// 雪碧图处理
+
+// 透明度
+opacity($v= 0.5) {
+    filter: s("alpha(opacity=%s)", round($v*100))
+    opacity: $v
+}
+
+min-width($n) {
+    min-width: $n
+    _width: $n
+}
+
+min-height($n) {
+    min-height: $n
+    _height: $n
+}
+
+
+// 半透明背景
+bg-rgba(args...) {
+    special = length(args) == 1 
+    r = special ? 0 : args[0]
+    g = special ? 0 : args[1]
+    b = special ? 0 : args[2]
+    
+    if (args[0]!='') {
+        a = special ? args[0] : args[3]
+    } else {
+        a = 0.3
+    } 
+
+    // Math.floor(opacity * 255).toString(16);
+    colorStr = unquote( '#' + base-convert( floor( a * 255 ), 16 ) + base-convert(r,16) + base-convert(g,16) + base-convert(b,16) )
+    
+    filter: s("progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=%s,EndColorStr=%s)", colorStr, colorStr); // IE5-8
+    background: rgba(0, 0, 0, a);
+
+    /:root & {filter:0;} // IE9+
+}
+
+//内联
+inline-block() {
+    display:inline-block; *display:inline; *zoom:1;
+}
+
+//背景图
+bg-image($image) {
+    background-image: image-url($image);
+}
+
+//背景图
+bg($image) {
+    if !!$image {
+        $str= image-url($image);
+        if !!arguments[1] {
+            $str= $str arguments[1];
+        }
+        background: $str;
+    }
+}
+
+// bg-imgage
+$img-base= "../images/";
+$timestamp= "";
+//$timestamp= "max_age=19830211&d=20130227135216";
+
+image-url($image){
+    return unquote("url(" + $img-base + $image + ($timestamp!="" ? "?"+$timestamp : "") + ")");
+}
+
+// 雪碧图函数
+// sprite('img/sprite-50.png', 50, 10, 3)
+sprite($img, $grid, $x, $y) {
+    .icon{$grid}{$x}{$y} {
+        inline-block()
+        bg( $img, no-repeat )
+        width: ($grid)px
+        height: ($grid)px
+        vertical-align: middle
+    }
+    for $i in 1..$x {
+        for $j in 1..$y {
+            .icon-{$grid}-{$j}-{$i} {
+                @extend .icon{$grid}{$x}{$y}
+                background-position: (-($i - 1) * $grid)px (-($j - 1) * $grid)px
+            }
+        }
+    }
+}
+// 用户登录前页面
+.am-control-nav {
+	    bottom: 24px !important;
+}
+.centerList{
+	width:100%;
+	.am-tabs{
+		margin:0 auto;
+		.am-tabs-bd{
+		}
+		.tabNav{
+			border-radius:5px;
+			height:60px;
+			background-color:#fff;
+			a{
+				font-size:22px;
+			}
+		}
+	}
+	.hotlist{
+		width:100%;
+		// margin:0 auto;
+		text-align:center;
+		.postListPart{
+			width:500px;
+			height:500px;
+			float:left;
+			margin-left:100px;
+			margin-top:40px;
+			border:1px solid #ccc;
+			.bkImg{
+				width:100%;
+				height:300px;
+			}
+			.firstImg{
+				width:100%;
+				height:300px;
+			}
+			.ulogo{
+				margin-top:-30px;
+				// margin-left:200px;
+				.postsInfo{
+				    margin-top:20px;
+					h4{
+						font-size:20px;
+						// margin-left:-40px;	
+					}
+					.postdetail{
+						margin-top:20px;
+						// margin-left:-40px;
+						font-size:14px;
+					}
+				}
+				
+			}
+		}
+	}
+}
+// 用户登录后页面
+.center-container{
+	width:1200px;
+	height:1200px;
+	padding:40px ;
+	margin-left:60px;
+	border:1px solide #ccc;
+	.left-container{
+		width:200px;
+		float:left;
+		height:100%;
+		color:#fff;
+		border:1px solid #9AA099;
+		border-radius:2px;
+		background:rgba(25,62,92,0.4);
+		.user{
+			height:100px;
+			// border:1px solid #0D202E;
+			img{
+				width:100px;
+				height:100px;
+				padding:10px;
+				margin:0 auto;
+			}
+			span{
+				color:#fff;
+				font-size:24px;
+			}
+		}
+		.aul{
+			// border:1px solid #9AA099;
+			height:70px;
+			.white{
+				color:#fff;
+			}
+			li{
+				float:left;
+				list-style:none;
+				width:65px;
+				height:70px;
+				border:1px solid #9AA099;
+				text-align:center;
+				font-size:18px;
+				.low{
+					margin-top:-15px;
+					color:#fff;
+				}
+			}
+		}
+		.ulist{
+			margin-left:-8px;
+			.active{
+					background-color:#F4F7FC;
+					color:#193E5C !important;
+					border-radius:4px;
+				}
+			li{
+				display:block;
+				height:35px;
+				font-size:20px;
+				padding:2px 10px 2px 10px;
+				margin-top:10px;
+				margin-right:-2px;
+				a{
+					text-decoration:none;
+					color:#fff;
+				}
+				i{
+					margin-top:-2px;
+				}
+			}
+			
+		}
+	}
+	.right-container{
+		float:left;
+		width:900px;
+		padding:10px;
+		margin-left:20px;
+		border:1px solid #ccc;
+		background-color:#fff;
+		.am-tabs-bd{
+			ul{margin-left:20px;}
+			li{
+				width:100%;
+				margin-top:20px;
+			}
+	    	.am-comment-bd{
+	    		padding-left:50px;
+	    	}
+			.postArticle{
+				padding:15px;
+			}
+			
+		}
+	 }
+	.tag{
+		width:20px;
+		height:10px;
+		padding: 2px 8px 2px 8px;
+		border:1px solid #3bb4f2;
+		border-radius:5px;
+		background-color:#3bb4f2;
+		text-decoration:none;
+		color:#fff;	
+	}	
+}
+sprite('minicon.png', 15, 4,4 )
+
+// 用户设置页
+.setForm{
+	width:600px;
+	margin:30 auto;
+	font-size:20px;
+	font-family:"微软雅黑";
+	.gr{
+		margin:5px 1px 10px 1px;
+		height:40px;
+	}
+}
+.article-part{
+	margin-left:160px;
+}
+
+
+// 用户发布游记页
+    .upload_item{ width: 80px; height: 80px; overflow: hidden;border: 2px dashed #bfbfbf; float: left;margin-right: 10px;}
+    .upload_item_add{  width: 50px; height: 45px; display: block; line-height: 42px; text-align: center; font-size: 30px; cursor: pointer;}
+    .upload_input{ }
+    .tag_input{
+    	margin-right:30px;
+    	border-radius:2px;
+    	width:200px;
+    }
+    .upLoadImg{
+    	margin-bottom:20px;
+    	.postImg{
+    		width:800px;
+    		margin-bottom:20px;
+    		img{
+    			width:150px;
+    			height:150px;
+    			float:left;
+    		}
+    	}
+    }
+    .showImg{
+    	width:100px;
+    	height:100px;
+    	float:left;
+    	margin-right:20px;
+		margin-top:10px;   
+    }

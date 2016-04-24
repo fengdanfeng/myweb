@@ -33,10 +33,10 @@
        </div>
        <div class="ulist">
             <ul>
-                <li><a href="/"><i class="icon-15-3-1"></i> 我的首页</a></li>
+                <li><a href="/u"><i class="icon-15-3-1"></i> 我的首页</a></li>
                 <li><a href="/attention"><i class="icon-15-3-2"></i> 我的关注</a></li>
                 <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
-                <li><a href="/postlist"><i class="icon-15-3-4"></i> 我的游记</a></li>
+                <li><a href="/postlist"><i class="icon-15-3-4"></i> 写游记</a></li>
                 <li class="active"><a class="active" href="/set"><i class="icon-15-2-1"></i> 设置</a></li>
             </ul>
        </div>
@@ -52,7 +52,7 @@
                <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">姓名</label>
                   <div class="am-u-sm-10">
-                    <input type="text" id="uname" name="username" class="am-form-field" placeholder="输入你的姓名" data-rule="required;username">
+                    <input type="text" disabled="true" id="uname" name="username" class="am-form-field" placeholder="输入你的姓名" data-rule="required;username">
                   </div>
                 </div>
                 <div class="input-gr am-form-group am-form-success am-form-icon am-form-feedback">
@@ -92,28 +92,28 @@
                   重置密码
               </h2>
           </div>
-          <form class="setForm">
+          <form class="setForm" id="formChangepwd">
                <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">原密码</label>
                   <div class="am-u-sm-10">
-                    <input type="email" id="" class="am-form-field" placeholder="输入你的原密码">
+                    <input type="password" name="oldpwd" class="am-form-field" placeholder="输入你的原密码">
                   </div>
                 </div>
                  <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">新密码</label>
                   <div class="am-u-sm-10">
-                    <input type="email" id="" class="am-form-field" placeholder="输入您的新密码">
+                    <input type="password" name="newpwd" class="am-form-field" placeholder="输入您的新密码">
                   </div>
                 </div>
                  <div class="gr am-form-group am-form-success am-form-icon am-form-feedback">
                   <label for="doc-ipt-3-a" class="am-u-sm-2 am-form-label">新密码</label>
                   <div class="am-u-sm-10">
-                    <input type="email" id="" class="am-form-field" placeholder="再次输入你的新密码">
+                    <input type="password" name="newpwdag" class="am-form-field" placeholder="再次输入你的新密码">
                   </div>
                 </div>
           </form>
           <div>
-            <button class="am-btn am-btn-block am-btn-primary">保存</button>
+            <button id="submit2" class="am-btn am-btn-block am-btn-primary">保存</button>
           </div>
         </div><!-- end setOwn -->
     </div>

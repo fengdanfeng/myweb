@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>所有游记页</title>
+</head>
+<body>
+ <h1>欢迎管理员登录</h1>
+   <div>
+   	<span><a style="text-decoration: none;" href="/admin/allUsers">管理用户</span>
+   	<span><a style="text-decoration: none;" href="/admin/allPosts">管理所有游记</span>
+   </div>
+  <h3>所有用户列表</h3>
+  <ul>
+  <% allUsers.forEach(function(user, index){%>
+  	<li><a href="/u/<%= user.name %>"><%=user.name%></a><a style="margin-left: 20px;" href="/adminRemoveUser/<%=user.name%>">删除</a></li>	
+<% }); %>
+</ul>
+</div>
+</body>
+</html>

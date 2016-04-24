@@ -31,7 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine("html",require("ejs").__express); // or   app.engine("html",require("ejs").renderFile);
 //app.set("view engine","ejs");
 app.set('view engine', 'html');
-
+app.disable('view cache');
 //新添加
 app.use(flash());//定义使用 flash 功能
 
@@ -46,9 +46,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 //定义cookie解析器
 app.use(cookieParser());
 //定义静态文件目录
-app.use(express.static(path.join(__dirname, 'public')));
-
-
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/css', express.static(path.join(__dirname, 'public/css'),{maxAge:100000}));
+app.use('/dist/css', express.static(path.join(__dirname, 'public/dist/css')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/fonts', express.static(path.join(__dirname, 'public/fonts')));
+app.use('/manifest', express.static(path.join(__dirname, 'public/manifest')));
+// app.use('/', express.static(path.join(__dirname, 'public')));
 //自己添加的，提供session支持
 app.use(session({
     secret: settings.cookieSecret,//secret 用来防止篡改 cookie
@@ -73,7 +77,7 @@ app.use(function(req, res, next){
     next();//控制权转移，继续执行下一个app.use()
 });
 //定义匹配路由
-app.use('/', routes);//指向了routes目录下的index.js文件
+app.use(routes);//指向了routes目录下的index.js文件
 //app.use('/users', users);//指向了routes目录下的users.js文件
 //app.use('/morepost',morepost);
 // catch 404 and forward to error handler
@@ -98,6 +102,7 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 app.use(bodyParser.json({limit:'limb'}));
 app.use(logger('dev'));
 // production error handler
@@ -112,6 +117,6 @@ app.use(function (err, req, res, next) {
 });
 
 // 新增图片地址
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use('', express.static(path.join(__dirname, 'public')));
 //输出模型app
 module.exports = app;

@@ -1,0 +1,99 @@
+<%- include header.html %>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+ 	</div>	
+ 	<div class="userPanel">
+ 		<img src="/images/mUser1.png">
+ 	 <%if(user){%>
+ 	 	<div class="mUserLogo">
+ 	 		<%if(user.ulog){%>
+				<img src="<%=user.ulog%>">
+ 	 		<%}else{%>
+ 			<img src="/images/ulogo.png">
+ 			<%}%>
+ 			<p ><%=user.name%>
+        <%if(user.useInfo){%>
+          <span>:<%=user.useInfo%></span>
+        <%}%>
+      </p>
+ 		</div>
+ 	 <%}else{%>
+ 		<div class="mUserLogo">
+ 			<img src="/images/ulogo.png">
+ 			<p><a href="/m/login">点击登录，体验更多</a></p>
+ 		</div>
+ 	<%}%>
+   <div class="setting-part">
+    <div class="ui-set">
+      <a href="">
+      <i class="am-icon-pencil-square-o"></i>
+      <span>写游记</span>
+      <i class="fr am-icon-angle-right"></i>
+      </a>
+    </div>
+    <%if(user){%>
+    <div class="ui-set">
+      <a href="/m/userDetail/<%=user.name%>">
+      <i class="am-icon-file-photo-o"></i>
+      <span>我的游记</span>
+      <i class="fr am-icon-angle-right"></i>
+      </a>
+    </div>
+   <%}else{%>
+      <div class="ui-set">
+      <a href="/m/login">
+      <i class="am-icon-file-photo-o"></i>
+      <span>我的游记</span>
+      <i class="fr am-icon-angle-right"></i>
+      </a>
+    </div>
+   <%}%>
+    <div class="ui-set">
+      <a href="/mfriends">  
+      <i class="am-icon-heart-o"></i>
+      <span>我的好友</span>
+      <i class="fr am-icon-angle-right"></i></a>
+    </div>
+    <div class="ui-set">
+      <a href="/mfans"> 
+      <i class="am-icon-users"></i>
+      <span>我的粉丝</span>
+      <i class="fr am-icon-angle-right"></i>
+      </a>
+    </div>
+     <%if(user){%>
+  <button style="margin-top: 2em;" class="am-btn am-btn-success am-btn-block"><a style="color: #fff;" href="/mlogout">退出登录</a></button>
+<%}%>
+ </div>
+
+ 	</div>
+
+<div class="app-footer">
+<div data-am-widget="navbar" class="app-footer am-navbar am-cf"
+      id="">
+     <div class="circleAdd">
+              <a href="/m/postPosts" style="color: #fff;">     <p>+</p>  </a>
+     </div>
+      <ul class="am-navbar-nav am-cf am-avg-sm-6" style="    z-index: -1;">
+          <li>
+            <a href="/m"  >
+                  <span class="am-icon-star"></span>
+                <!-- <span class="am-navbar-label">主页</span> -->
+            </a>
+          </li>
+         <li >
+            <a href="/m/muser" class="mactive">
+                  <span class="am-icon-user"></span>
+               <!--  <span class="am-navbar-label">我</span> -->
+            </a>
+          </li>
+      </ul>
+
+  </div>
+  </div>
+<%- include foot.html %>
