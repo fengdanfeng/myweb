@@ -204,27 +204,22 @@ router.createNote = function(req,res){
 var multiparty = require('multiparty');
 // 移动端发布游记
 router.mpost = function (req, res) {
-    // var form = new multiparty.Form();
-    // form.parse(req, function(err, fields, files) {
-    //     console.log(fields)
-    // });
     console.log(req.body);
     var currentUser = req.session.user,
         tags = [req.body.tag1, req.body.tag2, req.body.tag3],
         Img=req.body['postImg[]'],
-        userLogo = req.body.userLogo;
+        userLogo = currentUser.ulog;
     var date = new Date(),
         time = date.getTime().toString();
     var md5 = crypto.createHash('md5'),
         postHead_MD5 = md5.update(time.toLowerCase()).digest('hex');
-        console.log(postHead_MD5);
         if(!Array.isArray(Img)){
-          var postImg = [];
+          var postImg =[];
             postImg.push(Img);
         }else{
           var postImg = Img;
         } 
-    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,Img,userLogo,postHead_MD5);
+    var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,postImg,userLogo,postHead_MD5);
    console.log(post);
     post.save(function (err) {
       if (err) {

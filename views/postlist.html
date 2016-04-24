@@ -52,11 +52,11 @@
     
       <form method="post" name="postForm" action="/post" id="public">
       标题：<br />
-        <input type="text"class="am-form-field" name="title" /><br />
+        <input type="text"class="am-form-field" name="title" required /><br />
         标签：<br />
-        <input type="text" class="tag_input" name="tag1" /><input  class="tag_input" type="text" name="tag2" /><input  class="tag_input" type="text" name="tag3" /><br />
+        <input type="text" class="tag_input" name="tag1" required /><input  class="tag_input" type="text" name="tag2" required/><input  class="tag_input" type="text" name="tag3" required/><br />
         正文：<br />
-        <textarea name="post" rows="8" cols="75"></textarea><br /><br />
+        <textarea name="post" rows="8" cols="75" required/></textarea><br /><br />
       <%if(!currentUser.ulog){%>
           <input type="text" name="userLogo" style="display:none;" value="/images/ulogo.png">
           <%}else{%>
@@ -66,7 +66,7 @@
 <div class="am-form-group am-form-file">
   <button type="button" class="am-btn am-btn-danger am-btn-sm">
     <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
-  <input id="doc-form-file" type="file"name="pics" multiple>
+  <input id="doc-form-file" type="file"name="pics" multiple;required>
 </div>
 <div id="file-list"></div>
 <script>

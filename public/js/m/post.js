@@ -47,14 +47,16 @@
         prvbox.appendChild(img);
         var input = document.createElement("input");
         input.name = 'postImg';
+        input.type = 'hidden';
         input.value = src;
         input.style = 'display:none';
         prvbox.appendChild(input);
     }
 }
 
-function saveLocalstorage(){
-    var postForm = $('#mPostForm').serialize();
+// function saveLocalstorage(){
+$("#saveLocal").on('click',function(){
+       var postForm = $('#mPostForm').serialize();
     $.ajax({
         url:"/post",
         data:postForm,
@@ -71,7 +73,9 @@ function saveLocalstorage(){
             // }
            }
     });
-}
+})
+ 
+// }
 // 遍历表单，将所有input提出出来，转换成json格式
 $.fn.serializeObject = function()    
 {    

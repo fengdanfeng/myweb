@@ -34,8 +34,16 @@
 
 <!--    <input type="submit" value="发表" /> -->
   <div style="clear: both;margin-top:20px;">
-    <input class="am-btn am-btn-primary" type="text" value="发表" onclick="saveLocalstorage()" /> 
+    <input class="am-btn am-btn-primary" id="saveLocal" data-am-modal="{target: '#my-modal-loading'}" type="text" value="保存" /> 
   </div>
+  <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">正在载入...</div>
+    <div class="am-modal-bd">
+      <span class="am-icon-spinner am-icon-spin"></span>
+    </div>
+  </div>
+</div>
   </form>
 </div>
 <%- include foot.html %>

@@ -161,9 +161,9 @@ router.reg =  function (req, res) {
                 req.flash('error', err);
                 return res.redirect('/reg');
             }
-            req.session.user = newUser;//保存用户信息，用于判断用户是否已登录
-            req.flash('success', req.session.user.name + '注册成功');
-            res.redirect('/u');
+            // req.session.user = newUser;//保存用户信息，用于判断用户是否已登录
+            // req.flash('success', req.session.user.name + '注册成功');
+            res.redirect('/login');
         });
     });
 }

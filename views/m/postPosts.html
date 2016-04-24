@@ -82,7 +82,7 @@
  		var me= this;
  		var postId= this.getAttribute('data-value');
  		var localNote= JSON.parse( localStorage.getItem(postId));
- 		// mpostData用来发布游记的表单
+ 		// mpostData用来发布游记的对象，将整个对象传给后台
  		var mpostData = {};
  		// fd用来上传图片的表单
 		var fd = new FormData(document.forms[0]);
@@ -112,6 +112,7 @@
                     cache: false,  
                     contentType: false, 
                     success:function(re){
+                    if(re.imgSrc.canvasImage){
                       for (var i = re.imgSrc.canvasImage.length - 1; i >= 0; i--) {
                     	var imgSrc = re.imgSrc.canvasImage[i].path.replace('public','');
                         imgSrc =imgSrc.replace(/\\/g,'\/');
@@ -119,6 +120,7 @@
                         	
                         	mpostData.postImg.push(imgSrc);
                       }
+                     }
 			        	$.ajax({
 			                    url : '/mpost',
 			                    type : 'post',
