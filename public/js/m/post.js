@@ -57,23 +57,24 @@
 // function saveLocalstorage(){
 $("#saveLocal").on('click',function(){
        var postForm = $('#mPostForm').serialize();
-    $.ajax({
-        url:"/post",
-        data:postForm,
-        async:false,
-        success:function(d){
-            alert('发布成功')
-        },
-        error:function(){
+    // $.ajax({
+    //     url:"/post",
+    //     data:postForm,
+    //     async:false,
+    //     success:function(d){
+    //         alert('发布成功')
+    //     },
+        // error:function(){
             alert("请稍后。。");
             var createPost= JSON.stringify($("#mPostForm").serializeObject());
             // 将json格式的数据存到缓存
+            alert("aaa");
            localStorage.setItem("createPost"+Date.now(),createPost);
             alert("存入便签成功");
            window.location.href='/m/postPosts';
             // }
-           }
-    });
+    //        }
+    // });
 })
  
 // }
