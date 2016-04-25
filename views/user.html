@@ -3,6 +3,7 @@
 <div class=" userPart">
   <div class="userNav"></div>
  <div class="user-left">
+ <%if(posts.length){%>
   <% posts.forEach(function (post, index) { %>
     <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" >
         <h2 class="am-titlebar-title "><a href="/u/<%=post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
@@ -34,6 +35,11 @@
           </p>
 
     <% }) %>  
+<%}else{%>
+  <div style="margin-top:3em;">
+    <p>这家伙好懒，什么都没留下~~</p>
+  </div>
+<%}%>
   </div> 
   <div class="user-right">
     <div class="am-panel am-panel-default">

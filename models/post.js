@@ -149,6 +149,46 @@ Post.getFriendsPost = function(friends,page,callback){
         });
     });
 };
+
+// 获取登录用户收藏的游记
+Post.getCollectionPost = function(currentUserfv,page,callback){
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        //读取posts集合
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+                var query = {};
+            //查找符合条件的记录，并按时间顺序排列
+         //使用 count 返回特定查询的文档数 total
+            collection.count(query, function (err, total) {
+              collection.find({'postHead_MD5':{$in:currentUserfv}}).sort({
+                time: -1
+              }).toArray(function (err, docs) {
+                mongodb.close();
+                if (err) {
+                  return callback(err);
+                }
+                 var posts = [] ;
+                      //遍历查询结果
+                      docs.forEach(function (doc, index) {
+                          //把结果封装成Post对象
+                          var post = new Post(doc.name, doc.time,doc.title,doc.tags,doc.post,doc.postImg,doc.userLogo,doc.postHead_MD5,doc.comments,doc.reprint_info,doc.pv);
+                          //把全部结果封装成数组
+                          posts.push(post);
+                      });
+                      // console.log(posts);
+                      callback(null,total, posts);
+                  });
+            });
+        });
+    });
+};
+
 //一次获取十篇文章
 Post.getTen = function(username, page, callback) {
   //打开数据库
@@ -395,7 +435,8 @@ Post.getTag = function(tag, callback) {
       }, {
         "name": 1,
         "time": 1,
-        "title": 1
+        "title": 1,
+        "postHead_MD5":1
       }).sort({
         time: -1
       }).toArray(function (err, docs) {

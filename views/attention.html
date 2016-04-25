@@ -50,8 +50,8 @@
       <ul class="am-tabs-nav am-nav am-nav-tabs">
         <li class="am-active"><a href="javascript: void(0)">我的关注列表</a></li>
       </ul>
-
       <div class="am-tabs-bd">
+      <%if(mfans.friends.length){%>
         <div class="am-tab-panel am-active" >
   			    <ul class="am-list am-list-static am-list-border">
                <%mfans.friends.forEach(function(friends,index){%>
@@ -64,6 +64,11 @@
                 <%})%>
           </ul>
         </div>
+      <%}else{%>
+         <div style="width: 100%;background-color: #fff;height: 4em;text-align: center;">
+            <p style="padding-top: 1em;">您还没关注任何人哟</p>
+          </div>
+      <%}%>
       </div>
     </div>
 

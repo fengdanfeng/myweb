@@ -53,7 +53,12 @@
                           <% } else { %>
                             <%= 0 %>
                           <% } %>
-            </i></a></span>
+            </i>|</a></span>
+      <%if( currentUser.fv.indexOf( post.postHead_MD5)!=-1){%>
+      <span><a class="collections" href="javascript:0" data-value="<%=post.postHead_MD5%>">取消收藏</a></span>
+      <%}else{%>
+      <span><a class="collections" href="javascript:0" data-value="<%=post.postHead_MD5%>">收藏</a> </span>
+      <%}%>
     </div>
   </div>
 </article>

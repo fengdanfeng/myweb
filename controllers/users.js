@@ -45,29 +45,39 @@ router.getU= function (req, res) {
         }else{
             currentUserFriends =[];
         }
+         // 判断是否有收藏的游记列表
+             if(currentUser.fv){
+                currentUserfv = currentUser.fv;
+            }else{
+                currentUserfv =[];
+            }
 // 获取当前用户的所有游记信息
      Post.get(currentUser.name,  function (err,total, currentUserPost) {
         // 获取当前用户所有好友游记
         Post.getFriendsPost( currentUserFriends,1,  function (err,total1, friendsPosts) {
             // console.log(friendsPosts);
+             Post.getCollectionPost( currentUserfv,1,  function (err,total2, collectionPosts) {
+                  console.log(collectionPosts);
         //调用模板引擎，并传递参数给模板引擎
-        res.render('u', {
-                title: '登录后首页', 
-                posts: posts, 
-                page: page,
-                user: req.session.user,
-                currentUserPost:currentUserPost,
-                friendsPosts:friendsPosts,
-                total:total,
-                // isFirstPage: (page - 1) == 0,
-                // isLastPage: ((page - 1) * 3 + posts.length) == total,
-                currentUser: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString()
+                res.render('u', {
+                        title: '登录后首页', 
+                        posts: posts, 
+                        page: page,
+                        user: req.session.user,
+                        currentUserPost:currentUserPost,
+                        friendsPosts:friendsPosts,
+                        collectionPosts:collectionPosts,
+                        total:total,
+                        // isFirstPage: (page - 1) == 0,
+                        // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                        currentUser: req.session.user,
+                        success: req.flash('success').toString(),
+                        error: req.flash('error').toString()
+                    });
             });
-          });
+        });
     })
-    });
+  });
 };
 router.getuser=  function (req, res) {//路由规则
      var page = req.query.p ? parseInt(req.query.p) : 1;

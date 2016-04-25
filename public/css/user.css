@@ -173,6 +173,7 @@ ul {
   height: 100px;
   padding: 10px;
   margin: 0 auto;
+  float: left;
 }
 .center-container .left-container .user span {
   color: #fff;
