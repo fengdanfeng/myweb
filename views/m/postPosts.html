@@ -136,16 +136,7 @@
 			         	});              
                     },
                     error:function(){
-                    	$.ajax({
-			                    url : '/mpost',
-			                    type : 'post',
-			                    data: mpostData,   
-			                    success:function(d){
-			                    	if(d.code == 0){
-			                    	alert("发布成功");
-			                    	}
-			                    }
-			         	});
+                    	alert("同步失败");
                     }
            });
 
