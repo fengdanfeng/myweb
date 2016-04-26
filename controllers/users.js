@@ -55,9 +55,9 @@ router.getU= function (req, res) {
      Post.get(currentUser.name,  function (err,total, currentUserPost) {
         // 获取当前用户所有好友游记
         Post.getFriendsPost( currentUserFriends,1,  function (err,total1, friendsPosts) {
-            // console.log(friendsPosts);
+             console.log(friendsPosts);
              Post.getCollectionPost( currentUserfv,1,  function (err,total2, collectionPosts) {
-                  console.log(collectionPosts);
+                  // console.log(collectionPosts);
         //调用模板引擎，并传递参数给模板引擎
                 res.render('u', {
                         title: '登录后首页', 

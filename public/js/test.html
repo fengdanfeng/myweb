@@ -1,4 +1,29 @@
-var df = {
+<html>
+ <head>
+ <meta charset="gbk"/>
+ <title>File API Test</title>
+ <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+ <style>
+  #test{
+    display: none;
+   }
+ </style>
+ </head>
+<body>
+ <input type="file" id="fileImg" >
+ <form>
+  <img src="" id="test" alt="">
+ </form>
+<script>
+
+var jic = {
+   /**
+     * Receives an Image Object (can be JPG OR PNG) and returns a new Image Object compressed
+     * @param {Image} source_img_obj The source Image Object
+     * @param {Integer} quality The output quality of Image Object
+     * @return {Image} result_image_obj The compressed Image Object
+     */
+ 
     compress: function(source_img_obj, quality, output_format){  
         var mime_type = "image/jpeg";
         if(output_format!=undefined && output_format=="png"){
@@ -23,21 +48,21 @@ var df = {
      if (!f.type.match('image.*')) {
        continue;
      }
-    var prvbox = document.getElementById('prvid');
+ 
      var reader = new FileReader();
+     // Closure to capture the file information.
      reader.onload = (function(theFile) {
        return function(e) {
           var i = document.getElementById("test");
           i.src = e.target.result;     
+          console.log($(i).width());
+          console.log($(i).height());
+          $(i).css('width',$(i).width()/10+'px');
+          console.log($(i).width());
           var quality =  50;
-          i.src = df.compress(i,quality).src;
+          i.src = jic.compress(i,quality).src;
+          console.log(i.src);
           i.style.display = "block";
-            var input = document.createElement("input");
-            input.name = 'postImg';
-            input.type = 'hidden';
-            input.value = e.target.result;
-            input.style = 'display:none';
-            prvbox.appendChild(input);
        };
     })(f);
     // Read in the image file as a data URL.
@@ -45,33 +70,6 @@ var df = {
     }
   }
  document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
-
-// function saveLocalstorage(){
-$("#saveLocal").on('click',function(){
-       var postForm = $('#mPostForm').serialize();
-            alert("正在缓存请稍后。。");
-            var createPost= JSON.stringify($("#mPostForm").serializeObject());
-            // 将json格式的数据存到缓存
-           localStorage.setItem("createPost"+Date.now(),createPost);
-            alert("存入便签成功");
-           window.location.href='/m/postPosts';
-})
- 
-// }
-// 遍历表单，将所有input提出出来，转换成json格式
-$.fn.serializeObject = function()    
-{    
-   var o = {};    
-   var a = this.serializeArray();    
-   $.each(a, function() {    
-       if (o[this.name]) {    
-           if (!o[this.name].push) {    
-               o[this.name] = [o[this.name]];    
-           }    
-           o[this.name].push(this.value || '');    
-       } else {    
-           o[this.name] = this.value || '';    
-       }    
-   });    
-   return o;    
-};  
+</script>
+</body>
+</html>

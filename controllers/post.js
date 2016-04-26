@@ -149,8 +149,21 @@ router.reprint = function (req, res) {
         req.flash('error', err); 
         return res.redirect('back');
       }
+
+        var date = new Date();
+        var time = {
+            date: date,
+            year : date.getFullYear(),
+            month : date.getFullYear() + "-" + (date.getMonth() + 1),
+            day : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
+            minute : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
+            date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
+        }
+                var a = date.getTime().toString();
+         var md5 = crypto.createHash('md5'),
+         reprintMD = md5.update(a.toLowerCase()).digest('hex');
       var currentUser = req.session.user,
-          reprint_from = {name: post.name, day: post.time.day, title: post.title},
+          reprint_from = {name: post.name, day: post.time.day, title: post.title,reprintMD:reprintMD},
           reprint_to = {name: currentUser.name};
       Post.reprint(reprint_from, reprint_to,req.params.postHead_MD5, function (err, doc) {
         if (err) {

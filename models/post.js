@@ -118,6 +118,7 @@ Post.getFriendsPost = function(friends,page,callback){
         if (err) {
             return callback(err);
         }
+        console.log(friends);
         //读取posts集合
         db.collection('posts', function (err, collection) {
             if (err) {
@@ -334,7 +335,6 @@ Post.remove = function(name, day,postHead_MD5, title, callback) {
         "postHead_MD5":postHead_MD5,
         "name": name,
         "time.day": day,
-       
         "title": title
       }, function (err, doc) {
         if (err) {
@@ -485,9 +485,9 @@ Post.reprint = function(reprint_from, reprint_to,postHead_MD5, callback) {
 
         delete doc._id;//注意要删掉原来的 _id
 
-        var a = date.getTime().toString();
-         var md5 = crypto.createHash('md5'),
-         reprintMD = md5.update(a.toLowerCase()).digest('hex');
+        // var a = date.getTime().toString();
+        //  var md5 = crypto.createHash('md5'),
+        //  reprintMD = md5.update(a.toLowerCase()).digest('hex');
         doc.name = reprint_to.name;
         doc.time = time;
         doc.title = (doc.title.search(/[转载]/) > -1) ? doc.title : "[转载]" + doc.title;
@@ -506,8 +506,7 @@ Post.reprint = function(reprint_from, reprint_to,postHead_MD5, callback) {
             "reprint_info.reprint_to": {
               "name": doc.name,
               "day": time.day,
-              "title": doc.title,
-              "reprintMD":reprintMD
+              "title": doc.title
           }}
         }, function (err) {
           if (err) {
