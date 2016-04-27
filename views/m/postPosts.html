@@ -9,7 +9,7 @@
  	</div>
  	<div class="mpost">
  		<button class="am-btn am-btn-success ">
- 			<a href="/m/createNote">创建新游记</a>
+ 			<a id="createNew" href="/m/createNote">创建新游记</a>
  		</button>
  	</div>
  		    <div class="am-list-news-hd am-cf">
@@ -38,7 +38,7 @@
 
 			            <div class="am-list-item-text" ><#=post.post#></div>
 			            <div>
-			            	<a href="javascript:0;" style="color: #fff;"><button class="am-btn am-btn-primary">编辑</button></a>
+			            	<a href="javascript:0;"data-value="<#=postId#>" class="delete" style="color: #fff;"><button class="am-btn am-btn-primary">删除</button></a>
 			            	<a href="javascript:0" data-value="<#=postId#>" class="b" style="color: #fff;"><button class="am-btn am-btn-success">同步</button></a>
 			            </div>
 			        </div>
@@ -58,6 +58,10 @@
  		// 获取所有key
 	     var keyArray = Object.keys(localStorage);
 	     console.log(keyArray);
+	     if(keyArray.length>2){
+	     	$("#createNew").css("pointer-events", 'none');
+	     	$("#createNew").html("已经到达缓存极限");
+	     }
 	     // 通过key去循环获取存储的游记
  		for(var j = 0;j<keyArray.length;j++){
  			if(keyArray[j] != "posts"){
@@ -74,9 +78,17 @@
 		 		 if(post){
 		 		 var temp =  tpl('#mpostNote',{post:post,postId:keyArray[j]});
 		                      $("#mNoteList").append(temp);
+
 		          }
 		    }
         }
+ 	})
+ 	$(document).on('click','.delete',function(){
+ 		var me = this;
+ 		var deleteId = this.getAttribute('data-value');
+ 		localStorage.removeItem(deleteId);
+ 		alert("删除成功");
+ 		window.location.reload();
  	})
  	$(document).on('click','.b',function(){
  		var me= this;
@@ -131,6 +143,8 @@
 			                    	alert("发布成功");
 			                    	localStorage.removeItem(postId);
 			                    	window.location.reload();
+			                    	}else{
+			                    		window.location.href='/m/login';
 			                    	};
 			                    }
 			         	});              

@@ -4,7 +4,7 @@ var df = {
         if(output_format!=undefined && output_format=="png"){
            mime_type = "image/png";
         }
-             
+        // console.log(source_img_obj);
        var cvs = document.createElement('canvas');
        //naturalWidth真实图片的宽度
       cvs.width = source_img_obj.naturalWidth;
@@ -13,6 +13,7 @@ var df = {
       var newImageData = cvs.toDataURL(mime_type, quality/100);
       var result_image_obj = new Image();
       result_image_obj.src = newImageData;
+      console.log(result_image_obj);
       return result_image_obj;
    }
 }
@@ -27,9 +28,28 @@ var df = {
      var reader = new FileReader();
      reader.onload = (function(theFile) {
        return function(e) {
+        console.log(theFile.size);
           var i = document.getElementById("test");
-          i.src = e.target.result;     
-          var quality =  50;
+          i.src = e.target.result; 
+          var size = theFile.size;
+           // 大于两百万像素（接近2MB）
+          if(size>2000000){   
+                 var quality =1;
+             }
+        // 接近1MB
+           if(size>1000000&&size<2000000){   
+                 var quality =40;
+             }
+        // 小于1MB大于五百KB
+           if(size>512000&&size<1000000){   
+                 var quality =70;
+             }
+             if(size<512000){   
+                 var quality =98;
+             }
+             if(size<512000){   
+                 var quality =100;
+             }
           i.src = df.compress(i,quality).src;
           i.style.display = "block";
             var input = document.createElement("input");
@@ -51,8 +71,10 @@ $("#saveLocal").on('click',function(){
        var postForm = $('#mPostForm').serialize();
             alert("正在缓存请稍后。。");
             var createPost= JSON.stringify($("#mPostForm").serializeObject());
+            alert("asdad");
             // 将json格式的数据存到缓存
-           localStorage.setItem("createPost"+Date.now(),createPost);
+            var dateNow= Date.now();
+           localStorage.setItem("createPost"+dateNow,createPost);
             alert("存入便签成功");
            window.location.href='/m/postPosts';
 })

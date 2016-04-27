@@ -12,6 +12,7 @@ var Mobile = require("../controllers/m.js");
 
 //首页:显示所有的游记，并按照时间先后顺序排列
 router.get('/', User.getIndex);
+router.get('/u', checkLogin);
 router.get('/u', User.getU);
 //用户首页
 router.get('/u/:user', checkLogin);//页面权限控制
@@ -178,19 +179,18 @@ router.get('/m/makeFriends/:name',Mobile.makeFriends);
 // m获取某一用户所有游记
 router.get('/m/userDetail/:name',Mobile.getuser);
 // m获取发布游记页
-router.get('/m/postPosts',mcheckLogin);
 router.get('/m/postPosts',Mobile.getPostPosts);
 // 移动端创建游记
 router.get('/m/createNote',Mobile.createNote);
 // 移动端发布游记
 
-router.post('/mpost', mcheckLogin);//页面权限控制
+// router.post('/mpost', mcheckLogin);//页面权限控制
 router.post('/mpost', Mobile.mpost);
 function mcheckNotLogin(req, res, next) {
     if (req.session.user)//用户存在
     {
         req.flash('error', '已登录');
-        return res.redirect('/m/mlogin');
+        return res.redirect('back');
     }
     next();//控制权转移：当不同路由规则向同一路径提交请求时，在通常情况下，请求总是被第一条路由规则捕获，
     // 后面的路由规则将会被忽略，为了可以访问同一路径的多个路由规则，使用next()实现控制权转移。

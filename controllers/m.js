@@ -204,7 +204,10 @@ router.createNote = function(req,res){
 var multiparty = require('multiparty');
 // 移动端发布游记
 router.mpost = function (req, res) {
-    console.log(req.body);
+    console.log(req.session.user);
+    if(!req.session.user){
+      return res.json({code:1});
+    }
     var currentUser = req.session.user,
         tags = [req.body.tag1, req.body.tag2, req.body.tag3],
         Img=req.body['postImg[]'],
