@@ -113,6 +113,7 @@
             return dataURL;
         }
       }
+// 下拉刷新，监听滚动条
        var localpage = 2;
        $(window).scroll(function () {
               var scrollTop = $(this).scrollTop();
@@ -136,7 +137,7 @@
                                   console.log(localpage);
                                 
                           } 
-                          
+
                              if(parseInt(d.page)==localpage){
                                       alert("没有更多了");
                                 }

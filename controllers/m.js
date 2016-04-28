@@ -210,8 +210,12 @@ router.mpost = function (req, res) {
     }
     var currentUser = req.session.user,
         tags = [req.body.tag1, req.body.tag2, req.body.tag3],
-        Img=req.body['postImg[]'],
-        userLogo = currentUser.ulog;
+        Img=req.body['postImg[]'];
+        if(currentUser.ulog){
+          var  userLogo = currentUser.ulog;
+        }else{
+          var  userLogo = '/images/ulogo.png';
+        }
     var date = new Date(),
         time = date.getTime().toString();
     var md5 = crypto.createHash('md5'),
