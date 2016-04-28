@@ -239,4 +239,19 @@ router.mpost = function (req, res) {
       res.json({code:0});
   });
 }
+
+// 移动端搜索
+router.msearch=function(req,res){
+    var searchForm = req.body.searchValue;
+    Post.search(searchForm,function(err,posts){
+        if(err){
+            res.json({code:1});
+        }
+        console.log(posts);
+        res.json({
+            code:0,
+            post:posts
+        })
+    })
+}
 module.exports = router

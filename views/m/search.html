@@ -1,0 +1,78 @@
+<%-include header.html%>
+<body style="background-color: #e7eaf2;">
+	<div class="am-topbar">
+	    <div class="mNav">
+	  	  <h1>
+	  	  <img src="/images/m/mlogo.png">
+	  	  旅途IN记</h1>
+	  	</div>
+      <div class="am-topbar-right" >
+        <a href="/m/search"><i  class="am-icon-search"></i></a>
+      </div>
+ 	</div>	
+<form id= "searchForm">
+<div class="am-g">
+  <div class="am-u-lg-6">
+    <div class="am-input-group">
+      <input type="text" name="searchValue" class="am-form-field" placeholder="请输入您需要搜索的内容">
+      <span class="am-input-group-btn">
+        <a href="javascript:0;" id="search" class="am-btn am-btn-success" type="button">搜索</a>
+      </span>
+    </div>
+  </div>
+</div>
+</form>
+<div class="mPostnote" id="searchList">
+   <script type="text/template"id="searchTemp" >
+    <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+  <!--列表标题-->
+      <div class="am-list-news-bd">
+        <ul class="am-list">
+           <!--缩略图在标题下方居左-->
+           <a href="/m/<#=post.name#>/<#= post.postHead_MD5#>/<#= post.time.day #>/<#= post.title #>">
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-bottom-left">
+                <h3 class="am-list-item-hd">
+                  <a href="" class=""><#=post.title#></a>
+                </h3>
+              <div class="am-u-sm-4 am-list-thumb">
+                <a href="/m/<#=post.name#>/<#= post.postHead_MD5#>/<#= post.time.day #>/<#= post.title #>" >
+                <#if(post.postImg){#>
+                     <img class="bgimg"src="<#=post.postImg[0]#>" alt="<#=post.title#>">
+                <#}#>
+                </a>
+              </div>
+              <div class=" am-u-sm-8  am-list-main">
+                  <div class="am-list-item-text"><#=post.post#></div>
+              </div>
+            </li>  
+            </a>   
+        </ul>
+       </div>
+      </div>
+   </script>
+</div>
+<%- include foot.html %>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#search").on('click',function(){
+       var searchForm = $('#searchForm').serialize();
+        $.ajax({
+            url:"/m/search",
+            type:"post",
+            data:searchForm,
+            success:function(d){
+              console.log(d);
+               if(d.code == 0){
+                  for(var i= 0; i<d.post.length;i++){
+                      var temp =  tpl('#searchTemp',{post:d.post[i]});
+                      $("#searchList").append(temp);
+                      var load = 0;
+                  } 
+                }else{  
+                        alert('没有搜索的内容');
+                }
+            }
+        })
+       })
+  })
+</script>

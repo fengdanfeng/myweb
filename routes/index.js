@@ -186,6 +186,12 @@ router.get('/m/createNote',Mobile.createNote);
 
 // router.post('/mpost', mcheckLogin);//页面权限控制
 router.post('/mpost', Mobile.mpost);
+
+// 移动端搜索页
+router.get('/m/search',function(req,res){
+    res.render('m/search',{title:"搜索页"})
+})
+router.post('/m/search',Mobile.msearch);
 function mcheckNotLogin(req, res, next) {
     if (req.session.user)//用户存在
     {
