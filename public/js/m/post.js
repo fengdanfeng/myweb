@@ -71,7 +71,6 @@ $("#saveLocal").on('click',function(){
        var postForm = $('#mPostForm').serialize();
             alert("正在缓存请稍后。。");
             var createPost= JSON.stringify($("#mPostForm").serializeObject());
-            alert("asdad");
             // 将json格式的数据存到缓存
             var dateNow= Date.now();
            localStorage.setItem("createPost"+dateNow,createPost);

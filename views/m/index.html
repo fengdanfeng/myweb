@@ -47,7 +47,6 @@
      window.onload=function(){
          var me =this;
          var page = 1;
-      console.log(page);
         $.ajax({
               type:"post",
               url: '/getMore',
@@ -59,7 +58,7 @@
                     for(var i= 0; i<d.post.length;i++){
                  
                         allImg =allImg + d.post[i].postImg.length;
-                       console.log(allImg);
+            
                       };
                   for(var i= 0; i<d.post.length;i++){
                       var temp =  tpl('#postList',{post:d.post[i]});
@@ -114,7 +113,41 @@
             return dataURL;
         }
       }
-
+       var localpage = 2;
+       $(window).scroll(function () {
+              var scrollTop = $(this).scrollTop();
+              var scrollHeight = $(document).height();
+              var windowHeight = $(this).height();
+              if (scrollTop + windowHeight == scrollHeight) {
+                var me =this;
+                // console.log(page);   
+                  $.ajax({
+                        type:"post",
+                        url: '/getMore',
+                        async: false, 
+                        data:{page:localpage},
+                        success: function(d){
+                          if(d.code == 0 ){
+                           console.log(d.page);
+                                for(var i= 0; i<d.post.length;i++){
+                                  var temp = tpl('#postList',{post:d.post[i]});
+                                  $("#allPosts").append(temp);
+                                  localpage = parseInt(d.page)+1;
+                                  console.log(localpage);
+                                
+                          } 
+                          
+                             if(parseInt(d.page)==localpage){
+                                      alert("没有更多了");
+                                }
+                          }else{  
+                                    alert('请求失败');
+                          }           
+                       }
+                  });
+                
+              }
+      }); 
 </script>
 </body>
 <div class="app-footer">
