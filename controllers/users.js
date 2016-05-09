@@ -8,7 +8,6 @@ var multiparty = require('multiparty');
 router.getIndex = function (req, res) {
     var page = req.query.p ? paseInt(req.query.p):1;
          var currentUser = req.session.user;
-    console.log(12345)
     // console.log(currentUser)
     //读取所有的用户游记，传递把posts游记数据集传给首页
     Post.getTen(null,page, function (err, posts,total) {
@@ -55,7 +54,7 @@ router.getU= function (req, res) {
      Post.get(currentUser.name,  function (err,total, currentUserPost) {
         // 获取当前用户所有好友游记
         Post.getFriendsPost( currentUserFriends,1,  function (err,total1, friendsPosts) {
-             console.log(friendsPosts);
+             // console.log(friendsPosts);
              Post.getCollectionPost( currentUserfv,1,  function (err,total2, collectionPosts) {
                   // console.log(collectionPosts);
         //调用模板引擎，并传递参数给模板引擎
@@ -124,6 +123,7 @@ router.userlogin =   function (req, res) {
             req.flash('error', '用户密码不存在');
             return res.redirect('/login');
         }
+        console.log(user);
         req.session.user = user;//保存用户信息
         req.flash('success', '登陆成功！');
         res.redirect('/u');
@@ -179,13 +179,14 @@ router.reg =  function (req, res) {
 }
 // 用户个人设置
 router.setUserInfo = function(req,res){
-    var username = req.body.username;
+    var username = req.session.user.name;
     var sex = req.body.sex;
     var userInfo = req.body.userInfo;
     var ulog = req.body.ulog;
+    console.log(username,sex,userInfo,ulog);
     req.session.user['ulog'] = ulog;
     User.change( username,sex,userInfo,ulog, function (err) {
-         console.log(err);
+    
         if (err) {
                 req.flash('error', err);
                 res.json({code:1});
@@ -247,7 +248,6 @@ router.uploadUserImgPre = function(req, res, next) {
 // 加关注
 router.makeFriends =  function (req, res) {
     var currentUser = req.session.user;
-    console.log(req.query.name);
     User.makeFriends(currentUser.name, req.query.name, function (err) {
       if (err) {
         req.flash('error', err); 
