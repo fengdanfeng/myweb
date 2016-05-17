@@ -14,19 +14,24 @@ router.getIndex = function (req, res) {
         if (err) {
             posts = [];
         }
-   
-        //调用模板引擎，并传递参数给模板引擎
-        res.render('index', {
-                title: '首页', 
-                posts: posts, 
-                page: page,
-                user: req.session.user,
-                // isFirstPage: (page - 1) == 0,
-                // isLastPage: ((page - 1) * 3 + posts.length) == total,
-                currentUser: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString()
-            });
+        // 获取热门游记
+        // Post.getHot(null,page,function(err,hotPost,total){
+        //     if (err) {
+        //             posts = [];
+        //         }
+            //调用模板引擎，并传递参数给模板引擎
+            res.render('index', {
+                    title: '首页', 
+                    posts: posts, 
+                    page: page,
+                    user: req.session.user,
+                    // isFirstPage: (page - 1) == 0,
+                    // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                    currentUser: req.session.user,
+                    success: req.flash('success').toString(),
+                    error: req.flash('error').toString()
+                });
+        // })
     });
 };
 router.getU= function (req, res) {

@@ -46,10 +46,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 //定义cookie解析器
 app.use(cookieParser());
 //定义静态文件目录
-app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/js', express.static(path.join(__dirname, 'public/js'),{maxAge:100000}));
 app.use('/css', express.static(path.join(__dirname, 'public/css'),{maxAge:100000}));
 app.use('/dist/css', express.static(path.join(__dirname, 'public/dist/css')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/images', express.static(path.join(__dirname, 'public/images/beijing2.jpg'),{maxAge:100000}));
 app.use('/fonts', express.static(path.join(__dirname, 'public/fonts')));
 app.use('/manifest', express.static(path.join(__dirname, 'public/manifest')));
 // app.use('/', express.static(path.join(__dirname, 'public')));
