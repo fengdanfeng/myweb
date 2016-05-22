@@ -1,68 +1,126 @@
-<!--按行按列显示传入的posts的所有内容-->
-<div id="bottompart1">
-<% currentUserPost.forEach(function(post, index){%>
-<div class="row">
-   <article class="am-comment " style="margin-bottom: 10px;width: 800px;">
-  <a href="/u/<%= post.name %>">
-    <img src="<%=currentUser.ulog%>" alt="" class="am-comment-avatar" width="48" height="48"/>
-  </a>
-
-  <div class="am-comment-main">
-    <header class="am-comment-hd">
-      <h3 style="padding: 7px; margin-left: 10px;" class="am-comment-title">
-          <a href="/u/<%= post.name %>" class="am-comment-author"><%=post.name%>:</a>
-          <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>"><%=post.title%></a>
-      </h3>
-      <div class="am-comment-meta">
-        <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><%=post.time.minute%></time>
-      </div>
-      <div style="float: right;">
-      <% if (user && (user.name == post.name)) { %>
-         <a  href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
-      <%}%>
-      </div>
-    </header>
-
-    <div class="am-comment-bd">
-       <p> <% post.tags.forEach(function (tag, index) { %>
-          <% if (tag) { %>
-            <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
-          <% } %>
-        <% }) %></p>
-     <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.post%></a>
-        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
-          <li>
-              <div class="postIndexImg">
-                <% post.postImg.forEach(function (postImg, index) { %>
-                  <p class="">
-                    <% if (postImg) { %>
-                         <a class="show" href="<%=postImg%>" title="<%=post.title%>" data-rel="<%=postImg%>">  
-                          <img class="showImg" src="<%=postImg%>" />
-                          </a>
-                    <%}%>
-                  </p>
-                 <%})%>
-            </div>
-            </li>
-      </ul>
-    <div class="am-comment-bd" style="font-size: 14px; clear: both;">
-     <span>阅读 <i><%=post.pv %> |</i></span>
-     <span><a href="/u/<%= post.name %>/<%= post.postHead_MD5%>/<%= post.time.day %>/<%= post.title %>">评论 <i><%= post.comments.length %> |</i></a></span>
-     <span><a  href="/reprint/<%= post.name %>/<%= post.time.day %>/<%= post.postHead_MD5 %>/<%= post.title %>" style="text-decoration: none; color: #383535;"> 转载 <i>  <% if (post.reprint_info.reprint_to) { %>
-                            <%= post.reprint_info.reprint_to.length %>
-                          <% } else { %>
-                            <%= 0 %>
-                          <% } %>
-            </i>|</a></span>
-      <%if( currentUser.fv.indexOf( post.postHead_MD5)!=-1){%>
-      <span><a class="collections" href="javascript:0" data-value="<%=post.postHead_MD5%>">取消收藏</a></span>
+<%- include header.html %>
+<div >
+<div class="center-container">
+    <div class="left-container">
+       <div class="user">
+      <%if(!currentUser.ulog){%>
+          <img src="/images/ulogo.png">
       <%}else{%>
-      <span><a class="collections" href="javascript:0" data-value="<%=post.postHead_MD5%>">收藏</a> </span>
+        <img src="<%=currentUser.ulog%>">
       <%}%>
+          <span id="a"><%=currentUser.name%></span>
+       </div>
+       <div class="uabout">
+            <div class="aul">
+               <li><a href="/attention"><p  class="white">    
+              <%if(currentUser.friends){%>
+                              <%= currentUser.friends.length%>
+                          <%}else{%>
+                           <%= 0%>
+                          <%}%>
+                  </p><p class="low">关注</p></a> </li>
+               <li><a href="/fans"><p class="white">
+                 
+                 <%if(currentUser.fans){%>
+                              <%= currentUser.fans.length%>
+                          <%}else{%>
+                           <%= 0%>
+                          <%}%>
+               </p><p class="low">粉丝</p></a></li>
+            </div>
+       </div>
+       <div class="ulist">
+            <ul>
+                <li class="active"><a class="active"  href="/u"><i class="icon-15-1-1"></i> 我的首页</a></li>
+                <li><a href="/attention"><i class="icon-15-3-2"></i> 我的关注</a></li>
+                <li><a href="/fans"><i class="icon-15-3-3"></i> 我的粉丝</a></li>
+                <li><a href="/postlist"><i class="icon-15-3-4"></i> 写游记</a></li>
+                <li><a href="/set"><i class="icon-15-4-1"></i> 设置</a></li>
+            </ul>
+       </div>
     </div>
-  </div>
-  </div>
-</article>
+     <div class="right-container">
+        <div class="am-tabs" data-am-tabs>
+             <ul class="am-nav am-nav-pills">
+                <li ><a href="/u">热门游记</a></li>
+                <li class="am-active"><a href="/currentUserPosts">我的游记</a></li>
+                <li><a href="/friendsPosts">好友游记</a></li>
+                <li><a href="/collectionUserPosts">我的收藏</a></li>
+              </ul>
+              <div class="">
+                <div class="am-tab-panel am-active"  id="tab1">
+                <div id="allList">
+                 <%- include posts.html %>
+                  <script type="text/template"  id="allPosts" >
+                    <article class="am-comment " style="margin-bottom: 10px;width: 800px;">
+                      <a href="/u/<#= post.name #>">
+                        <img src="<#=post.userLogo#>" alt="" class="am-comment-avatar" width="48" height="48"/>
+                      </a>
+
+                      <div class="am-comment-main">
+                        <header class="am-comment-hd">
+                              <h3 style="padding: 7px; margin-left: 10px;" class="am-comment-title">
+                                  <a href="/u/<#= post.name #>" class="am-comment-author"><#=post.name#>:</a>
+                                  <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.postHead_MD5#>/<#= post.time.day #>/<#= post.title #>"><#=post.title#></a>
+                              </h3>
+                              <div class="am-comment-meta">
+                                <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800"><#=post.time.minute#></time>
+                              </div>
+                              <div style="float: right;">
+                              <# if(a =post.name) { #>
+                                 <a  href="/edit/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="font-size: 12px;padding:2px 15px 2px 0px;" >编辑</a>
+                              <#}#>
+                              </div>
+                        </header>
+
+                        <div class="am-comment-bd" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview: 1}">
+                                 <p> <# post.tags.forEach(function (tag, index) { #>
+                                    <# if (tag) {#>
+                                      <a class="tag" href="/tags/<#= tag #>"><#= tag #></a>
+                                    <# } #>
+                                  <# }) #></p>
+                               <a  style="text-decoration: none;color:#333333;" href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>"><#=post.post#></a>
+                            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: '.showImg'}}">
+                              <li>
+                                  <div class="postIndexImg" >
+                                    <# post.postImg.forEach(function (postImg, index) { #>
+                                      <p>
+                                        <# if(postImg) { #>
+                                             <a class="show" href="<#=postImg#>" title="<#=post.title#>" data-rel="<#=postImg#>">  
+                                              <img class="showImg" src="<#=postImg#>" />
+                                              </a>
+                                        <#}#>
+                                      </p>
+                                     <#})#>
+                                </div>
+                                </li>
+                          </ul> 
+                                  <div class="am-comment-bd" style="font-size: 14px; clear: both;">
+                                           <span>阅读 <i><#=post.pv #> |</i></span>
+                                           <span><a href="/u/<#= post.name #>/<#= post.postHead_MD5#>/<#= post.time.day #>/<#= post.title #>">评论 <i><#= post.comments.length #> |</i></a></span>
+                                           <span><a  href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.postHead_MD5 #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载 <i>  <# if (post.reprint_info.reprint_to) { #>
+                                                                  <#= post.reprint_info.reprint_to.length #>
+                                                                <# } else { #>
+                                                                  <#= 0 #>
+                                                                <# } #>
+                                                  </i></a></span>
+                                  </div>
+                          </div>
+                      </div>
+                    </article>
+                  </script>
+                  
+                </div><!--end allList-->
+              <!--   <button  class="am-btn am-btn-primary am-btn-block" id="moreten">获取更多</button> -->
+              </div><!-- end am-tab-panel -->
+              
+            </div><!-- end am-tabs-bd -->
+        </div>
+ </div>  <!-- end right-container  -->
 </div>
-<% }); %>
 </div>
+<%- include footer.html %>
+<script type="text/javascript" src="/js/p/collections.js"></script>
+<script type="text/javascript">
+
+</script>

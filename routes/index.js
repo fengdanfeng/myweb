@@ -14,6 +14,15 @@ var Mobile = require("../controllers/m.js");
 router.get('/', User.getIndex);
 router.get('/u', checkLogin);
 router.get('/u', User.getU);
+// 我的游记
+router.get('/currentUserPosts', checkLogin);
+router.get('/currentUserPosts', User.currentUserPosts);
+// 好友游记
+router.get('/friendsPosts', checkLogin);
+router.get('/friendsPosts', User.friendsPosts);
+// // 收藏的游记
+router.get('/collectionUserPosts', checkLogin);
+router.get('/collectionUserPosts', User.collectionUserPosts);
 //用户首页
 router.get('/u/:user', checkLogin);//页面权限控制
 router.get('/u/:user',User.getuser);

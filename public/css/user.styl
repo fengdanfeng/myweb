@@ -1,9 +1,9 @@
 /*! reset */
 
 html {font-size: 14px; line-height: 1.5;}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
-    margin:0; padding:0;
-}
+// body,div,dl,dt,dd,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,legend,textarea,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+//     margin:0; padding:0;
+// }
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
 audio,canvas,video {display: inline-block; *display: inline; *zoom: 1;}
 table {border-collapse:collapse; border-spacing:0;}
@@ -88,10 +88,10 @@ image-url($image){
 }
 
 // 雪碧图函数
-// sprite('img/sprite-50.png', 50, 10, 3)
+// sprite('img/sprite-50.png', 50, 4, 6)
 sprite($img, $grid, $x, $y) {
     .icon{$grid}{$x}{$y} {
-        inline-block()
+        display:inline-block
         bg( $img, no-repeat )
         width: ($grid)px
         height: ($grid)px
@@ -163,6 +163,9 @@ sprite($img, $grid, $x, $y) {
 			}
 		}
 	}
+	.koudai-travel{
+
+	}
 }
 // 用户登录后页面
 .center-container{
@@ -174,11 +177,12 @@ sprite($img, $grid, $x, $y) {
 	.left-container{
 		width:200px;
 		float:left;
-		height:100%;
+		height:104%;
 		color:#fff;
 		border:1px solid #9AA099;
 		border-radius:2px;
 		background:rgba(25,62,92,0.4);
+		//background-color:#fff;
 		.user{
 			height:100px;
 			// border:1px solid #0D202E;
@@ -203,9 +207,9 @@ sprite($img, $grid, $x, $y) {
 			li{
 				float:left;
 				list-style:none;
-				width:65px;
+				width:50%;
 				height:70px;
-				border:1px solid #9AA099;
+				border:.5px solid #9AA099;
 				text-align:center;
 				font-size:18px;
 				.low{
@@ -287,6 +291,7 @@ sprite('minicon.png', 15, 4,4 )
 }
 .article-part{
 	margin-left:160px;
+	margin-right:80px;
 }
 
 

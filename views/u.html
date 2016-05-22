@@ -27,9 +27,6 @@
                            <%= 0%>
                           <%}%>
                </p><p class="low">粉丝</p></a></li>
-               <li><a href="/postlist"><p class="white">
-                <%=total%>
-               </p><p class="low">游记</p></a></li>
             </div>
        </div>
        <div class="ulist">
@@ -44,13 +41,13 @@
     </div>
      <div class="right-container">
         <div class="am-tabs" data-am-tabs>
-              <ul class="am-tabs-nav am-nav am-nav-tabs">
-                <li class="am-active"><a  href="#tab1">热门游记</a></li>
-                <li><a  href="#tab2">我的游记</a></li>
-                <li><a  href="#tab3">好友游记</a></li>
-                <li><a  href="#tab4">收藏</a></li>
+             <ul class="am-nav am-nav-pills">
+                <li class="am-active"><a href="/u">热门游记</a></li>
+                <li><a href="/currentUserPosts">我的游记</a></li>
+                <li><a href="/friendsPosts">好友游记</a></li>
+                <li><a href="/collectionUserPosts">我的收藏</a></li>
               </ul>
-              <div class="am-tabs-bd">
+              <div class="">
                 <div class="am-tab-panel am-active"  id="tab1">
                 <div id="allList">
                  <%- include posts.html %>
@@ -116,15 +113,7 @@
                 </div><!--end allList-->
                 <button  class="am-btn am-btn-primary am-btn-block" id="moreten">获取更多</button>
               </div><!-- end am-tab-panel -->
-              <div class="am-tab-panel" id="tab2">
-                <%- include currentUserPosts.html%>
-              </div>
-               <div class="am-tab-panel" id="tab3">
-                <%- include friendsPosts.html%>
-              </div>
-              <div class="am-tab-panel" id="tab4">
-                <%- include collectionPosts.html%>
-              </div>
+              
             </div><!-- end am-tabs-bd -->
         </div>
  </div>  <!-- end right-container  -->

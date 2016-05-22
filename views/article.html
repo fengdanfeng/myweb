@@ -15,9 +15,7 @@
       <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
     <% } %>
   <% }) %>
-  <% if (post.reprint_info.reprint_from) { %>
-    <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
-  <% } %>
+
 </p>
   <% if (user && (user.name == post.name)) { %>
     <span><a class="edit" href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">编辑</a></span>

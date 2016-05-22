@@ -1,40 +1,26 @@
 <%- include header.html %>
 <!-- 轮播图 -->
-<div class="slider" style="margin-top: -5px;width: 100%;position: relative;"> 
-    <div data-am-widget="slider" class="am-slider am-slider-d2" data-am-slider='{"directionNav":false}' >
+<div class="slider" > 
+     <div data-am-widget="slider" class="am-slider am-slider-a5" data-am-slider='{&quot;directionNav&quot;:false}' >
       <ul class="am-slides" >
-          <li>
-            	<img src="/images/slider4.jpg">
+<% hotPost.forEach(function(post, index){%>
+           <li>
+            	<img src="<%= post.postImg[0]%>">
               <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">某天 也许会相遇 相遇在这个好地方</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
              
           </li>
-          <li>
-            	<img src="/images/slider1.jpg">
-              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">某天 也许会相遇 相遇在这个好地方</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
-             
-          </li>
-          <li>
-            	<img src="/images/slider2.jpg">
-              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">不要太担心 只因为我相信 终会走过这条遥远的道路</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
-             
-          </li>
-          <li>
-            	<img src="/images/slider4.jpg">
-              <div class="am-slider-desc"><div class="am-slider-content"><h2 class="am-slider-title">OH PARA PARADISE 是否那么重要 你是否那么地遥远</h2><p>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内</p></div><a class="am-slider-more">了解更多</a></div>
-             
-          </li>
+<%})%>
       </ul>
     </div>
 </div>
 <!-- end轮播图 -->
-<div class="centerList"style="background-color: #fff;margin-top: -20px; ">
+<div class="centerList"style="background-color: #fff; ">
   <div data-am-widget="tabs"
        class="am-tabs am-tabs-d2"
         >
       <ul class="am-tabs-nav am-cf">
           <li class="tabNav am-active"><a href="[data-tab-panel-0]">热门日记</a></li>
           <li class="tabNav"><a href="[data-tab-panel-1]">口袋旅游</a></li>
-          <li class="tabNav"><a href="/login">我要写游记</a></li>
       </ul>
       <div class="am-tabs-bd">
           <div data-tab-panel-0 class="am-tab-panel am-active">
@@ -51,7 +37,6 @@
                     <a href="/u/<%= post.name %>">
                       <img src="<%=post.userLogo%>"class="am-circle" width="80" height="80"/>
                     </a>
-                 <!--    <img class="am-circle" src="images/ulogo.png" width="80" height="80"/> -->
                     <div class="postsInfo">
                         <h4><%=post.title%></h4>
                         <div class="postdetail">
@@ -72,13 +57,77 @@
               </div>
             </div>
           <div data-tab-panel-1 class="am-tab-panel ">
-            【彩虹】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
+              <div class="koudai-travel">
+                  <div class="search-part">
+                      <form id="searchForm">
+                       <div class="am-input-group">
+                          <input type="text" name="searchValue" class="am-form-field">
+                          <span id="searchbtn" style="background-color:#30C0FF;color: #fff; " class="am-btn-primary am-input-group-label"><i class="am-icon-search"></i>搜索</span>
+                        </div>
+                      </form>
+                        <div class="hotlist" id="searchList">
+                        </div>
+                        <script type="text/template" id="searchTemp">
+                          <div class="postListPart">
+                            <a href="/u/<#= post.name #>">
+                            <#if(!post.postImg[0]){#>
+                             <img class="firstImg" src="/images/slider1.jpg">
+                            <#}else{#>
+                             <img class="firstImg" src="<#= post.postImg[0]#>">
+                            <#}#>
+                              <div class="ulogo">
+                                <a href="/u/<#= post.name #>">
+                                  <img src="<#=post.userLogo#>"class="am-circle" width="80" height="80"/>
+                                </a>
+                             <!--    <img class="am-circle" src="images/ulogo.png" width="80" height="80"/> -->
+                                <div class="postsInfo">
+                                    <h4><#=post.title#></h4>
+                                    <div class="postdetail">
+                                       <span>阅读 <i><#=post.pv #> |</i></span>
+                                           <span><a href="/u/<#= post.name #>/<#= post.time.day #>/<#= post.title #>">评论 <i><#= post.comments.length #> |</i></a></span>
+                                           <span><a href="/reprint/<#= post.name #>/<#= post.time.day #>/<#= post.title #>" style="text-decoration: none; color: #383535;"> 转载 <i>  <# if (post.reprint_info.reprint_to) { #>
+                                                 <#= post.reprint_info.reprint_to.length #>
+                                                     <# } else { #>
+                                                                  <#= 0 #>
+                                                                <# } #>
+                                                  </i></a></span>
+                                    </div>
+                                </div>
+                              </div>
+                              </a>
+                            </div>
+                        </script>
+                      </form>
+                  </div>
+              </div>
           </div>
-          <div data-tab-panel-2 class="am-tab-panel ">
-            【歌唱】那时候有多好，任雨打湿裙角。忍不住哼起，心爱的旋律。绿油油的树叶，自由地在说笑。燕子忙归巢，风铃在舞蹈。经过青春的草地，彩虹忽然升起。即使视线渐渐模糊，它也在我心里。就像爱过的旋律，没人能抹去。因为生命存在失望，歌唱，所以才要歌唱。
-          </div>
+         
       </div>
   </div>
 </div>
+<script type="text/javascript">
+   $(document).ready(function(){
+      $("#searchbtn").on('click',function(){
+         $("#searchList").html('');
+       var searchForm = $('#searchForm').serialize();
+        $.ajax({
+            url:"/m/search",
+            type:"post",
+            data:searchForm,
+            success:function(d){
+               if(d.code == 0&&d.post.length!=0){
+                  for(var i= 0; i<d.post.length;i++){
+                      var temp =  tpl('#searchTemp',{post:d.post[i]});
+                      $("#searchList").append(temp);
+                      var load = 0;
+                  } 
+                }else{  
+                        alert('没有搜索的内容');
+                }
+            }
+        })
+       })
+  })
+</script>
 <!-- end center-container -->
 <%- include footer.html %>

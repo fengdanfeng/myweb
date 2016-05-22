@@ -14,26 +14,26 @@ router.getIndex = function (req, res) {
         if (err) {
             posts = [];
         }
-        // 获取热门游记
-        // Post.getHot(null,page,function(err,hotPost,total){
-        //     if (err) {
-        //             posts = [];
-        //         }
+       // 获取热门游记
+        Post.getHot(null,page,function(err,hotPost,total){
+            if (err) {
+                    posts = [];
+                }
             //调用模板引擎，并传递参数给模板引擎
             res.render('index', {
                     title: '首页', 
                     posts: posts, 
                     page: page,
                     user: req.session.user,
-                    // isFirstPage: (page - 1) == 0,
-                    // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                    hotPost:hotPost,
                     currentUser: req.session.user,
                     success: req.flash('success').toString(),
                     error: req.flash('error').toString()
                 });
-        // })
+        })
     });
 };
+// 获取用户首页
 router.getU= function (req, res) {
     var page = req.query.p ? paseInt(req.query.p):1;
          var currentUser = req.session.user;
@@ -44,33 +44,18 @@ router.getU= function (req, res) {
         if (err) {
             posts = [];
         }
-        if(currentUser.friends){
-            currentUserFriends = currentUser.friends;
-        }else{
-            currentUserFriends =[];
-        }
-         // 判断是否有收藏的游记列表
-             if(currentUser.fv){
-                currentUserfv = currentUser.fv;
-            }else{
-                currentUserfv =[];
-            }
+
 // 获取当前用户的所有游记信息
-     Post.get(currentUser.name,  function (err,total, currentUserPost) {
-        // 获取当前用户所有好友游记
-        Post.getFriendsPost( currentUserFriends,1,  function (err,total1, friendsPosts) {
-             // console.log(friendsPosts);
-             Post.getCollectionPost( currentUserfv,1,  function (err,total2, collectionPosts) {
-                  // console.log(collectionPosts);
+
         //调用模板引擎，并传递参数给模板引擎
                 res.render('u', {
                         title: '登录后首页', 
                         posts: posts, 
                         page: page,
                         user: req.session.user,
-                        currentUserPost:currentUserPost,
-                        friendsPosts:friendsPosts,
-                        collectionPosts:collectionPosts,
+                        // currentUserPost:currentUserPost,
+                        // friendsPosts:friendsPosts,
+                        // collectionPosts:collectionPosts,
                         total:total,
                         // isFirstPage: (page - 1) == 0,
                         // isLastPage: ((page - 1) * 3 + posts.length) == total,
@@ -78,10 +63,83 @@ router.getU= function (req, res) {
                         success: req.flash('success').toString(),
                         error: req.flash('error').toString()
                     });
-            });
-        });
-    })
+
   });
+};
+
+// 获取当前用户所有游记
+router.currentUserPosts= function (req, res) {
+    var page = req.query.p ? paseInt(req.query.p):1;
+         var currentUser = req.session.user;
+    //读取所有的用户游记，传递把posts游记数据集传给首页
+// 获取当前用户的所有游记信息
+     Post.get(currentUser.name,  function (err,total, currentUserPost) {
+                res.render('currentUserPosts', {
+                        title: '我的游记', 
+                        // posts: posts, 
+                        page: page,
+                        user: req.session.user,
+                        posts:currentUserPost,
+                        total:total,
+                        // isFirstPage: (page - 1) == 0,
+                        // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                        currentUser: req.session.user,
+                        success: req.flash('success').toString(),
+                        error: req.flash('error').toString()
+                    });
+     
+     });
+};
+// 获取当前用户好友游记
+router.friendsPosts= function (req, res) {
+    var page = req.query.p ? paseInt(req.query.p):1;
+         var currentUser = req.session.user;
+// 获取当前用户的所有好友
+    User.getFans(currentUser.name,page,function(err,fans){
+        //读取用户好友游记，传递把posts游记数据集传给好友页
+        Post.getFriendsPost( fans.friends,1,  function (err,total1, friendsPosts) {
+                    // console.log(friendsPosts);
+                    res.render('friendsPosts', {
+                            title: '好友游记', 
+                            // posts: posts, 
+                            page: page,
+                            user: req.session.user,
+                            posts:friendsPosts,
+                            total:total1,
+                            // isFirstPage: (page - 1) == 0,
+                            // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                            currentUser: req.session.user,
+                            success: req.flash('success').toString(),
+                            error: req.flash('error').toString()
+                        });
+         
+         });
+    });
+};
+// 获取当前用户收藏游记
+router.collectionUserPosts= function (req, res) {
+    var page = req.query.p ? paseInt(req.query.p):1;
+         var currentUser = req.session.user;
+// 获取当前用户的所有好友
+    User.getFans(currentUser.name,page,function(err,fans){
+        //读取用户好友游记，传递把posts游记数据集传给好友页
+          Post.getCollectionPost( fans.fv,1,  function (err,total2, collectionPosts) {
+                    res.render('collectionPosts', {
+                            title: '好友游记', 
+                            // posts: posts, 
+                            page: page,
+                            user: req.session.user,
+                            posts:collectionPosts,
+                            total:total2,
+                            // isFirstPage: (page - 1) == 0,
+                            // isLastPage: ((page - 1) * 3 + posts.length) == total,
+                            currentUser: req.session.user,
+                            success: req.flash('success').toString(),
+                            error: req.flash('error').toString()
+                        });
+         
+         });
+    });
 };
 router.getuser=  function (req, res) {//路由规则
      var page = req.query.p ? parseInt(req.query.p) : 1;
@@ -128,7 +186,7 @@ router.userlogin =   function (req, res) {
             req.flash('error', '用户密码不存在');
             return res.redirect('/login');
         }
-        console.log(user);
+        // console.log(user);
         req.session.user = user;//保存用户信息
         req.flash('success', '登陆成功！');
         res.redirect('/u');
@@ -188,7 +246,7 @@ router.setUserInfo = function(req,res){
     var sex = req.body.sex;
     var userInfo = req.body.userInfo;
     var ulog = req.body.ulog;
-    console.log(username,sex,userInfo,ulog);
+    // console.log(username,sex,userInfo,ulog);
     req.session.user['ulog'] = ulog;
     User.change( username,sex,userInfo,ulog, function (err) {
     
@@ -280,7 +338,7 @@ router.withoutFriend =function(req,res){
 router.collections = function(req,res){
     var postHead = req.body.data;
     var currentUser = req.session.user;
-    console.log(currentUser);
+    // console.log(currentUser);
     User.collections(currentUser.name,postHead,function(err){
         if (err) {
             req.flash('err',err);
@@ -289,7 +347,7 @@ router.collections = function(req,res){
     // 重新获取用户，更换session中的用户
     User.get(currentUser.name, function (err, user) {
         req.session.user = user;
-        console.log(user);
+        // console.log(user);
            User.get(currentUser.name, function (err, user) {  
                 req.flash('success','收藏成功');
                 res.json({
@@ -303,7 +361,7 @@ router.collections = function(req,res){
 router.withOutCollections = function(req,res){
     var postHead = req.body.data;
     var currentUser = req.session.user;
-    console.log(currentUser);
+    // console.log(currentUser);
     User.withOutCollections(currentUser.name,postHead,function(err){
         if (err) {
             req.flash('err',err);
@@ -312,7 +370,7 @@ router.withOutCollections = function(req,res){
     // 重新获取用户，更换session中的用户
     User.get(currentUser.name, function (err, user) {
         req.session.user = user;
-        console.log(user);
+        // console.log(user);
            User.get(currentUser.name, function (err, user) {  
                 req.flash('success','取消收藏成功');
                 res.json({
@@ -346,8 +404,9 @@ router.getFriends = function(req,res){
             fans=[];
             return res.redirect('/fans');
         }
+
         res.render('attention', {
-            title:"粉丝",
+            title:"关注者",
             mfans:fans,
             currentUser: req.session.user
         });

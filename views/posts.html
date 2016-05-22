@@ -29,7 +29,7 @@
             <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
           <% } %>
         <% }) %></p>
-     <a  style="text-decoration: none;color:#333333;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.post%></a>
+     <a  style="text-decoration: none;color:#333333;white-space:nowrap;word-break: normal; overflow:hidden;text-overflow:ellipsis; " href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%=post.post%></a>
         <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
           <li>
               <div class="postIndexImg">

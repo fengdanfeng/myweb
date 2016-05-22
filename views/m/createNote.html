@@ -2,26 +2,30 @@
 <body>
 <div class="am-topbar">
     <div class="mNav">
-  	  <h1>
-  	  <img src="/images/m/mlogo.png">
-  	  旅途IN记</h1>
-  	</div>
-    <div class="am-topbar-right" >
-     		<a href=""><i  class="am-icon-search"></i></a>
+
+      <a href="/m" style="color:#5eae79; ">
+      <h1>
+      <img src="/images/m/mlogo.png">
+      旅途IN记
+      </h1>
+      </a>
     </div>
- </div>	
+    <div class="am-topbar-right" >
+        <a href="/m/search"><i  class="am-icon-search"></i></a>
+    </div>
+ </div> 	
   <div class="mpostForm">
      <form  id="mPostForm">
       <p>标题：</p>
-        <input type="text"class="am-form-field" name="title" />
+        <input type="text"class="am-form-field" name="title"  required />
         <p>标签：</p>
         <div>
-        <input type="text" class="mtag_input" name="tag1" /><input  class="mtag_input" type="text" name="tag2" /><input  class="mtag_input" type="text" name="tag3" />
+        <input type="text" class="mtag_input" name="tag1" required /><input  class="mtag_input" type="text" name="tag2" /><input  class="mtag_input" type="text" name="tag3" />
        </div>
        <br />
        <div>
         <p>正文：</p>
-        <textarea name="post" style="width: 100%;height: 8em;"></textarea><br /><br />
+        <textarea name="post" style="width: 100%;height: 8em;"  required></textarea><br /><br />
 </div>
     <!-- 上传图片 -->
 <div class="am-form-group am-form-file">

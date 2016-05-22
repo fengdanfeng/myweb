@@ -13,7 +13,7 @@ router.post = function (req, res) {
         time = date.getTime().toString();
     var md5 = crypto.createHash('md5'),
         postHead_MD5 = md5.update(time.toLowerCase()).digest('hex');
-        console.log(postHead_MD5);
+        // console.log(postHead_MD5);
         if(!Array.isArray(Img)){
           var postImg = [];
             postImg.push(Img);
@@ -21,14 +21,14 @@ router.post = function (req, res) {
           var postImg = Img;
         } 
     var   post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post,postImg,userLogo,postHead_MD5);
-   console.log(post);
+   // console.log(post);
     post.save(function (err) {
       if (err) {
         req.flash('error', err); 
         return res.redirect('/u');
       }
       req.flash('success', '发布成功!');
-      res.redirect('/u');//发表成功跳转到主页
+      res.redirect('/currentUserPosts');//发表成功跳转到主页
   });
 }
 router.getAll = function (req, res,next) {
@@ -61,7 +61,7 @@ router.getTen = function (req, res) {
             res.json({code:1,page:page,post:posts});
         }
         //调用模板引擎，并传递参数给模板引擎
-         console.log(posts);
+         // console.log(posts);
         res.json({code:0,page:page,total:total,post:posts});
     });
 },
@@ -108,7 +108,7 @@ router.deleteOnePost=function (req, res) {
         return res.redirect('/u');
       }
       req.flash('success', '删除成功!');
-      res.redirect('/u');
+      res.redirect('/currentUserPosts');
     });
   },
 // 更新游记
@@ -121,7 +121,7 @@ router.editUpdate =  function (req, res) {
         return res.redirect('/');//出错！返回文章页
       }
       req.flash('success', '修改成功!');
-      res.redirect("/u");//成功！返回文章页
+      res.redirect("/currentUserPosts");//成功！返回文章页
     });
   },
 
@@ -149,7 +149,6 @@ router.reprint = function (req, res) {
         req.flash('error', err); 
         return res.redirect('back');
       }
-
         var date = new Date();
         var time = {
             date: date,
@@ -172,7 +171,7 @@ router.reprint = function (req, res) {
         }
         req.flash('success', '转载成功!');
         // var url = encodeURI('/u/' + doc.name + '/' + doc.time.day + '/' + doc.title);
-        res.redirect('/u');
+        res.redirect('/currentUserPosts');
       });
     });
   }

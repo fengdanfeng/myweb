@@ -9,7 +9,7 @@ function Post(name,time,title, tags, post,postImg,userLogo,postHead_MD5,comments
   this.title = title;
   this.tags = tags;
   this.post = post;
-  this.comments = comments;
+  this.comments = comments
   this.reprint_info = reprint_info;
   this.pv = pv;
   this.postImg = postImg;
@@ -190,7 +190,7 @@ Post.getCollectionPost = function(currentUserfv,page,callback){
     });
 };
 
-//一次获取十篇文章
+//一次获取多篇文章
 Post.getTen = function(username, page, callback) {
   //打开数据库
   mongodb.open(function (err, db) {
@@ -211,10 +211,10 @@ Post.getTen = function(username, page, callback) {
       collection.count(query, function (err, total) {
         //根据 query 对象查询，并跳过前 (page-1)*3个结果，返回之后的6个结果
         collection.find(query, {
-          skip: (page - 1)*2,
+          skip: (page - 1)*3,
           limit: 3
         }).sort({
-          time: -1
+          pv: -1
         }).toArray(function (err, docs) {
           mongodb.close();
           if (err) {
@@ -236,7 +236,52 @@ Post.getTen = function(username, page, callback) {
     });
   });
 };
+// 获取热门前4
+Post.getHot = function(username, page, callback) {
+  //打开数据库
+  mongodb.open(function (err, db) {
+    if (err) {
+      return callback(err);
+    }
+    //读取 posts 集合
+    db.collection('posts', function (err, collection) {
+      if (err) {
+        mongodb.close();
+        return callback(err);
+      }
+      var query = {};
+      if (username) {
+        query.name = username;
+      }
+      //使用 count 返回特定查询的文档数 total
+      collection.count(query, function (err, total) {
+        //根据 query 对象查询，并跳过前 (page-1)*4个结果，返回之后的6个结果
+        collection.find(query, {
+          skip: (page - 1)*4,
+          limit: 4
+        }).sort({
+          pv: -1
+        }).toArray(function (err, docs) {
+          mongodb.close();
+          if (err) {
+            return callback(err);
+          }
+           var posts = [] ;
+                //遍历查询结果
+                docs.forEach(function (doc, index) {
 
+                    //把结果封装成Post对象
+                    var post = new Post(doc.name, doc.time,doc.title,doc.tags,doc.post,doc.postImg,doc.userLogo,doc.postHead_MD5,doc.comments,doc.reprint_info,doc.pv);
+                    //把全部结果封装成数组
+
+                    posts.push(post);
+                });
+                callback(null, posts);
+            });
+      });
+    });
+  });
+};
 
 //获取一篇文章
 Post.getOne = function(name, day,postHead_MD5, title, callback) {
